@@ -1,53 +1,262 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  </head>
-    <main class="flex-shrink-0  mb-4 rounded-5 "style="background-color: rgba(255, 221, 0, 0.498);">
-        
+  <header>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Fixed navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link"  href="{% url 'main_app:attack_navigator' %}">Controls framework</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " >Login</a>
+            </li>
+          </ul>
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </header>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cybersecurity Strategy</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <style>
+    /* Modal CSS */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgba(0,0,0,0.4); /* Black with opacity */
+    }
+    
+    /* Modal Content */
+    .modal-content {
+      background-color: #fefefe;
+      margin: 5% auto; /* 5% from the top and centered */
+      padding: 20px;
+      border: 1px solid #888;
+      width: 70%; /* Set width to 70% of viewport */
+      max-width: 800px; /* Set maximum width */
+    }
+    
+    /* Close Button */
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <main class="flex-shrink-0 mb-4 rounded-5 "style="background-color: rgba(255, 221, 0, 0.498);">
     <div class="container">
       <h1 class="mt-5">1-1 Cybersecurity Strategy</h1>
       <h2>To ensure that cybersecurity plans, goals, initiatives and projects are contributing to compliance with
         related laws and regulations</h2>
+      <div class="bg-body-tertiary p-5 rounded">
+        <h3>1-1-1</h3>
+        <p class="lead">A cybersecurity plan must be created, approved, 
+          and supported by the organization's leader or their representative. It should comply with the law.</p>
+        <button class="btn btn-lg btn-primary explainBtn" data-target="myModal1">Explain</button>
+        <h3>1-1-2</h3>
+        <p class="lead">A roadmap must be executed to implement the cybersecurity strategy.</p>
+        <button class="btn btn-lg btn-primary explainBtn" data-target="myModal2">Explain</button>
+        <h3>1-1-3</h3>
+        <p class="lead">The cybersecurity strategy must be reviewed periodically according to planned intervals or upon
+          changes to related laws and regulations.</p>
+        <button class="btn btn-lg btn-primary explainBtn" data-target="myModal3">Explain</button>
+      </div>
+    </div>
+  </div>
+    <div class="container">
+      <h1 class="mt-5">1-2 Cybersecurity Management</h1>
+      <h2>To ensure Authorizing Official’s support in implementing and managing cybersecurity programs
+        within the organization as per related laws and regulations.</h2>
+    </div>
+    <div class="bg-body-tertiary p-5 rounded">
+      <h3>1-2-1 </h3>
+      <p class="lead">A dedicated cybersecurity function (e.g., division, department) must be established within the
+        organization. This function must be independent from the Information Technology/Information
+        Communication and Technology (IT/ICT) functions. It is highly recommended that this cybersecurity function reports directly to the head of
+        the organization or his/her delegate while ensuring that this does not result in a conflict of interest.
+        1</p>
+      <button class="btn btn-lg btn-primary explainBtn" data-target="myModal4">Explain</button>
+      <h3>1-2-2</h3>
+      <p class="lead">The position of cybersecurity function head (e.g., CISO), and related supervisory and critical positions
+        within the function, must be filled with full-time and experienced Saudi cybersecurity professionals.</p>            
+      <button class="btn btn-lg btn-primary explainBtn" data-target="myModal5">Explain</button>
+      <h3>1-2-3</h3>
+      <p class="lead">A cybersecurity steering committee must be established by the Authorizing Official to ensure the
+        support and implementation of the cybersecurity programs and initiatives within the organization.
+        Committee members, roles and responsibilities, and governance framework must be defined,
+        documented and approved. The committee must include the head of the cybersecurity function as
+        one of its members. It is highly recommended that the committee reports directly to the head of the
+        organization or his/her delegate while ensuring that this does not result in a conflict of interest.</p>
+      <button class="btn btn-lg btn-primary explainBtn" data-target="myModal6">Explain</button>
+    </div>
+  </main>
 
+  <!-- Modal HTML -->
+  <div id="myModal1" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <!-- Close button -->
+      <span class="close">&times;</span>
+      <!-- Explanation text -->
+      <p>1-Creation of the Plan: Develop a comprehensive cybersecurity plan that addresses various aspects of security, such as risk assessment, threat management, incident response, data protection, and employee training.
+        
+        <br>2-Approval Process: Once the plan is drafted, it should be reviewed by relevant stakeholders, including top management and legal advisors, to ensure its effectiveness and compliance with organizational objectives and legal requirements.
+        
+        <br>3-Support from Leadership: The plan should be endorsed and supported by the organization's leader or their designated representative, such as a Chief Information Security Officer (CISO) or Chief Technology Officer (CTO). Their backing is crucial for allocating resources and prioritizing cybersecurity initiatives.
+        
+        <br>4-Compliance with Laws and Regulations: Ensure that the cybersecurity plan aligns with applicable laws, regulations, and industry standards relevant to the organization's operations. This may include data protection laws, industry-specific regulations, and international standards like ISO 27001.
+        
+        <br>5-Regular Review and Updates: The cybersecurity plan should be regularly reviewed and updated to adapt to evolving threats, changes in technology, and modifications in legal requirements. This ensures its ongoing relevance and effectiveness in mitigating cybersecurity risks.
+        
+        <br>6-Training and Awareness: Provide training and awareness programs to employees to ensure their understanding of the cybersecurity plan and their role in maintaining security within the organization.</p>
+    </div>
+  </div>
 
+  <div id="myModal2" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <!-- Close button -->
+      <span class="close">&times;</span>
+      <!-- Explanation text -->
+      <p>
+
+        1. Define Goals:Clearly outline the objectives and goals of the cybersecurity strategy.
+<br>
+        2. Assess Current State: Evaluate the existing cybersecurity infrastructure, policies, and practices.
+        <br>     
+        3. Identify Risks: Identify potential cybersecurity risks and vulnerabilities within the organization.
+        <br>
+        4. Develop Action Plan: Create a detailed action plan that outlines specific tasks, responsibilities, and timelines for implementing the cybersecurity strategy.
+        <br>
+        5. Allocate Resources: Allocate necessary resources, including budget, personnel, and technology, to support the implementation process.
+        <br>
+        6. Implement Controls: Implement security controls and measures to mitigate identified risks and enhance cybersecurity posture.
+        <br>
+        7. Monitor Progress: Continuously monitor the progress of the implementation process and adjust the plan as needed.
+        <br>
+        8. Training and Awareness: Provide training and awareness programs to educate employees about cybersecurity best practices and their role in maintaining security.
+        <br>
+        9. Testing and Evaluation: Regularly test and evaluate the effectiveness of implemented security measures to ensure they are achieving the desired outcomes.
+        <br>
+        10. Continuous Improvement: Foster a culture of continuous improvement by learning from incidents, updating policies and procedures, and staying informed about emerging threats and technologies.</p>
+    </div>
+  </div>
+
+  <div id="myModal3" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <!-- Close button -->
+      <span class="close">&times;</span>
+      <!-- Explanation text -->
+      <p>
+
+        1. Schedule Reviews: Plan regular intervals for reviewing the cybersecurity strategy.<br>
+        2. Stay Updated: Keep abreast of changes in laws, regulations, and industry standards.<br>
+        3. Assess Effectiveness: Evaluate how well the current strategy aligns with the organization's goals and legal requirements.<br>
+        4. Identify Changes: Determine if any modifications or updates are necessary to address new risks or compliance issues.<br>
+        5. Document Findings: Record the results of the review process, including any recommendations for changes.<br>
+        6. Implement Changes: Make necessary adjustments to the cybersecurity strategy based on the review findings.<br>
+        7. Communicate Updates: Ensure that relevant stakeholders are informed of any changes made to the strategy and understand their roles in implementation.</p>
+    </div>
+  </div>
+
+  <div id="myModal4" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <!-- Close button -->
+      <span class="close">&times;</span>
+      <!-- Explanation text -->
+      <p>Explanation for 1-2-1...</p>
+    </div>
+  </div>
+
+  <div id="myModal5" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <!-- Close button -->
+      <span class="close">&times;</span>
+      <!-- Explanation text -->
+      <p>Explanation for 1-2-
+
+      </div>
+
+      <div id="myModal6" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <!-- Close button -->
+          <span class="close">&times;</span>
+          <!-- Explanation text -->
+          <p>Explanation for 1-2-3...</p>
+        </div>
+      </div>
     
-        <div class="bg-body-tertiary p-5 rounded">
-            <h3>1-1-1 </h3>
-            <p class="lead">A cybersecurity plan must be created, approved, 
-                and supported by the organization's leader or their representative. It should comply with the law.</p>
-                <h3>1-1-2</h3>
-            <p class="lead">A roadmap must be executed to implement the cybersecurity strategy.</p>            
-            <h3>1-1-3</h3>
-            <p class="lead">The cybersecurity strategy must be reviewed periodically according to planned intervals or upon
-                changes to related laws and regulations.</p>
-        </div>
-                <div class="container">
-                    <h1 class="mt-5">1-2 Cybersecurity Management</h1>
-                    <h2>To ensure Authorizing Official’s support in implementing and managing cybersecurity programs
-                        within the organization as per related laws and regulations.</h2>
-                
-        </div>
-          <div class="bg-body-tertiary p-5 rounded">
-            <h3>1-2-1 </h3>
-            <p class="lead">A dedicated cybersecurity function (e.g., division, department) must be established within the
-                organization. This function must be independent from the Information Technology/Information
-                Communication and Technology (IT/ICT) functions (as per the Royal Decree number 37140 dated
-                14/8/1438H). It is highly recommended that this cybersecurity function reports directly to the head of
-                the organization or his/her delegate while ensuring that this does not result in a conflict of interest.
-                1</p>
-                <h3>1-2-2</h3>
-            <p class="lead">The position of cybersecurity function head (e.g., CISO), and related supervisory and critical positions
-                within the function, must be filled with full-time and experienced Saudi cybersecurity professionals.</p>            
-            <h3>1-2-3</h3>
-            <p class="lead">A cybersecurity steering committee must be established by the Authorizing Official to ensure the
-                support and implementation of the cybersecurity programs and initiatives within the organization.
-                Committee members, roles and responsibilities, and governance framework must be defined,
-                documented and approved. The committee must include the head of the cybersecurity function as
-                one of its members. It is highly recommended that the committee reports directly to the head of the
-                organization or his/her delegate while ensuring that this does not result in a conflict of interest.</p>
-            
-          </div>
-       
+      <script>
+        // Get all the explanation button elements
+        var explainBtns = document.querySelectorAll(".explainBtn");
+    
+        // Get all the modal elements
+        var modals = document.querySelectorAll(".modal");
+    
+        // Get all the close button elements
+        var closeBtns = document.querySelectorAll(".close");
+    
+        // Add click event listener to each explanation button
+        explainBtns.forEach(function(btn) {
+          btn.addEventListener("click", function() {
+            var targetModalId = btn.getAttribute("data-target");
+            var targetModal = document.getElementById(targetModalId);
+            targetModal.style.display = "block";
+          });
+        });
+    
+        // Add click event listener to each close button
+        closeBtns.forEach(function(btn) {
+          btn.addEventListener("click", function() {
+            var modal = btn.closest(".modal");
+            modal.style.display = "none";
+          });
+        });
+    
+        // Close the modal when the user clicks anywhere outside of it
+        window.onclick = function(event) {
+          modals.forEach(function(modal) {
+            if (event.target == modal) {
+              modal.style.display = "none";
+            }
+          });
+        }
+      </script>
+    </body>
+    </html>
+    
