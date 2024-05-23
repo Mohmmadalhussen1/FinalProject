@@ -1,0 +1,471 @@
+<html lang="en">
+  {% load static %} 
+    <head>
+        <link rel="stylesheet" href="{% static 'cs/main.css' %}">
+      <header> <!-- Example Navbar Section in auditor_workflow.html -->
+        <div class="navbar">
+          <a href="{% url 'main_app:control_tree' %}">control tree</a>
+          <a href="{% url 'main_app:auditor_workflow' %}">Update Controls</a>
+          <a href="{% url 'main_app:program_interaction' %}">Program Interaction</a>
+          <a href="{% url 'main_app:update_controls' %}">Auditor Workflow</a>
+        </div>
+        <meta charset="utf-8">
+      
+        <title>Platform Matomo Mind-map</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsmind@0.4.6/style/jsmind.css" integrity="sha256-bRaebMjWC2LwqX1p18fo00K/1Up8ltIu787l8MrlT/k=" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        <style>
+          jmnode {
+            max-width: initial;
+          }
+          jmnode > a {
+            text-decoration: none;
+            color: white;
+          }
+          .jsmind-inner {
+              overflow: initial;
+            }
+          .mindmap {
+            margin: 10px 40px;
+          }
+
+          svg {
+            border: 1px solid #333;
+            width: 1200px;
+          }
+          a {
+            fill: #004c99;
+          }
+          a:hover {
+            fill: #09f;
+          }
+        </style>
+    </head>
+    <body>
+    <div class="alert alert-info" role="alert">
+        <p>Welcome to your ultimate resource for navigating the National Cybersecurity Agency's (NCA) Essential Cybersecurity Controls (ECC). Our website serves as your go-to destination for understanding, implementing, and optimizing ECC controls to fortify your organization's cyber defense posture. our comprehensive guide covers every aspect of ECC controls, providing in-depth explanations, practical insights, and actionable recommendations. Join our community of cybersecurity enthusiasts, share your experiences, and collaborate with peers to stay abreast of the latest ECC control updates, best practices, and industry trends.</p>
+        
+    </div>
+        <div id="the-mindmap" class="mindmap"></div>
+        <div class="modal fade" id="qaNotesModal111070" tabindex="-1" role="dialog" aria-labelledby="qaNotesModalLabel111070" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="qaNotesModalLabel111070">Case 111070 - QA Downstream Notes</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body" style="white-space: pre-wrap;"></div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade" id="qaNotesModal111616" tabindex="-1" role="dialog" aria-labelledby="qaNotesModalLabel111616" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="qaNotesModalLabel111616">Case 111616 - QA Downstream Notes</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body" style="white-space: pre-wrap;"></div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade" id="qaNotesModal110929" tabindex="-1" role="dialog" aria-labelledby="qaNotesModalLabel110929" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="qaNotesModalLabel110929">Case 110929 - QA Downstream Notes</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body" style="white-space: pre-wrap;"></div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.12.0/d3.js" integrity="sha256-3BMRAc+yX0neFRvyfGGfd3aZK8NKwYTOzq93ubNY2iU=" crossorigin="anonymous"></script>
+        
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script>
+
+const mindData = {
+  "meta": {
+    "name": "NCA ECC",
+    "version": "0.1",
+    "title": "Platform Matomo Mind-map"
+  },
+  "fogbugz": {
+    "search": "tag: MATOMO_*"
+  },
+  "format": "node_tree",
+  "data": {
+    "id": "root",
+    "topic": "NCA-ECC",
+    "children": [
+      {
+        "id": "events",
+        "topic": "1. Cybersecurity-Governance",
+        "background-color": "#1abc9c",
+        "children": [
+          {
+            "id": "reporting",
+            "topic": "1-1 Cybersecurity Strategy",
+            "background-color": "#34495e",
+            "tag": "MATOMO_REPORTS",
+            "children": [
+              {
+                "id": "111068",
+                "background-color": "#007bff",
+                "topic": "1-1-1 A cybersecurity strategy must be defined, documented and approved. The strategy goals must be in-line with related laws and regulations",
+                "data-target": null
+              },
+              {
+                "id": "111538",
+                "background-color": "#007bff",
+                "topic": "1-1-2 A roadmap must be executed to implement the cybersecurity strategy",
+                "data-target": null
+              },
+              {
+                "id": "111538",
+                "background-color": "#007bff",
+                "topic": "1-1-3 The cybersecurity strategy must be reviewed periodically according to planned intervals or upon changes to related laws and regulations",
+                "data-target": null
+              }
+            ]
+          },
+          {
+            "id": "searching",
+            "topic": "1-2 Cybersecurity Management",
+            "background-color": "#34495e",
+            "tag": "MATOMO_SEARCHING",
+            "children": [
+              {
+                "id": "111069",
+                "background-color": "#28a745",
+                "topic": "1-2-1 A dedicated cybersecurity function must be established within the organization. This function must be independent from the Information Technology/Information.",
+                "data-target": null
+              },
+              {
+                "id": "111587",
+                "background-color": "#ffc107",
+                "topic": "1-2-2 The position of cybersecurity function head, and related supervisory and critical positions within the function, must be filled with experienced Saudi cybersecurity professionals.",
+                "data-target": null
+              },
+              {
+                "id": "111606",
+                "background-color": "#ffc107",
+                "topic": "1-2-3 A cybersecurity steering committee must be established by the Authorizing Official to ensure the support and implementation of the cybersecurity programs and initiatives within the organization",
+                "data-target": null
+              }
+            ]
+          },
+          {
+            "id": "other",
+            "topic": "1-3 Cybersecurity Policies and Procedures",
+            "background-color": "#34495e",
+            "tag": "MATOMO_EVENTS",
+            "children": [
+              {
+                "id": "111070",
+                "background-color": "#28a745",
+                "topic": "<i title=\"View QA Downstream Notes\" data-toggle=\"modal\" data-target=\"#qaNotesModal111070\" class=\"fa fa-file-text-o\" style=\"cursor:pointer; margin-left: 5px;\"></i><a target=\"_blank\" href=\"https://fogbugz.forteresearch.com/f/cases/111070/\">Case 111070 - Add customization so Matomo can analyze modal activity </a>",
+                "href": "https://fogbugz.forteresearch.com/f/cases/${c.ixBug}/",
+                "data-target": "#qaNotesModal111070"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "legal",
+        "topic": "2. Cybersecurity Defense",
+        "background-color": "#1abc9c",
+        "tag": "MATOMO_ROLLOUT",
+        "children": [
+          {
+            "id": "104570",
+            "background-color": "#007bff",
+            "topic": "<a target=\"_blank\" href=\"https://fogbugz.forteresearch.com/f/cases/104570/\">Case 104570 - Investigate adding Matomo to Base Platform</a>",
+            "href": "https://fogbugz.forteresearch.com/f/cases/${c.ixBug}/",
+            "data-target": null
+          },
+          {
+            "id": "108842",
+            "background-color": "#dc3545",
+            "topic": "<a target=\"_blank\" href=\"https://fogbugz.forteresearch.com/f/cases/108842/\">Case 108842 - Matomo User-level tracking opt-in </a>",
+            "href": "https://fogbugz.forteresearch.com/f/cases/${c.ixBug}/",
+            "data-target": null
+          },
+          {
+            "id": "110929",
+            "background-color": "#28a745",
+            "topic": "<i title=\"View QA Downstream Notes\" data-toggle=\"modal\" data-target=\"#qaNotesModal110929\" class=\"fa fa-file-text-o\" style=\"cursor:pointer; margin-left: 5px;\"></i><a target=\"_blank\" href=\"https://fogbugz.forteresearch.com/f/cases/110929/\">Case 110929 - Add out-of-the-box Matomo analytics to Platform</a>",
+            "href": "https://fogbugz.forteresearch.com/f/cases/${c.ixBug}/",
+            "data-target": "#qaNotesModal110929"
+          },
+          {
+            "id": "110930",
+            "background-color": "#ffc107",
+            "topic": "<a target=\"_blank\" href=\"https://fogbugz.forteresearch.com/f/cases/110930/\">Case 110930 - Investigate using Matomo for/with MTT apps</a>",
+            "href": "https://fogbugz.forteresearch.com/f/cases/${c.ixBug}/",
+            "data-target": null
+          },
+          {
+            "id": "111180",
+            "background-color": "#ffc107",
+            "topic": "<a target=\"_blank\" href=\"https://fogbugz.forteresearch.com/f/cases/111180/\">Case 111180 - Investigate default configurable privacy settings for Matomo</a>",
+            "href": "https://fogbugz.forteresearch.com/f/cases/${c.ixBug}/",
+            "data-target": null
+          },
+          {
+            "id": "111670",
+            "background-color": "#007bff",
+            "topic": "<a target=\"_blank\" href=\"https://fogbugz.forteresearch.com/f/cases/111670/\">Case 111670 - Reminder to create a resource that documents Matomo mapping e.g., what categories represent</a>",
+            "href": "https://fogbugz.forteresearch.com/f/cases/${c.ixBug}/",
+            "data-target": null
+          },
+          {
+            "id": "111918",
+            "background-color": "#dc3545",
+            "topic": "<a target=\"_blank\" href=\"https://fogbugz.forteresearch.com/f/cases/111918/\">Case 111918 - Matomo - remove numeric identifiers from tracked URLs</a>",
+            "href": "https://fogbugz.forteresearch.com/f/cases/${c.ixBug}/",
+            "data-target": null
+          }
+        ]
+      },
+      {
+        "id": "resilience",
+        "topic": "3. Cybersecurity Resilience",
+        "background-color": "#95a5a6",
+        "children": []
+      },
+      {
+        "id": "cloud_security",
+        "topic": "4. Third-Party and Cloud Computing Cybersecurity",
+        "background-color": "#f39c12",
+        "children": []
+      },
+      {
+        "id": "ics_security",
+        "topic": "5. ICS Cybersecurity",
+        "background-color": "#c0392b",
+        "children": []
+      }
+    ]
+  }
+};
+
+const width = 1000;
+const d3 = window.d3;
+
+const margin = ({top: 40, right: 40, bottom: 40, left: 40});
+const dx = 40;
+const dy = width / 6;
+const tree = d3.tree().nodeSize([dx, dy]);
+const diagonal = d3.linkHorizontal().x(d => d.y).y(d => d.x);
+
+const createChart = (data) => {
+  const root = d3.hierarchy(data);
+
+  root.x0 = dy / 2;
+  root.y0 = 0;
+  root.descendants().forEach((d, i) => {
+    d.id = i;
+    d._children = d.children;
+    if (d.depth > 5) d.children = null;
+  });
+
+  const svg = d3.create("svg")
+      .attr("viewBox", [-margin.left, -margin.top, width - margin.left, dx])
+      .style("font", "10px sans-serif")
+      .style("user-select", "none");
+
+  const gLink = svg.append("g")
+      .attr("fill", "none")
+      .attr("stroke", "#999")
+      .attr("stroke-opacity", 1.0)
+      .attr("stroke-width", 1.5);
+
+  const gNode = svg.append("g")
+      .attr("cursor", "pointer")
+      .attr("pointer-events", "all");
+
+  function update(source) {
+    const duration = d3.event && d3.event.altKey ? 2500 : 250;
+    const nodes = root.descendants().reverse();
+    const links = root.links();
+
+    // Compute the new tree layout.
+    tree(root);
+
+    let left = root;
+    let right = root;
+    root.eachBefore(node => {
+      if (node.x < left.x) left = node;
+      if (node.x > right.x) right = node;
+    });
+
+    const height = right.x - left.x + margin.top + margin.bottom;
+
+    const transition = svg.transition()
+        .duration(duration)
+        .attr("viewBox", [-margin.left, left.x - margin.top, width, height])
+        .tween("resize", window.ResizeObserver ? null : () => () => svg.dispatch("toggle"));
+
+    // Update the nodes…
+    const node = gNode.selectAll("g")
+      .data(nodes, d => d.id);
+
+    // Enter any new nodes at the parent's previous position.
+    const nodeEnter = node.enter().append("g")
+        .attr("transform", d => `translate(${source.y0},${source.x0})`)
+        .attr("fill-opacity", 0)
+        .attr("stroke-opacity", 0)
+        .on("click", d => {
+          d.children = d.children ? null : d._children;
+          update(d);
+        });
+    
+    const folderClosed = '\uf07b';
+    const pageIcon = '\uf0f6';
+    
+    const desat = (c) => d3.hsl(c.h, c.s, c.l + .0);
+
+    // The circle
+    nodeEnter.append("circle")
+        .attr("r", dx / 3)
+        .attr("fill", d => desat(d3.hsl(d.data['background-color'])))
+        .attr("fill-opacity", 1)
+        .attr("stroke", d => d.data['background-color'])
+        .attr("data-target", d => d.data['data-target'] ? d.data['data-target'] : null)
+        .attr("data-toggle", d => d.data['data-target'] ? 'modal' : null)
+;
+    // Icon for QA text
+    nodeEnter
+        .filter(d => d.data['data-target'])
+        .append("text")
+        .attr("x", -6)
+        .attr("y", 6)
+        .attr("font-family","FontAwesome")
+        .attr('font-size', function(d) { return '16px';} )
+        .attr('data-target', d => d.data['data-target'])
+        .attr("data-toggle", 'modal')
+        .text(pageIcon);
+        ;
+
+
+    // Transition nodes to their new position.
+    const nodeUpdate = node.merge(nodeEnter).transition(transition)
+        .attr("transform", d => `translate(${d.y},${d.x})`)
+        .attr("fill-opacity", 1)
+        .attr("stroke-opacity", 1);
+
+    
+    // Link and text of each node
+    const labels = nodeEnter
+      .append("a")
+        .attr('href', d => d.data.href)
+      .append('text')
+        .attr("dy", "0.31em")
+        .attr("y", d => d._children ? '-2em' : 0)
+        .attr("text-anchor", d => d._children ? "middle" : "start")
+        .html(d => d.data.topic)
+        .attr("x", d => d._children ? 0 : (dx / 3) + 4)
+        ;
+    window.setTimeout(() => labels.call(wrapText, 300), 0);
+    
+    // Transition exiting nodes to the parent's new position.
+    const nodeExit = node.exit().transition(transition).remove()
+        .attr("transform", d => `translate(${source.y},${source.x})`)
+        .attr("fill-opacity", 0)
+        .attr("stroke-opacity", 0);
+
+    // Update the links…
+    const link = gLink.selectAll("path")
+      .data(links, d => d.target.id);
+
+    // Enter any new links at the parent's previous position.
+    const linkEnter = link.enter().append("path")
+        .attr("d", d => {
+          const o = {x: source.x0, y: source.y0};
+          return diagonal({source: o, target: o});
+        });
+
+    // Transition links to their new position.
+    link.merge(linkEnter).transition(transition)
+        .attr("d", diagonal);
+
+    // Transition exiting nodes to the parent's new position.
+    link.exit().transition(transition).remove()
+        .attr("d", d => {
+          const o = {x: source.x, y: source.y};
+          return diagonal({source: o, target: o});
+        });
+
+    // Stash the old positions for transition.
+    root.eachBefore(d => {
+      d.x0 = d.x;
+      d.y0 = d.y;
+    });
+  }
+
+  update(root);
+
+  return svg.node();
+}
+
+const wrapText = function (text, width) {
+  text.each(function() {
+    var text = d3.select(this),
+        words = text.text().split(/\s+/).reverse(),
+        word,
+        line = [],
+        lineNumber = 0,
+        lineHeight = 1.1, // em
+        y = text.attr("y"),
+        dy = parseFloat(text.attr("dy")),
+        tspan = text.text(null).append("tspan").attr("x", this.getAttribute('x')).attr("y", y).attr("dy", dy + "em");
+    console.log(words)
+    while (word = words.pop()) {
+      line.push(word);
+      tspan.text(line.join(" "));
+      console.log(tspan.node().getComputedTextLength())
+      if (tspan.node().getComputedTextLength() > width) {
+        line.pop();
+        tspan.text(line.join(" "));
+        line = [word];
+        tspan = text.append("tspan")
+          .attr("x", this.getAttribute('x'))
+          .attr("y", y)
+          .attr("dy", ++lineNumber * lineHeight + dy + "em")
+          .text(word);
+      }
+    }
+  });
+}
+
+window.createChart = createChart;
+
+const dachart = createChart(mindData.data);
+            document.getElementById('the-mindmap').append(dachart);
+            //const chart = createChart(mindData.data);
+            //document.getElementById('the-mindmap').append(chart);
+        </script>
+    </body>
+</html>
