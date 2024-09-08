@@ -1,0 +1,136 @@
+{% load static %} 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Policy Review Notifications</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <img src="logo.png" alt="Logo" class="logo">
+            <ul>
+                <li><a href="{% url 'main_app:home_page' %}">Home</a></li>
+                <li><a href="{% url 'main_app:policy_review' %}">Policy review</a></li>
+                <li><a href="{% url 'main_app:report_generation_page' %}">Report Generation</a></li>
+                <li><a href="{% url 'main_app:sessions_page' %}">Sessions Management</a></li>
+                <li><button class="logout">Logout</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="notifications">
+            <h2>Policy Review Notifications</h2>
+            <div class="notification-card">
+                <h4>Next Review: Cybersecurity Policy</h4>
+                <p>Due in: <strong>7 days</strong></p>
+                <button>Review Policy</button>
+            </div>
+
+            <div class="notification-card">
+                <h4>Next Review: Data Protection Policy</h4>
+                <p>Due in: <strong>14 days</strong></p>
+                <button>Review Policy</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <div class="column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Support</a></li>
+                    <li><a href="#">Developers</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: white;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+}
+
+nav ul li {
+    margin-right: 15px;
+}
+
+nav ul li a, .logout {
+    text-decoration: none;
+    color: black;
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: none;
+    background-color: #f4f4f4;
+    cursor: pointer;
+}
+
+.logout {
+    background-color: black;
+    color: white;
+}
+
+main {
+    padding: 20px;
+}
+
+.notifications h2 {
+    font-size: 26px;
+    margin-bottom: 20px;
+}
+
+.notification-card {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.notification-card h4 {
+    font-size: 20px;
+}
+
+.notification-card button {
+    padding: 8px 12px;
+    background-color: #000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+footer {
+    background-color: white;
+    padding: 20px;
+    border-top: 1px solid #ddd;
+}
+</style>
+</html>
