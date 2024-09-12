@@ -21,9 +21,6 @@ def report_generation_page(request):
 def policy_review(request):
     return render(request, 'main_app/policy_review.html')
 
-def sign_up_page(request):
-    return render(request, 'main_app/sign_up_page.html')
-
 def tree_page(request):
     return render(request, 'main_app/tree.html')
 
@@ -47,6 +44,33 @@ def login_page(request: HttpRequest):
             msg = "Incorrect Credentials"
 
     return render(request, "main_app/login_page.html", {"msg": msg})
+
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+
+def sign_up_page(request):
+    if request.method == 'POST':
+        username = request.POST['user_name']
+        password = request.POST['password']
+        email = request.POST['email']
+        phone = request.POST['phone']  # You may need to handle this with a custom user model
+
+        # Check if the username or email already exists
+        if User.objects.filter(username=username).exists():
+            msg = 'Username already taken'
+        elif User.objects.filter(email=email).exists():
+            msg = 'Email already taken'
+        else:
+            # Create new user
+            user = User.objects.create_user(username=username, password=password, email=email)
+            user.save()
+
+    else:
+        msg = None
+
+    return render(request, 'main_app/sign_up_page.html')
 
 
 def signout_page(request):
