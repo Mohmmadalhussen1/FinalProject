@@ -76,3 +76,10 @@ def sign_up_page(request):
 def signout_page(request):
     logout(request)
     return redirect('main_app:login_page')  # Redirect to login page after sign out
+
+def profile_page(request:HttpRequest):
+
+        #Show each  data inside the model in thier ID
+
+
+    return render(request, 'main_app/user_details.html') 
