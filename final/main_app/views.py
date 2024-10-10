@@ -6,8 +6,14 @@ from .models import Profile
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.http import JsonResponse
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+
 # Create your views here.
 # views.py
+
 
 def home_page(request):
     return render(request, 'main_app/home_page.html')
@@ -45,10 +51,6 @@ def login_page(request: HttpRequest):
 
     return render(request, "main_app/login_page.html", {"msg": msg})
 
-from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
-from django.contrib import messages
 
 def sign_up_page(request):
     if request.method == 'POST':

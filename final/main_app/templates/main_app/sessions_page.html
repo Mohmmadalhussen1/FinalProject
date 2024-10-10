@@ -8,31 +8,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Audit Sessions</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
+
 <main>
     <section class="sessions">
         <h2>Sessions</h2>
         <p>This page has your active audit sessions</p>
 
-        <div class="session-card">
+        <div class="session-card" data-company="Company1">
             <h3>Company1</h3>
             <p>Some company information</p>
-            <button>Show more</button>
+            <button class="show-more">Show more</button>
         </div>
 
-        <div class="session-card">
+        <div class="session-card" data-company="Company2">
             <h3>Company2</h3>
             <p>Another company information</p>
-            <button>Show more</button>
+            <button class="show-more">Show more</button>
         </div>
 
-        <div class="session-card">
+        <div class="session-card" data-company="Company3">
             <h3>Company3</h3>
             <p>Another Company session</p>
-            <button>Show more</button>
+            <button class="show-more">Show more</button>
         </div>
     </section>
 </main>
+
+<!-- Modal for Show More -->
+<div id="popup-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3 id="modal-company-name"></h3>
+        <label for="upload-file">Upload Audit Report</label>
+        <input type="file" id="upload-file" name="upload-file" accept=".pdf, .docx, .txt">
+        
+        <div class="modal-actions">
+            <button id="check-ai">Check with AI</button>
+            <button id="manual-check">Manual Check</button>
+        </div>
+        <p id="file-status" style="color:green;"></p> <!-- To display the upload status -->
+    </div>
+</div>
 
 <footer>
     <div class="footer-links">
@@ -65,61 +83,98 @@
         </div>
     </div>
 </footer>
-</body>
+
+<script>
+    var modal = document.getElementById("popup-modal");
+    var span = document.getElementsByClassName("close")[0];
+
+    // Handle 'Show More' click to display the popup
+    $('.show-more').on('click', function() {
+        var companyName = $(this).closest('.session-card').data('company');
+        $('#modal-company-name').text(companyName);
+        modal.style.display = "block";
+    });
+
+    // Close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+        resetFileInput(); // Reset file input when the modal closes
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+            resetFileInput(); // Reset file input when the modal closes
+        }
+    }
+
+    // File upload handling
+    $('#upload-file').on('change', function() {
+        var fileName = $(this).val().split('\\').pop(); // Get uploaded file name
+        if (fileName) {
+            $('#file-status').text("File '" + fileName + "' uploaded successfully.");
+        } else {
+            $('#file-status').text("");
+        }
+    });
+
+    // Button actions for AI check and Manual check
+    document.getElementById("check-ai").onclick = function() {
+        alert("Checking with AI...");
+        // Add your API call logic here
+    }
+
+    document.getElementById("manual-check").onclick = function() {
+        alert("Manual check initiated...");
+        // Add manual check logic here
+    }
+
+    // Function to reset file input field
+    function resetFileInput() {
+        $('#upload-file').val(''); // Clear the file input
+        $('#file-status').text(''); // Clear the file status message
+    }
+</script>
+
 <style>
 * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-    }
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
 
-    header {
-        background-color: rgb(0, 0, 0);
-        padding: 10px 20px;
-        border-bottom: 1px solid #535353;
-    }
+header {
+    background-color: rgb(0, 0, 0);
+    padding: 10px 20px;
+    border-bottom: 1px solid #535353;
+}
 
-    nav ul {
-        display: flex;
-        justify-content: space-between;
-        list-style: none;
-    }
+nav ul {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+}
 
-    nav ul li {
-        margin-right: 15px;
-    }
+nav ul li {
+    margin-right: 15px;
+}
 
-    nav ul li a,
-    .login {
-        text-decoration: none;
-        color: black;
-        padding: 8px 12px;
-        border-radius: 5px;
-        border: none;
-        background-color: #f4f4f4;
-        cursor: pointer;
-        border-color: 1px solid #ffffff;
-    }
-
-    .login {
-        text-decoration: none;
-        color: black;
-        padding: 8px 12px;
-        border-radius: 5px;
-        border: none;
-        background-color: #f4f4f4;
-        cursor: pointer;
-        border-color: 1px solid #ffffff
-    }
-
-    main {
-        padding: 20px;
-    }
+nav ul li a,
+.login {
+    text-decoration: none;
+    color: black;
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: none;
+    background-color: #f4f4f4;
+    cursor: pointer;
+    border-color: 1px solid #ffffff;
+}
 
 main {
     padding: 20px;
@@ -184,6 +239,60 @@ footer {
 
 .footer-links ul li {
     margin-bottom: 10px;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-actions button {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#file-status {
+    margin-top: 10px;
+    font-size: 14px;
 }
 </style>
 

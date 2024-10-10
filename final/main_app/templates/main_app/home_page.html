@@ -37,17 +37,17 @@
                 <li><a href="{% url 'main_app:report_generation_page' %}">Report Generation</a></li>
                 <li><a href="{% url 'main_app:sessions_page' %}">Sessions Management</a></li>
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" href={% url 'main_app:signout_page' %}>
+                        <a id="logout button" href={% url 'main_app:signout_page' %}>
                             <i class="bi bi-box-arrow-right"></i>
                             <span>Log Out</span>
                         </a>
                     </li>
-                    <span class="d-none d-md-block dropdown-toggle pe-0">{{request.user.username}}</span>
+                    <span class="d-none d-md-block pe-0">{{request.user.username}}</span>
 
                 </a>
                 {% else %}
                 <li>
-                    <a class="dropdown-item d-flex align-items-center" href={% url 'main_app:login_page' %}>
+                    <a id="login button" href={% url 'main_app:login_page' %}>
                         <i class="bi bi-box-arrow-right"></i>
                         <span>Sign Up/Login</span>
                     </a>
@@ -290,6 +290,12 @@
 
     .footer-links ul li {
         margin-bottom: 10px;
+    }
+    #login button{
+        background-color: #ccc;
+    }
+    #logout button{
+        background-color: #ccc;
     }
 </style>
 
