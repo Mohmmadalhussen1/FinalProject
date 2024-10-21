@@ -54,17 +54,18 @@
 </div>
 
 <!-- New page for manual check -->
-<div id="manual-check-page" class="manual-check-page" style="display:none;">
-    <h3>Manual Check for <span id="company-file-name"></span></h3>
-    <div>
-        <iframe id="file-frame" width="600" height="400"></iframe>
-    </div>
-    <div>
-        <label><input type="checkbox" name="check-1"> Item 1</label><br>
-        <label><input type="checkbox" name="check-2"> Item 2</label><br>
-        <label><input type="checkbox" name="check-3"> Item 3</label><br>
+<div id="manual-check-page" class="manual-check-page">
+    <h3>Manual Check for company1 <span id="company-file-name"></span></h3>
+    <div class="manual-check-container">
+        <iframe id="file-frame" width="700" height="750"></iframe>
+        <ul>
+            <li><label><input type="checkbox" name="check-1"> Item 1</label></li>
+            <li><label><input type="checkbox" name="check-2"> Item 2</label></li>
+            <li><label><input type="checkbox" name="check-3"> Item 3</label></li>
+        </ul>
     </div>
 </div>
+
 
 <footer>
     <div class="footer-links">
@@ -331,6 +332,20 @@ iframe {
     margin-top: 10px;
     font-size: 14px;
 }
+.manual-check-container {
+    display: flex;
+    align-items: flex-start;
+}
+
+.manual-check-container iframe {
+    margin-right: 20px;
+}
+
+.manual-check-container ul {
+    list-style-type: none;
+    padding: 0;
+}
+
 </style>
 
 </html>
