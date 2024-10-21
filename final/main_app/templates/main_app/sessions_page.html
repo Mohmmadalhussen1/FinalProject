@@ -16,6 +16,7 @@
         <h2>Sessions</h2>
         <p>This page has your active audit sessions</p>
 
+        <!-- Session Cards -->
         <div class="session-card" data-company="Company1">
             <h3>Company1</h3>
             <p>Some company information</p>
@@ -49,6 +50,19 @@
             <button id="manual-check">Manual Check</button>
         </div>
         <p id="file-status" style="color:green;"></p> <!-- To display the upload status -->
+    </div>
+</div>
+
+<!-- New page for manual check -->
+<div id="manual-check-page" class="manual-check-page" style="display:none;">
+    <h3>Manual Check for <span id="company-file-name"></span></h3>
+    <div>
+        <iframe id="file-frame" width="600" height="400"></iframe>
+    </div>
+    <div>
+        <label><input type="checkbox" name="check-1"> Item 1</label><br>
+        <label><input type="checkbox" name="check-2"> Item 2</label><br>
+        <label><input type="checkbox" name="check-3"> Item 3</label><br>
     </div>
 </div>
 
@@ -125,8 +139,21 @@
     }
 
     document.getElementById("manual-check").onclick = function() {
-        alert("Manual check initiated...");
-        // Add manual check logic here
+        // Hide modal and show the manual check page
+        modal.style.display = "none";
+
+        // Display the file in the iframe
+        var fileInput = document.getElementById('upload-file');
+        var file = fileInput.files[0];
+
+        if (file) {
+            var fileURL = URL.createObjectURL(file);
+            document.getElementById('file-frame').src = fileURL;
+            document.getElementById('company-file-name').innerText = file.name;
+            document.getElementById('manual-check-page').style.display = "block";
+        } else {
+            alert("Please upload a file first.");
+        }
     }
 
     // Function to reset file input field
@@ -288,6 +315,16 @@ footer {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.manual-check-page {
+    display: none;
+    margin-top: 20px;
+}
+
+iframe {
+    border: 1px solid #000;
+    margin-bottom: 20px;
 }
 
 #file-status {
