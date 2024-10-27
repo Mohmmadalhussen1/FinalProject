@@ -18,6 +18,9 @@ from django.contrib import messages
 def home_page(request):
     return render(request, 'main_app/home_page.html')
 
+def scopeanddetailspage(request):
+    return render(request, 'main_app/scope-and-detailspage.html')
+
 def sessions_page(request):
     return render(request, 'main_app/sessions_page.html')
 

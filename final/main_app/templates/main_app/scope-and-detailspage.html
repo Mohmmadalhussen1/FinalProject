@@ -1,0 +1,173 @@
+{% extends 'main_app/home_page.html' %}
+<!DOCTYPE html>
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audit Report Generation</title>
+</head>
+
+<body>
+    <main>
+        <section class="report-generation">
+            <form id="reportForm">
+                <h2>Scope</h2>
+                <textarea id="scope-comments" name="scope-comments" placeholder="Enter any additional comments"></textarea>
+                
+                <label for="description">Description</label>
+                <textarea id="description" name="description" placeholder="Enter the description"></textarea>
+                
+                <!-- Select list of items -->
+                <label for="item-select">Select an item</label>
+                <select id="item-select" name="item-select">
+                    <option value="Item 1">Item 1</option>
+                    <option value="Item 2">Item 2</option>
+                    <option value="Item 3">Item 3</option>
+                    <option value="Item 4">Item 4</option>
+                </select>
+                
+                <!-- Button to add selected item -->
+                <button type="button" onclick="addItem()">Choose</button>
+                
+                <button class="Generate-report">Generate Report</button>
+            </form>
+            
+            <!-- Div to display the selected items -->
+            <div id="selected-items">
+                <h3>Selected Items</h3>
+                <ul id="item-list"></ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <div class="column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Support</a></li>
+                    <li><a href="#">Documentation</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function addItem() {
+            const selectElement = document.getElementById('item-select');
+            const selectedItem = selectElement.options[selectElement.selectedIndex].text;
+            
+            const itemList = document.getElementById('item-list');
+            const listItem = document.createElement('li');
+            listItem.textContent = selectedItem;
+            
+            itemList.appendChild(listItem);
+        }
+    </script>
+</body>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    height: 100vh;
+}
+
+header {
+    background-color: rgb(0, 0, 0);
+    padding: 10px 20px;
+    border-bottom: 1px solid #535353;
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+}
+
+nav ul li {
+    margin-right: 15px;
+}
+
+nav ul li a,
+.login {
+    text-decoration: none;
+    color: black;
+    padding: 8px 12px;
+    border-radius: 5px; 
+    border: none;
+    background-color: #f4f4f4;
+    cursor: pointer;
+    border-color: 1px solid #ffffff;
+}
+
+main {
+    display: flex;
+    align-items: flex-start; /* Align items to the top */
+    height: 50vh;
+    padding: 20px;
+}
+
+.report-generation {
+    width: 1500px; /* Allow the form to take the full width */
+}
+
+.report-generation h2 {
+    font-size: 26px;
+    margin-bottom: 20px;
+}
+
+form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    margin-left: 0; /* Align the form to the left */
+}
+
+form label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+form select, form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #000000;
+    border-radius: 10px;
+}
+
+form button {
+    padding: 10px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#selected-items {
+    margin-top: 20px;
+}
+
+footer {
+    background-color: white;
+    padding: 20px;
+    border-top: 1px solid #ddd;
+}
+</style>
+
+</html>
+{% endblock %}

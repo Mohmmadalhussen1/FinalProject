@@ -11,6 +11,7 @@ urlpatterns = [
     path('policy_review/', views.policy_review, name='policy_review'),
     path('tree/', views.tree_page, name='tree'),
     path('', views.home_page, name='home_page'),
+    path("scopedetails/", views.scopeanddetailspage, name="scope-and-detailspage"),
     path('signout/', views.signout_page, name='signout_page'),
     path("profile_page/", views.profile_page, name="profile_page"),
 

@@ -14,58 +14,61 @@
 <main>
     <section class="sessions">
         <h2>Sessions</h2>
-        <p>This page has your active audit sessions</p>
+        <p>This page has your active audit sessions.</p>
 
         <!-- Session Cards -->
         <div class="session-card" data-company="Company1">
             <h3>Company1</h3>
-            <p>Some company information</p>
-            <button class="show-more">Show more</button>
+            <button class="audit-trail-btn">Audit Trail</button>
         </div>
-
         <div class="session-card" data-company="Company2">
             <h3>Company2</h3>
-            <p>Another company information</p>
-            <button class="show-more">Show more</button>
+            <button class="audit-trail-btn">Audit Trail</button>
         </div>
-
         <div class="session-card" data-company="Company3">
             <h3>Company3</h3>
-            <p>Another Company session</p>
-            <button class="show-more">Show more</button>
+            <button class="audit-trail-btn">Audit Trail</button>
         </div>
     </section>
 </main>
 
-<!-- Modal for Show More -->
-<div id="popup-modal" class="modal">
+<!-- Audit Trail Popup Modal -->
+<div id="audit-trail-modal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
         <h3 id="modal-company-name"></h3>
-        <label for="upload-file">Upload Audit Report</label>
-        <input type="file" id="upload-file" name="upload-file" accept=".pdf, .docx, .txt">
+        
+        <!-- File Upload -->
+        <label for="evidence-upload">Upload Evidence</label>
+        <input type="file" id="evidence-upload" accept=".pdf, .docx, .txt">
+        
+        <!-- Dropdown Selection -->
+        <label for="audit-type">Select Audit Type</label>
+        <select id="audit-type">
+            <option value="">--Choose an option--</option>
+            <option value="Type1">Type 1</option>
+            <option value="Type2">Type 2</option>
+        </select>
         
         <div class="modal-actions">
-            <button id="check-ai">Check with AI</button>
-            <button id="manual-check">Manual Check</button>
+            <button id="view-evidence">View Evidence</button>
         </div>
-        <p id="file-status" style="color:green;"></p> <!-- To display the upload status -->
+        <p id="upload-status" style="color:green;"></p>
     </div>
 </div>
 
-<!-- New page for manual check -->
-<div id="manual-check-page" class="manual-check-page">
-    <h3>Manual Check for company1 <span id="company-file-name"></span></h3>
-    <div class="manual-check-container">
-        <iframe id="file-frame" width="700" height="750"></iframe>
-        <ul>
-            <li><label><input type="checkbox" name="check-1"> Item 1</label></li>
-            <li><label><input type="checkbox" name="check-2"> Item 2</label></li>
-            <li><label><input type="checkbox" name="check-3"> Item 3</label></li>
+<!-- Evidence Viewer and Checklist -->
+<div id="evidence-viewer-section" class="evidence-viewer-section" style="display: none;">
+    <h3>Evidence Viewer for <span id="evidence-company-name"></span></h3>
+    <div class="viewer-container">
+        <iframe id="evidence-frame" width="700" height="750"></iframe>
+        <ul class="checklist">
+            <li><label><input type="checkbox"> Checklist Item 1</label></li>
+            <li><label><input type="checkbox"> Checklist Item 2</label></li>
+            <li><label><input type="checkbox"> Checklist Item 3</label></li>
         </ul>
     </div>
 </div>
-
 
 <footer>
     <div class="footer-links">
@@ -78,7 +81,6 @@
                 <li><a href="#">Diagramming</a></li>
             </ul>
         </div>
-
         <div class="column">
             <h3>Explore</h3>
             <ul>
@@ -87,7 +89,6 @@
                 <li><a href="#">Collaboration Features</a></li>
             </ul>
         </div>
-
         <div class="column">
             <h3>Resources</h3>
             <ul>
@@ -100,72 +101,58 @@
 </footer>
 
 <script>
-    var modal = document.getElementById("popup-modal");
-    var span = document.getElementsByClassName("close")[0];
+    var modal = document.getElementById("audit-trail-modal");
+    var closeModal = document.getElementsByClassName("close")[0];
+    var fileInput = document.getElementById("evidence-upload");
 
-    // Handle 'Show More' click to display the popup
-    $('.show-more').on('click', function() {
+    // Open modal on Audit Trail button click
+    $('.audit-trail-btn').on('click', function() {
         var companyName = $(this).closest('.session-card').data('company');
         $('#modal-company-name').text(companyName);
         modal.style.display = "block";
     });
 
-    // Close the modal
-    span.onclick = function() {
+    // Close modal
+    closeModal.onclick = function() {
         modal.style.display = "none";
-        resetFileInput(); // Reset file input when the modal closes
+        resetUpload();
     }
 
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";
-            resetFileInput(); // Reset file input when the modal closes
+            resetUpload();
         }
     }
 
-    // File upload handling
-    $('#upload-file').on('change', function() {
-        var fileName = $(this).val().split('\\').pop(); // Get uploaded file name
-        if (fileName) {
-            $('#file-status').text("File '" + fileName + "' uploaded successfully.");
-        } else {
-            $('#file-status').text("");
-        }
+    // Handle file upload display
+    $('#evidence-upload').on('change', function() {
+        var fileName = $(this).val().split('\\').pop();
+        $('#upload-status').text(fileName ? "Uploaded: " + fileName : "");
     });
 
-    // Button actions for AI check and Manual check
-    document.getElementById("check-ai").onclick = function() {
-        alert("Checking with AI...");
-        // Add your API call logic here
-    }
-
-    document.getElementById("manual-check").onclick = function() {
-        // Hide modal and show the manual check page
-        modal.style.display = "none";
-
-        // Display the file in the iframe
-        var fileInput = document.getElementById('upload-file');
+    // View Evidence button action
+    document.getElementById("view-evidence").onclick = function() {
         var file = fileInput.files[0];
-
         if (file) {
             var fileURL = URL.createObjectURL(file);
-            document.getElementById('file-frame').src = fileURL;
-            document.getElementById('company-file-name').innerText = file.name;
-            document.getElementById('manual-check-page').style.display = "block";
+            $('#evidence-frame').attr('src', fileURL);
+            $('#evidence-company-name').text($('#modal-company-name').text());
+            modal.style.display = "none";
+            $('#evidence-viewer-section').show();
         } else {
-            alert("Please upload a file first.");
+            alert("Please upload a file.");
         }
     }
 
-    // Function to reset file input field
-    function resetFileInput() {
-        $('#upload-file').val(''); // Clear the file input
-        $('#file-status').text(''); // Clear the file status message
+    function resetUpload() {
+        fileInput.value = '';
+        $('#upload-status').text('');
     }
 </script>
 
 <style>
-* {
+    * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -268,84 +255,143 @@ footer {
 .footer-links ul li {
     margin-bottom: 10px;
 }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-/* Modal Styles */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
-    padding-top: 60px;
-}
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+    }
 
-.modal-content {
-    background-color: #fefefe;
-    margin: 5% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 400px;
-    border-radius: 10px;
-    text-align: center;
-}
+    h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
 
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
+    .sessions {
+        padding: 20px;
+    }
 
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
+    .session-card {
+        background-color: #fff;
+        padding: 20px;
+        margin-bottom: 15px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
 
-.modal-actions button {
-    margin-top: 15px;
-    padding: 10px;
-    background-color: #000;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
+    .audit-trail-btn {
+        padding: 10px 20px;
+        background-color: #000;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
 
-.manual-check-page {
-    display: none;
-    margin-top: 20px;
-}
+    /* Modal Styles */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding-top: 60px;
+    }
 
-iframe {
-    border: 1px solid #000;
-    margin-bottom: 20px;
-}
+    .modal-content {
+        background-color: #fff;
+        margin: auto;
+        padding: 20px;
+        border-radius: 10px;
+        width: 80%;
+        max-width: 500px;
+        text-align: center;
+    }
 
-#file-status {
-    margin-top: 10px;
-    font-size: 14px;
-}
-.manual-check-container {
-    display: flex;
-    align-items: flex-start;
-}
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
 
-.manual-check-container iframe {
-    margin-right: 20px;
-}
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
 
-.manual-check-container ul {
-    list-style-type: none;
-    padding: 0;
-}
+    #evidence-viewer-section {
+        padding: 20px;
+        background-color: #f9f9f9;
+        margin: 20px auto;
+        max-width: 800px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
+    .viewer-container {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    iframe {
+        border: 1px solid #000;
+        border-radius: 8px;
+    }
+
+    .checklist {
+        list-style: none;
+        padding: 0;
+    }
+
+    .checklist li {
+        margin-bottom: 10px;
+    }
+
+    footer {
+        background-color: #fff;
+        padding: 20px;
+        border-top: 1px solid #ddd;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .footer-links {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .footer-links .column {
+        width: 30%;
+    }
+
+    .footer-links h3 {
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+
+    .footer-links ul {
+        list-style: none;
+    }
+
+    .footer-links ul li {
+        margin-bottom: 8px;
+    }
 </style>
 
 </html>
