@@ -1,173 +1,147 @@
 {% extends 'main_app/home_page.html' %}
-<!DOCTYPE html>
 {% load static %}
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Audit Report Generation</title>
-</head>
+<h1>Audit Report Generation</h1>
 
-<body>
-    <main>
-        <section class="report-generation">
-            <form id="reportForm">
-                <h2>Scope</h2>
-                <textarea id="scope-comments" name="scope-comments" placeholder="Enter any additional comments"></textarea>
-                
-                <label for="description">Description</label>
-                <textarea id="description" name="description" placeholder="Enter the description"></textarea>
-                
-                <!-- Select list of items -->
-                <label for="item-select">Select an item</label>
-                <select id="item-select" name="item-select">
-                    <option value="Item 1">Item 1</option>
-                    <option value="Item 2">Item 2</option>
-                    <option value="Item 3">Item 3</option>
-                    <option value="Item 4">Item 4</option>
-                </select>
-                
-                <!-- Button to add selected item -->
-                <button type="button" onclick="addItem()">Choose</button>
-                
-                <button class="Generate-report">Generate Report</button>
-            </form>
+<main>
+    <section class="report-generation">
+        <form id="reportForm" method="POST">
+            {% csrf_token %}
+            <h2>Scope</h2>
+            <textarea id="scope-comments" name="scope-comments" placeholder="Enter any additional comments">{{ company.scope }}</textarea>
             
-            <!-- Div to display the selected items -->
-            <div id="selected-items">
-                <h3>Selected Items</h3>
-                <ul id="item-list"></ul>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="footer-links">
-            <div class="column">
-                <h3>Resources</h3>
-                <ul>
-                    <li><a href="#">Support</a></li>
-                    <li><a href="#">Documentation</a></li>
-                </ul>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        function addItem() {
-            const selectElement = document.getElementById('item-select');
-            const selectedItem = selectElement.options[selectElement.selectedIndex].text;
+            <label for="description">Description</label>
+            <textarea id="description" name="description" placeholder="Enter the description">{{ company.description }}</textarea>
             
-            const itemList = document.getElementById('item-list');
-            const listItem = document.createElement('li');
-            listItem.textContent = selectedItem;
-            
-            itemList.appendChild(listItem);
-        }
-    </script>
-</body>
+            <!-- Dropdown for selecting a company -->
+            <label for="company-select">Select a Company</label>
+            <select id="company-select" name="company-select" onchange="updateCompanyInfo()">
+                {% for company in companies %}
+                    <option value="{{ company.id }}">{{ company.name }}</option>
+                {% endfor %}
+            </select>
 
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+            <!-- Sub-Controls Selection -->
+            <h3>Select Sub-Controls for Auditing</h3>
+            {% for control in sub_controls_list %}
+                <label>
+                    <input type="checkbox" name="sub-controls" value="{{ control }}">
+                    {{ control }}
+                </label>
+            {% endfor %}
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    height: 100vh;
-}
+            <button type="submit" class="Generate-report">Save Changes</button>
+        </form>
+    </section>
+</main>
 
-header {
-    background-color: rgb(0, 0, 0);
-    padding: 10px 20px;
-    border-bottom: 1px solid #535353;
-}
+<script>
+    function updateCompanyInfo() {
+        // This function can be enhanced to dynamically update scope and description based on the selected company.
+        const companyId = document.getElementById('company-select').value;
+        // Fetch company details via an AJAX request, for instance, if you wish to populate scope and description dynamically
+    }
+</script>
 
-nav ul {
-    display: flex;
-    justify-content: space-between;
-    list-style: none;
-}
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-nav ul li {
-    margin-right: 15px;
-}
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        height: 100vh;
+    }
 
-nav ul li a,
-.login {
-    text-decoration: none;
-    color: black;
-    padding: 8px 12px;
-    border-radius: 5px; 
-    border: none;
-    background-color: #f4f4f4;
-    cursor: pointer;
-    border-color: 1px solid #ffffff;
-}
+    header {
+        background-color: rgb(0, 0, 0);
+        padding: 10px 20px;
+        border-bottom: 1px solid #535353;
+    }
 
-main {
-    display: flex;
-    align-items: flex-start; /* Align items to the top */
-    height: 50vh;
-    padding: 20px;
-}
+    nav ul {
+        display: flex;
+        justify-content: space-between;
+        list-style: none;
+    }
 
-.report-generation {
-    width: 1500px; /* Allow the form to take the full width */
-}
+    nav ul li {
+        margin-right: 15px;
+    }
 
-.report-generation h2 {
-    font-size: 26px;
-    margin-bottom: 20px;
-}
+    nav ul li a,
+    .login {
+        text-decoration: none;
+        color: black;
+        padding: 8px 12px;
+        border-radius: 5px; 
+        border: none;
+        background-color: #f4f4f4;
+        cursor: pointer;
+        border-color: 1px solid #ffffff;
+    }
 
-form {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 100%;
-    margin-left: 0; /* Align the form to the left */
-}
+    main {
+        display: flex;
+        align-items: flex-start; /* Align items to the top */
+        height: 50vh;
+        padding: 20px;
+    }
 
-form label {
-    display: block;
-    margin-bottom: 8px;
-}
+    .report-generation {
+        width: 1500px; /* Allow the form to take the full width */
+    }
 
-form select, form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #000000;
-    border-radius: 10px;
-}
+    .report-generation h2 {
+        font-size: 26px;
+        margin-bottom: 20px;
+    }
 
-form button {
-    padding: 10px;
-    background-color: black;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
+    form {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 100%;
+        margin-left: 0; /* Align the form to the left */
+    }
 
-#selected-items {
-    margin-top: 20px;
-}
+    form label {
+        display: block;
+        margin-bottom: 8px;
+    }
 
-footer {
-    background-color: white;
-    padding: 20px;
-    border-top: 1px solid #ddd;
-}
-</style>
+    form select, form textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #000000;
+        border-radius: 10px;
+    }
 
-</html>
-{% endblock %}
+    form button {
+        padding: 10px;
+        background-color: black;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    #selected-items {
+        margin-top: 20px;
+    }
+
+    footer {
+        background-color: white;
+        padding: 20px;
+        border-top: 1px solid #ddd;
+    }
+    </style>
+
+    </html>
+    {% endblock %}

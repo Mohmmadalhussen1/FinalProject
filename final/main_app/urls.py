@@ -14,5 +14,6 @@ urlpatterns = [
     path("scopedetails/", views.scopeanddetailspage, name="scope-and-detailspage"),
     path('signout/', views.signout_page, name='signout_page'),
     path("profile_page/", views.profile_page, name="profile_page"),
-
+    path('add_company/', views.add_company, name='add_company'),
+    
 ]

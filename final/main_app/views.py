@@ -10,6 +10,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
+from .models import Company  # Ensure this is here
 
 # Create your views here.
 # views.py
@@ -18,8 +19,59 @@ from django.contrib import messages
 def home_page(request):
     return render(request, 'main_app/home_page.html')
 
+# views.py
+from .models import Company
+from django.shortcuts import render, redirect
+
+def add_company(request):
+    if request.method == "POST":
+        name = request.POST.get('name')
+        description = request.POST.get('description', '')
+        contact_number = request.POST.get('contact_number')
+        scope = request.POST.get('scope', '')
+        details = request.POST.get('details', '')
+
+        new_company = Company(
+            name=name,
+            description=description,
+            contact_number=contact_number,
+            scope=scope,
+            details=details,
+        )
+        new_company.save()
+        return redirect("main_app:scope-and-detailspage")
+
+    return render(request, 'main_app/add_company.html')
+
+    
+    
 def scopeanddetailspage(request):
-    return render(request, 'main_app/scope-and-detailspage.html')
+    if request.method == "POST":
+        # Get selected company and updated values from the form
+        company_id = request.POST.get('company-select')
+        scope = request.POST.get('scope-comments')
+        description = request.POST.get('description')
+        sub_controls = request.POST.getlist('sub-controls')
+
+        # Update the company fields
+        company = Company.objects.get(id=company_id)
+        company.scope = scope
+        company.description = description
+        company.save()
+
+        # Save sub-controls (This depends on how you want to store them, possibly as JSON or in a related model)
+        # Assuming we add a many-to-many field or a JSON field in the Company model for sub-controls
+
+        # Redirect or re-render with a success message
+        return redirect('main_app:scope-and-detailspage')
+
+    # If GET request, retrieve companies
+    companies = Company.objects.all()
+    sub_controls_list = ["Control A", "Control B", "Control C"]  # Example list of sub-controls
+    return render(request, 'main_app/scope-and-detailspage.html', {
+        'companies': companies,
+        'sub_controls_list': sub_controls_list
+    })
 
 def sessions_page(request):
     return render(request, 'main_app/sessions_page.html')

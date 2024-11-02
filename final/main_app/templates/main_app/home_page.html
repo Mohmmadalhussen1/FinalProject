@@ -34,6 +34,7 @@
 
                 {% if request.user.is_authenticated%}
                 <li><a href="{% url 'main_app:policy_review' %}">Policy review</a></li>
+                <li><a href="{% url 'main_app:add_company' %}">Add Company</a></li>
                 <li><a href="{% url 'main_app:report_generation_page' %}">Report Generation</a></li>
                 <li><a href="{% url 'main_app:sessions_page' %}">Sessions Management</a></li>
                     <li>
