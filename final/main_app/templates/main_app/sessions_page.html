@@ -1,9 +1,9 @@
 {% extends 'main_app/home_page.html' %}
 {% load static %}
 {% block content %}
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,22 +13,17 @@
 
 <main>
     <section class="sessions">
-        <h2>Sessions</h2>
-        <p>This page has your active audit sessions.</p>
+        <!-- Dynamic title with company name -->
+        <h2>{{ company_name }} Sessions</h2>
+        <p>This page has your active audit sessions for {{ company_name }}.</p>
 
-        <!-- Session Cards -->
-        <div class="session-card" data-company="Company1">
-            <h3>Company1</h3>
-            <button class="audit-trail-btn">Audit Trail</button>
-        </div>
-        <div class="session-card" data-company="Company2">
-            <h3>Company2</h3>
-            <button class="audit-trail-btn">Audit Trail</button>
-        </div>
-        <div class="session-card" data-company="Company3">
-            <h3>Company3</h3>
-            <button class="audit-trail-btn">Audit Trail</button>
-        </div>
+        <!-- Dynamically generated session cards for each sub-control -->
+        {% for control in sub_controls %}
+            <div class="session-card" data-company="{{ control }}">
+                <h3>{{ control }}</h3>
+                <button class="audit-trail-btn">Audit Trail</button>
+            </div>
+        {% endfor %}
     </section>
 </main>
 
@@ -56,49 +51,6 @@
         <p id="upload-status" style="color:green;"></p>
     </div>
 </div>
-
-<!-- Evidence Viewer and Checklist -->
-<div id="evidence-viewer-section" class="evidence-viewer-section" style="display: none;">
-    <h3>Evidence Viewer for <span id="evidence-company-name"></span></h3>
-    <div class="viewer-container">
-        <iframe id="evidence-frame" width="700" height="750"></iframe>
-        <ul class="checklist">
-            <li><label><input type="checkbox"> Checklist Item 1</label></li>
-            <li><label><input type="checkbox"> Checklist Item 2</label></li>
-            <li><label><input type="checkbox"> Checklist Item 3</label></li>
-        </ul>
-    </div>
-</div>
-
-<footer>
-    <div class="footer-links">
-        <div class="column">
-            <h3>Use Cases</h3>
-            <ul>
-                <li><a href="#">UI Design</a></li>
-                <li><a href="#">UX Design</a></li>
-                <li><a href="#">Wireframing</a></li>
-                <li><a href="#">Diagramming</a></li>
-            </ul>
-        </div>
-        <div class="column">
-            <h3>Explore</h3>
-            <ul>
-                <li><a href="#">Design</a></li>
-                <li><a href="#">Prototyping</a></li>
-                <li><a href="#">Collaboration Features</a></li>
-            </ul>
-        </div>
-        <div class="column">
-            <h3>Resources</h3>
-            <ul>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Support</a></li>
-                <li><a href="#">Developers</a></li>
-            </ul>
-        </div>
-    </div>
-</footer>
 
 <script>
     var modal = document.getElementById("audit-trail-modal");
@@ -152,7 +104,7 @@
 </script>
 
 <style>
-    * {
+ * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -391,8 +343,7 @@ footer {
 
     .footer-links ul li {
         margin-bottom: 8px;
-    }
-</style>
+    }   </style>
 
 </html>
 {% endblock %}

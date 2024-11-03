@@ -19,6 +19,7 @@ from .models import Company  # Ensure this is here
 def home_page(request):
     return render(request, 'main_app/home_page.html')
 
+
 # views.py
 from .models import Company
 from django.shortcuts import render, redirect
@@ -39,7 +40,7 @@ def add_company(request):
             details=details,
         )
         new_company.save()
-        return redirect("main_app:scope-and-detailspage")
+        return redirect("main_app:sessions_page")
 
     return render(request, 'main_app/add_company.html')
 
@@ -59,11 +60,12 @@ def scopeanddetailspage(request):
         company.description = description
         company.save()
 
-        # Save sub-controls (This depends on how you want to store them, possibly as JSON or in a related model)
-        # Assuming we add a many-to-many field or a JSON field in the Company model for sub-controls
+        # Store selected company ID and sub-controls in the session
+        request.session['selected_company_id'] = company_id
+        request.session['selected_sub_controls'] = sub_controls
 
-        # Redirect or re-render with a success message
-        return redirect('main_app:scope-and-detailspage')
+        # Redirect to the sessions page
+        return redirect('main_app:sessions_page')
 
     # If GET request, retrieve companies
     companies = Company.objects.all()
@@ -73,8 +75,20 @@ def scopeanddetailspage(request):
         'sub_controls_list': sub_controls_list
     })
 
-def sessions_page(request):
-    return render(request, 'main_app/sessions_page.html')
+def audit_sessions(request):
+    # Retrieve selected company and sub-controls from the session
+    company_id = request.session.get('selected_company_id')
+    sub_controls = request.session.get('selected_sub_controls', [])
+
+    # Fetch the company details if company_id is available
+    company = Company.objects.get(id=company_id) if company_id else None
+    company_name = company.name if company else "No company selected"
+
+    return render(request, 'main_app/sessions_page.html', {
+        'company_name': company_name,
+        'sub_controls': sub_controls,
+    })
+
 
 def report_generation_page(request):
     return render(request, 'main_app/report_generation_page.html')
