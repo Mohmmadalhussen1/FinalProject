@@ -1,10 +1,7 @@
 {% extends 'main_app/home_page.html' %}
 {% load static %}
 {% block content %}
-
-<h1>Audit Report Generation</h1>
-
-<main>
+    <main>
     <section class="report-generation">
         <form id="reportForm" method="POST">
             {% csrf_token %}

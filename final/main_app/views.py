@@ -69,7 +69,7 @@ def scopeanddetailspage(request):
 
     # If GET request, retrieve companies
     companies = Company.objects.all()
-    sub_controls_list = ["Control A", "Control B", "Control C"]  # Example list of sub-controls
+    sub_controls_list = ["1-1 Cybersecurity Strategy", "1-2 Cybersecurity Management", "2-1 Asset Management","2-4 Email Protection","2-5 Network Security Management"]  # Example list of sub-controls
     return render(request, 'main_app/scope-and-detailspage.html', {
         'companies': companies,
         'sub_controls_list': sub_controls_list
@@ -89,6 +89,42 @@ def audit_sessions(request):
         'sub_controls': sub_controls,
     })
 
+# views.py
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from .models import Company, AuditFile
+from django.core.files.storage import default_storage
+
+def upload_audit_file(request):
+    if request.method == 'POST':
+        file = request.FILES['file']
+        company_id = request.POST['company_id']
+        sub_control = request.POST['sub_control']
+        
+        # Save file to the database (Assuming `AuditFile` model exists)
+        audit_file = AuditFile.objects.create(file=file, company_id=company_id, sub_control=sub_control)
+        
+        # Redirect to checklist page with file details
+        return redirect(reverse('main_app:checklist_page', args=[audit_file.id]))
+
+def checklist_page(request, audit_file_id):
+    audit_file = AuditFile.objects.get(id=audit_file_id)
+    return render(request, 'main_app/checklist_page.html', {
+        'uploaded_file_url': audit_file.file.url,
+        'company': audit_file.company,
+        'sub_control': audit_file.sub_control
+    })
+
+def save_checklist(request):
+    if request.method == 'POST':
+        company_id = request.POST['company_id']
+        sub_control = request.POST['sub_control']
+        status = request.POST['status']
+        
+        # Save status and other details as needed
+        # Code to update the sub-control status in the database
+        
+        return redirect('main_app:sessions')
 
 def report_generation_page(request):
     return render(request, 'main_app/report_generation_page.html')

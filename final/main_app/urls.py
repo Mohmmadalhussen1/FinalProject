@@ -16,4 +16,12 @@ urlpatterns = [
     path("profile_page/", views.profile_page, name="profile_page"),
     path('add_company/', views.add_company, name='add_company'),
     
+    # Upload Audit File
+    path('upload/', views.upload_audit_file, name='upload_audit_file'),
+    
+    # Checklist Page after file upload
+    path('checklist/<int:file_id>/', views.checklist_page, name='checklist_page'),
+    
+    # Save Checklist Status
+    path('save-checklist/', views.save_checklist, name='save_checklist'),
 ]

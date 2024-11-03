@@ -13,11 +13,9 @@
 
 <main>
     <section class="sessions">
-        <!-- Dynamic title with company name -->
-        <h2>{{ company_name }} Sessions</h2>
+        <h2>{{ company_name }} audit sessions</h2>
         <p>This page has your active audit sessions for {{ company_name }}.</p>
 
-        <!-- Dynamically generated session cards for each sub-control -->
         {% for control in sub_controls %}
             <div class="session-card" data-company="{{ control }}">
                 <h3>{{ control }}</h3>
@@ -27,27 +25,22 @@
     </section>
 </main>
 
-<!-- Audit Trail Popup Modal -->
 <div id="audit-trail-modal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
         <h3 id="modal-company-name"></h3>
-        
-        <!-- File Upload -->
-        <label for="evidence-upload">Upload Evidence</label>
-        <input type="file" id="evidence-upload" accept=".pdf, .docx, .txt">
-        
-        <!-- Dropdown Selection -->
-        <label for="audit-type">Select Audit Type</label>
-        <select id="audit-type">
-            <option value="">--Choose an option--</option>
-            <option value="Type1">Type 1</option>
-            <option value="Type2">Type 2</option>
-        </select>
-        
-        <div class="modal-actions">
-            <button id="view-evidence">View Evidence</button>
-        </div>
+
+        <form action="{% url 'main_app:upload_audit_file' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="company_id" value="{{ company.id }}">
+            <input type="hidden" name="sub_control" id="sub_control_field">
+
+            <!-- File Upload Only -->
+            <label for="evidence-upload">Upload Evidence</label>
+            <input type="file" name="file" id="evidence-upload" accept=".pdf, .docx, .txt" required>
+
+            <button type="submit">Submit</button>
+        </form>
         <p id="upload-status" style="color:green;"></p>
     </div>
 </div>
@@ -57,45 +50,24 @@
     var closeModal = document.getElementsByClassName("close")[0];
     var fileInput = document.getElementById("evidence-upload");
 
-    // Open modal on Audit Trail button click
     $('.audit-trail-btn').on('click', function() {
-        var companyName = $(this).closest('.session-card').data('company');
-        $('#modal-company-name').text(companyName);
+        var subControl = $(this).closest('.session-card').data('company');
+        $('#modal-company-name').text(subControl);
+        $('#sub_control_field').val(subControl);
         modal.style.display = "block";
     });
 
-    // Close modal
     closeModal.onclick = function() {
         modal.style.display = "none";
         resetUpload();
-    }
+    };
 
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";
             resetUpload();
         }
-    }
-
-    // Handle file upload display
-    $('#evidence-upload').on('change', function() {
-        var fileName = $(this).val().split('\\').pop();
-        $('#upload-status').text(fileName ? "Uploaded: " + fileName : "");
-    });
-
-    // View Evidence button action
-    document.getElementById("view-evidence").onclick = function() {
-        var file = fileInput.files[0];
-        if (file) {
-            var fileURL = URL.createObjectURL(file);
-            $('#evidence-frame').attr('src', fileURL);
-            $('#evidence-company-name').text($('#modal-company-name').text());
-            modal.style.display = "none";
-            $('#evidence-viewer-section').show();
-        } else {
-            alert("Please upload a file.");
-        }
-    }
+    };
 
     function resetUpload() {
         fileInput.value = '';
@@ -104,7 +76,7 @@
 </script>
 
 <style>
- * {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;

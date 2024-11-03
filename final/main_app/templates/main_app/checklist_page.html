@@ -1,0 +1,32 @@
+{% extends 'main_app/home_page.html' %}
+{% load static %}
+{% block content %}
+
+<div class="checklist-container">
+    <h2>Review Evidence for {{ sub_control }}</h2>
+
+    <!-- Display the uploaded file -->
+    <iframe src="{{ uploaded_file_url }}" width="600" height="400"></iframe>
+
+    <!-- Checklist Options -->
+    <form action="{% url 'main_app:save_checklist' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="company_id" value="{{ company.id }}">
+        <input type="hidden" name="sub_control" value="{{ sub_control }}">
+        
+        <label for="status">Implementation Status:</label>
+        <select name="status" id="status" required>
+            <option value="implemented">Implemented</option>
+            <option value="not_implemented">Not Implemented</option>
+            <option value="semi_implemented">Semi Implemented</option>
+        </select>
+
+        <button type="submit">Save</button>
+    </form>
+</div>
+
+<style>
+    /* Styling as needed */
+</style>
+
+{% endblock %}
