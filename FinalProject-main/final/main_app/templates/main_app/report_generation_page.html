@@ -1,0 +1,251 @@
+{% extends 'main_app/home_page.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audit Report Generation</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <main>
+        <section class="report-generation">
+            <h2>Generate Audit Report</h2>
+            <form id="report-form">
+                <label for="report-type">Report Type</label>
+                <select id="report-type" name="report-type" onchange="toggleDetails()">
+                    <option value="summary">Summary Report</option>
+                    <option value="detailed">Detailed Report</option>
+                </select>
+
+                <label for="comments">Comments</label>
+                <textarea id="comments" name="comments" placeholder="Enter any additional comments"></textarea>
+
+                <button type="button" onclick="generateReport()">Generate Report</button>
+            </form>
+
+            <!-- Detailed Report Section -->
+            <div id="detailed-section" class="hidden">
+                <h3>Select Subcontrols</h3>
+                <div class="subcontrol">
+                    <label>Subcontrol 1</label>
+                    <select>
+                        <option value="implemented">Implemented</option>
+                        <option value="partially">Partially Implemented</option>
+                        <option value="not">Not Implemented</option>
+                    </select>
+                </div>
+                <div class="subcontrol">
+                    <label>Subcontrol 2</label>
+                    <select>
+                        <option value="implemented">Implemented</option>
+                        <option value="partially">Partially Implemented</option>
+                        <option value="not">Not Implemented</option>
+                    </select>
+                </div>
+                <div class="subcontrol">
+                    <label>Subcontrol 3</label>
+                    <select>
+                        <option value="implemented">Implemented</option>
+                        <option value="partially">Partially Implemented</option>
+                        <option value="not">Not Implemented</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <div class="column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Support</a></li>
+                    <li><a href="#">Documentation</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleDetails() {
+            const reportType = document.getElementById("report-type").value;
+            const detailedSection = document.getElementById("detailed-section");
+            detailedSection.classList.toggle("hidden", reportType !== "detailed");
+        }
+    
+        function generateReport() {
+            const reportType = document.getElementById("report-type").value;
+            const comments = document.getElementById("comments").value;
+    
+            if (reportType === "summary") {
+                generatePDF(comments);
+            } else {
+                // Check that each subcontrol selection has a chosen option
+                const subcontrols = document.querySelectorAll("#detailed-section .subcontrol select");
+                let allSelected = true;
+    
+                subcontrols.forEach((select) => {
+                    if (select.value === "") {
+                        allSelected = false;
+                    }
+                });
+    
+                if (!allSelected) {
+                    alert("Please complete all detailed report selections.");
+                } else {
+                    // Call the function to generate the detailed report PDF
+                    generateDetailedPDF(comments, subcontrols);
+                }
+            }
+        }
+    
+        function generatePDF(comments) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+    
+            doc.text("Audit Report", 10, 10);
+            doc.text(`Comments: ${comments}`, 10, 20);
+            doc.save("summary_report.pdf");
+        }
+    
+        function generateDetailedPDF(comments, subcontrols) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+    
+            doc.text("Detailed Audit Report", 10, 10);
+            doc.text(`Comments: ${comments}`, 10, 20);
+    
+            // Add subcontrol selections to the PDF
+            let yPos = 30;
+            subcontrols.forEach((select, index) => {
+                doc.text(`Subcontrol ${index + 1}: ${select.value}`, 10, yPos);
+                yPos += 10;
+            });
+    
+            doc.save("detailed_report.pdf");
+        }
+    </script>
+    
+
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+header {
+    background-color: rgb(0, 0, 0);
+    padding: 10px 20px;
+    border-bottom: 1px solid #535353;
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+}
+
+nav ul li {
+    margin-right: 15px;
+}
+
+nav ul li a,
+.login {
+    text-decoration: none;
+    color: black;
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: none;
+    background-color: #f4f4f4;
+    cursor: pointer;
+    border-color: 1px solid #ffffff;
+}
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 40px;
+        }
+
+        .report-generation {
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        form label, .subcontrol label {
+            display: block;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        form select, form textarea, .subcontrol select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        form button {
+            padding: 10px;
+            background-color: black;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #detailed-section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            max-width: 500px;
+        }
+
+        .subcontrol {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        footer {
+            background-color: white;
+            padding: 20px;
+            border-top: 1px solid #ddd;
+        }
+    </style>
+</body>
+</html>
+{% endblock %}
