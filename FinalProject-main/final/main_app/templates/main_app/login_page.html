@@ -1,46 +1,68 @@
 {% extends 'main_app/home_page.html' %}
 {% load static %}
 {% block content %}
+<html lang="en"><head>
+    <title>Login 10</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<body class="main-bg">
-    <div class="login-container text-c animated flipInX">
-        <div>
-            <h1 class="logo-badge text-whitesmoke"><span class="fa fa-user-circle"></span></h1>
-        </div>
-        <h3 class="text-whitesmoke">Sign In Template</h3>
-        <p class="text-whitesmoke">Sign In</p>
-        <div class="container-content">
-            <div id="login-form">
-                <form action="{% url 'main_app:login_page' %}" method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&amp;display=swap" rel="stylesheet">
 
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+  <link rel="stylesheet" href={% static '/cs/style.css' %}>
+
+  </head>
+  <body class="img js-fullheight" style="background-image: url(&quot;{% static '/images/bg.png' %}&quot;); height: 1313px;">
+  <section class="ftco-section">
+      <div class="container">
+          <div class="row justify-content-center">
+              <div class="col-md-6 text-center mb-5">
+                  
+              </div>
+          </div>
+          <div class="row justify-content-center">
+              <div class="col-md-6 col-lg-4">
+                  <div class="login-wrap p-0">
+                <h3 class="mb-4 text-center">Have an account?</h3>
+                <form action="{% url 'main_app:login_page' %}" method="POST" enctype="multipart/form-data" class="signin-form">
+                    {% csrf_token %}   
                     <div class="form-group">
-                        <input type="text" class="form-control" name="username" placeholder="Username" required>
-
+                        <input text class="form-control" name="username" placeholder="Username" required wfd-id="id0">
                     </div>
-                    <div class="container-content">
-                        <div class="form-group">
-                            <input type="password" class="form-control" name="password" placeholder="*****" required>
-                            {% if msg %}
-                            <p style="color:red;">{{msg}}</p>
-                            {% endif %}
-                            <p><a href="javascript:void(0)">Forgotten Account?</a></p>
-                        </div>
-                    </div>
-            </div>
-            <input type="hidden" id="token" name="token" value="">
-            <button type="submit" class="btn login">Sign In</button>
-
-
-            <a class="text-darkyellow" href="#"><small>Forgot your password?</small></a>
-            <p class="text-whitesmoke text-center"><small>Do not have an account?</small></p>
-            <a class="text-darkyellow" href="{% url 'main_app:sign_up_page' %}"><small>Sign Up</small></a>
+              <div class="form-group">
+                <input id="password-field" type="password" class="form-control" name="password" placeholder="*****" wfd-id="id1">
+                <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+              </div>
+              {% if msg %}
+              <p style="color:red;">{{msg}}</p>
+              {% endif %}
+              <input type="hidden" id="token" name="token" value="">
+              <div class="form-group">
+                  <button type="submit" class="form-control btn btn-primary submit px-3">Sign In</button>
+              </div>
+              <div class="form-group d-md-flex">
+                  <div class="w-50">
+                      <label class="checkbox-wrap checkbox-primary">Remember Me
+                                    <input type="checkbox" checked="" wfd-id="id2">
+                                    <span class="checkmark"></span>
+                                  </label>
+                              </div>
+                            
+              </div>
+              dont have an account <a href="{% url 'main_app:sign_up_page' %}" >sign up here !</a>
             </form>
-            <p class="margin-t text-whitesmoke"><small>Your Name &copy; 2018</small> </p>
-        </div>
-    </div>
-</body>
-<script>
+            <p class="w-100 text-center">— Or Sign In With —</p>
+            <div class="social d-flex text-center">
+                <a href="#" class="px-2 py-2 mr-md-1 rounded"><span class="ion-logo-facebook mr-2"></span> Google</a>
+                <a href="#" class="px-2 py-2 ml-md-1 rounded"><span class="ion-logo-twitter mr-2"></span> facebook</a>
+            </div>
+            </div>
+              </div>
+          </div>
+      </div>
+  </section>
+  <script>
     var form = document.getElementById('form-container');
     form.addEventListener('submit', function (event) {
         event.preventDefault();
@@ -62,376 +84,16 @@
         });
     });
 </script>
-<style>
-    html {
-        height: 100%;
-    }
+<script src= {% static '/js/jquery.min.js' %}></script>
+<script src={% static "/js/popper.js" %}></script>
+<script src={% static "/js/bootstrap.min.js" %}></script>
+<script src={% static "/js/main.js" %}></script>
 
-    body {
-        height: 100%;
-        margin: 0;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-    }
+  <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;rayId&quot;:&quot;8de642426b69b984&quot;,&quot;serverTiming&quot;:{&quot;name&quot;:{&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfSpeedBrain&quot;:true,&quot;cfCacheStatus&quot;:true}},&quot;version&quot;:&quot;2024.10.4&quot;,&quot;token&quot;:&quot;cd0b4b3a733644fc843ef0b185f98241&quot;}" crossorigin="anonymous"></script>
 
-    /* Text Align */
-    .text-c {
-        text-align: center;
-    }
 
-    .text-l {
-        text-align: left;
-    }
-
-    .text-r {
-        text-align: right
-    }
-
-    .text-j {
-        text-align: justify;
-    }
-
-    /* Text Color */
-    .text-whitesmoke {
-        color: rgb(0, 0, 0)
-    }
-
-    .text-darkyellow {
-        color: rgba(244, 243, 233, 0.432)
-    }
-
-    /* Lines */
-
-    .line-b {
-        border-bottom: 1px solid #090800 !important;
-    }
-
-    /* Buttons */
-    .button {
-        border-radius: 3px;
-    }
-
-    .form-button {
-        background-color: rgb(86, 86, 86);
-        border-color: rgb(0, 0, 0);
-        color: #e6e6e6;
-    }
-
-    .form-button:hover,
-    .form-button:focus,
-    .form-button:active,
-    .form-button.active,
-    .form-button:active:focus,
-    .form-button:active:hover,
-    .form-button.active:hover,
-    .form-button.active:focus {
-        background-color: rgb(148, 148, 148);
-        border-color: rgb(255, 255, 255);
-        color: #e6e6e6;
-    }
-
-    .button-l {
-        width: 100% !important;
-    }
-
-    /* Margins g(global) - l(left) - r(right) - t(top) - b(bottom) */
-
-    .margin-g {
-        margin: 15px;
-    }
-
-    .margin-g-sm {
-        margin: 10px;
-    }
-
-    .margin-g-md {
-        margin: 20px;
-    }
-
-    .margin-g-lg {
-        margin: 30px;
-    }
-
-    .margin-l {
-        margin-left: 15px;
-    }
-
-    .margin-l-sm {
-        margin-left: 10px;
-    }
-
-    .margin-l-md {
-        margin-left: 20px;
-    }
-
-    .margin-l-lg {
-        margin-left: 30px;
-    }
-
-    .margin-r {
-        margin-right: 15px;
-    }
-
-    .margin-r-sm {
-        margin-right: 10px;
-    }
-
-    .margin-r-md {
-        margin-right: 20px;
-    }
-
-    .margin-r-lg {
-        margin-right: 30px;
-    }
-
-    .margin-t {
-        margin-top: 15px;
-    }
-
-    .margin-t-sm {
-        margin-top: 10px;
-    }
-
-    .margin-t-md {
-        margin-top: 20px;
-    }
-
-    .margin-t-lg {
-        margin-top: 30px;
-    }
-
-    .margin-b {
-        margin-bottom: 15px;
-    }
-
-    .margin-b-sm {
-        margin-bottom: 10px;
-    }
-
-    .margin-b-md {
-        margin-bottom: 20px;
-    }
-
-    .margin-b-lg {
-        margin-bottom: 30px;
-    }
-
-    /* Bootstrap Form Control Extension */
-
-    .form-control,
-    .border-line {
-        background-color: #ffffff;
-        background-image: none;
-        border: 1px solid #000000;
-        border-radius: 1px;
-        color: inherit;
-        display: block;
-        padding: 6px 12px;
-        transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
-        width: 100%;
-    }
-
-    .form-control:focus,
-    .border-line:focus {
-        border-color: #000000;
-        background-color: #ffffff;
-        color: #000000;
-    }
-
-    .form-control,
-    .form-control:focus {
-        box-shadow: none;
-    }
-
-    .form-control::-webkit-input-placeholder {
-        color: #0b0a0a;
-    }
-
-    /* Container */
-
-    .container-content {
-        background-color: #3a3a3aa2;
-        color: inherit;
-        padding: 15px 20px 20px 20px;
-        border-color: #ffffff;
-        border-image: none;
-        border-style: solid solid none;
-        border-width: 1px 0;
-    }
-
-    /* Backgrounds */
-
-    .main-bg {
-
-        background: #424242;
-        background: linear-gradient(#424242, #212121);
-    }
-
-    /* Login & Register Pages*/
-
-    .login-container {
-        max-width: 400px;
-        z-index: 100;
-        margin: 0 auto;
-        padding-top: 100px;
-    }
-
-    .login.login-container {
-        width: 300px;
-    }
-
-    .wrapper.login-container {
-        margin-top: 140px;
-    }
-
-    .logo-badge {
-        color: #e6e6e6;
-        font-size: 80px;
-        font-weight: 800;
-        letter-spacing: -10px;
-        margin-bottom: 0;
-    }
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body {
-        font-family: Arial, sans-serif;
-        line-height: 1.6;
-        background-color: #61616183;
-    }
-
-    header {
-        background-color: rgb(0, 0, 0);
-        padding: 10px 20px;
-        border-bottom: 1px solid #535353;
-    }
-
-    nav ul {
-        display: flex;
-        justify-content: space-between;
-        list-style: none;
-    }
-
-    nav ul li {
-        margin-right: 15px;
-    }
-
-    nav ul li a,
-    .login {
-        text-decoration: none;
-        color: black;
-        padding: 8px 12px;
-        border-radius: 5px;
-        border: none;
-        background-color: #f4f4f4;
-        cursor: pointer;
-        border-color: 1px solid #ffffff;
-    }
-
-
-    main {
-        padding: 20px;
-    }
-
-    .nca-section {
-        background-color: white;
-        padding: 30px;
-        border-radius: 10px;
-        margin-bottom: 40px;
-    }
-
-    .nca-section h2 {
-        font-size: 26px;
-        margin-bottom: 20px;
-    }
-
-    .nca-section p {
-        margin-bottom: 20px;
-    }
-
-    .services {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .service {
-        text-align: center;
-        width: 23%;
-    }
-
-    .service h4 {
-        margin: 10px 0;
-    }
-
-    .our-services {
-        margin-top: 30px;
-    }
-
-    .our-services ul {
-        list-style: none;
-    }
-
-    .our-services li {
-        margin-bottom: 10px;
-    }
-
-    .support {
-        margin-bottom: 40px;
-    }
-
-    .support form {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .support input,
-    .support textarea {
-        margin-bottom: 15px;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-
-    .support button {
-        padding: 10px;
-        background-color: black;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    footer {
-        background-color: white;
-        padding: 20px;
-        border-top: 1px solid #ddd;
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .footer-links {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-    }
-
-    .footer-links .column {
-        width: 30%;
-    }
-
-    .footer-links h3 {
-        margin-bottom: 10px;
-    }
-
-    .footer-links ul {
-        list-style: none;
-    }
-
-    .footer-links ul li {
-        margin-bottom: 10px;
-    }
 </style>
+
+</body>
+</html>
 {% endblock content %}

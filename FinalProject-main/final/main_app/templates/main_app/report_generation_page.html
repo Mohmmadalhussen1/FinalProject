@@ -25,7 +25,20 @@
 
                 <button type="button" onclick="generateReport()">Generate Report</button>
             </form>
-
+            <div class="hero-figure anime-element">
+                <svg class="placeholder" width="528" height="396" viewBox="0 0 528 396">
+                    <rect width="528" height="396" style="fill:transparent;" />
+                </svg>
+                <div class="hero-figure-box hero-figure-box-01" data-rotation="45deg"></div>
+                <div class="hero-figure-box hero-figure-box-02" data-rotation="-45deg"></div>
+                <div class="hero-figure-box hero-figure-box-03" data-rotation="0deg"></div>
+                <div class="hero-figure-box hero-figure-box-04" data-rotation="-135deg"></div>
+                <div class="hero-figure-box hero-figure-box-05"></div>
+                <div class="hero-figure-box hero-figure-box-06"></div>
+                <div class="hero-figure-box hero-figure-box-07"></div>
+                <div class="hero-figure-box hero-figure-box-08" data-rotation="-22deg"></div>
+                <div class="hero-figure-box hero-figure-box-10" data-rotation="-50deg"></div>
+            </div>
             <!-- Detailed Report Section -->
             <div id="detailed-section" class="hidden">
                 <h3>Select Subcontrols</h3>
@@ -132,50 +145,11 @@
 
     <style>
         * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-
-header {
-    background-color: rgb(0, 0, 0);
-    padding: 10px 20px;
-    border-bottom: 1px solid #535353;
-}
-
-nav ul {
-    display: flex;
-    justify-content: space-between;
-    list-style: none;
-}
-
-nav ul li {
-    margin-right: 15px;
-}
-
-nav ul li a,
-.login {
-    text-decoration: none;
-    color: black;
-    padding: 8px 12px;
-    border-radius: 5px;
-    border: none;
-    background-color: #f4f4f4;
-    cursor: pointer;
-    border-color: 1px solid #ffffff;
-}
-
-        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-        }
 
         main {
             display: flex;
@@ -192,7 +166,7 @@ nav ul li a,
         }
 
         form {
-            background-color: white;
+            background-color: rgb(78, 78, 78);
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -227,7 +201,7 @@ nav ul li a,
         }
 
         #detailed-section {
-            background-color: #fff;
+            background-color: #505050;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -239,7 +213,7 @@ nav ul li a,
             margin-bottom: 15px;
             text-align: left;
         }
-
+        
         footer {
             background-color: white;
             padding: 20px;

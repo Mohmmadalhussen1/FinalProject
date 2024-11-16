@@ -17,6 +17,10 @@ class Company(models.Model):
 
     def __str__(self):
         return self.name
+# models.py
+class SubControl(models.Model):
+    name = models.CharField(max_length=255)
+    # Other fields as required
 
 class AuditFile(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
@@ -29,8 +33,8 @@ class AuditFile(models.Model):
             ('not_implemented', 'Not Implemented'),
             ('semi_implemented', 'Semi Implemented')
         ],
-        null=True,  # Allow null to enable setting this later
-        blank=True  # Allow blank to skip this on file upload
+        null=True,
+        blank=True
     )
     uploaded_at = models.DateTimeField(auto_now_add=True)
 

@@ -1,30 +1,28 @@
+# Create your views here.
+# views.py
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpRequest, HttpResponse
 from django.contrib.auth.models import User, Permission, Group
 from django.contrib.auth import authenticate, login, logout
-from .models import Profile, Company, AuditFile  # Make sure to include all necessary models
-from django.contrib.auth.decorators import login_required
+from .models import Profile, Company, AuditFile  
 from django.urls import reverse
-from django.http import JsonResponse
-
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
-from django.contrib.auth.models import User, Permission, Group
 from django.contrib.auth import authenticate, login, logout
-from .models import Profile
-from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
-from django.contrib import messages
 from .models import Company  # Ensure this is here
+from django.views.decorators.csrf import csrf_protect
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from .models import Company, AuditFile
+from django.db import IntegrityError
+from django.http import JsonResponse
+from .models import SubControl
 
-# Create your views here.
-# views.py
-
-
+@csrf_protect
 def home_page(request):
     return render(request, 'main_app/home_page.html')
 
@@ -34,6 +32,7 @@ from .models import Company
 from django.shortcuts import render, redirect
 
 def add_company(request):
+     # Get the company information and save the company 
     if request.method == "POST":
         name = request.POST.get('name')
         description = request.POST.get('description', '')
@@ -91,92 +90,101 @@ def audit_sessions(request):
     company = Company.objects.get(id=company_id) if company_id else None
     company_name = company.name if company else "No company selected"
 
+    # Fetch all audit files grouped by sub-control
+    sub_controls_with_files = []
+    for control in sub_controls:
+        files = AuditFile.objects.filter(company=company, sub_control=control)
+        sub_controls_with_files.append({
+            'name': control,
+            'files': files  # Include all files for the sub-control
+        })
+
     return render(request, 'main_app/sessions_page.html', {
         'company_name': company_name,
-        'sub_controls': sub_controls,
-        'company': company  # Pass company to context
+        'sub_controls_with_files': sub_controls_with_files,
+        'company': company
     })
 
+def remove_audit_file(request, file_id):
+    file = AuditFile.objects.get(id=file_id)
+    file.delete()
+    return redirect('main_app:sessions_page')
+    
+# List of sub-controls
+sub_controls_list = [
+    "1-1 Cybersecurity Strategy",
+    "1-2 Cybersecurity Management",
+    "2-1 Asset Management",
+    "2-4 Email Protection",
+    "2-5 Network Security Management"
+]
 
-# views.py
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from .models import Company, AuditFile
-from django.core.files.storage import default_storage
-
-def upload_audit_file(request):
-    if request.method == 'POST':
+def upload_audit_files(request):
+    if request.method == 'POST' and request.FILES.get('files'):
         company_id = request.POST.get('company_id')
         sub_control = request.POST.get('sub_control')
-        file = request.FILES.get('file')
 
-        if not company_id:
-            return HttpResponse("Company ID is missing.", status=400)
-        
-        if not sub_control:
-            return HttpResponse("Sub-control is missing.", status=400)
-        
-        if not file:
-            return HttpResponse("File is missing.", status=400)
+        # Ensure that the sub_control exists in the predefined list
+        if sub_control not in sub_controls_list:
+            return HttpResponse("Invalid sub-control", status=400)
 
-        # Use get_object_or_404 to fetch the Company object
-        company = get_object_or_404(Company, id=company_id)
+        # Retrieve the company instance based on company_id
+        company = Company.objects.get(id=company_id)
 
-        # Save the file to AuditFile model
-        audit_file = AuditFile.objects.create(
-            company=company,
-            sub_control=sub_control,
-            file=file,
-            status='not_implemented'  # Default status for new uploads
-        )
+        # Process the uploaded files
+        uploaded_files = request.FILES.getlist('files')
+        for uploaded_file in uploaded_files:
+            # Create an AuditFile object and save each file
+            AuditFile.objects.create(
+                company=company,
+                sub_control=sub_control,
+                file=uploaded_file,
+                status='pending'  # Assuming 'pending' is the default status
+            )
 
-        return redirect(reverse('main_app:checklist_page', args=[audit_file.id]))
-    else:
-        return HttpResponse("Invalid request method.", status=405)
+        # Redirect to checklist page with company_id and sub_control to show uploaded files
+        return redirect('main_app:checklist_page', company_id=company_id, sub_control=sub_control)
 
+    return HttpResponse("Invalid request", status=400)
+    
+def checklist_page(request, company_id, sub_control):
+    # Retrieve the company instance
+    company = get_object_or_404(Company, id=company_id)
 
-def checklist_page(request, audit_file_id):
-    # Retrieve the uploaded audit file and related data for the checklist page
-    audit_file = get_object_or_404(AuditFile, id=audit_file_id)
+    # Get the files associated with the given company and sub-control
+    audit_files = AuditFile.objects.filter(company=company, sub_control=sub_control)
+
     return render(request, 'main_app/checklist_page.html', {
-        'uploaded_file_url': audit_file.file.url,
-        'company': audit_file.company,
-        'sub_control': audit_file.sub_control
+        'company': company,
+        'sub_control': sub_control,
+        'audit_files': audit_files
     })
-
 
 def save_checklist(request):
     if request.method == 'POST':
-        company_id = request.POST.get('company_id')
-        sub_control = request.POST.get('sub_control')
+        file_id = request.POST.get('file_id')
         status = request.POST.get('status')
 
-        # Validate input data
-        if not company_id or not sub_control or not status:
-            return HttpResponse("Required data is missing.", status=400)
+        # Find the AuditFile and update its status
+        audit_file = AuditFile.objects.get(id=file_id)
+        audit_file.status = status
+        audit_file.save()
 
-        # Update the status for the relevant sub-control in AuditFile
-        audit_file = AuditFile.objects.filter(
-            company_id=company_id,
-            sub_control=sub_control
-        ).first()
+        # Redirect back to the checklist page after saving the status
+        return redirect('main_app:checklist_page', company_id=audit_file.company.id, sub_control=audit_file.sub_control)
 
-        if audit_file:
-            audit_file.status = status
-            audit_file.save()
-
-        return redirect('main_app:sessions')  # Redirect to sessions page
-    return HttpResponse("Invalid request method.", status=405)
-
+    return redirect('main_app:home')  # Fallback, in case the request isn't POST
+    
+@csrf_protect
 def report_generation_page(request):
     return render(request, 'main_app/report_generation_page.html')
-
+@csrf_protect
 def policy_review(request):
     return render(request, 'main_app/policy_review.html')
-
+@csrf_protect
 def tree_page(request):
     return render(request, 'main_app/tree.html')
-
+@csrf_protect
 def login_page(request: HttpRequest):
     if request.user.is_authenticated:
         print(request.user.username)
@@ -198,7 +206,7 @@ def login_page(request: HttpRequest):
 
     return render(request, "main_app/login_page.html", {"msg": msg})
 
-
+@csrf_protect
 def sign_up_page(request):
     if request.method == 'POST':
         username = request.POST['user_name']
@@ -221,11 +229,12 @@ def sign_up_page(request):
 
     return render(request, 'main_app/sign_up_page.html')
 
-
+@csrf_protect
 def signout_page(request):
     logout(request)
     return redirect('main_app:login_page')  # Redirect to login page after sign out
 
+@csrf_protect
 def profile_page(request:HttpRequest):
 
         #Show each  data inside the model in thier ID
