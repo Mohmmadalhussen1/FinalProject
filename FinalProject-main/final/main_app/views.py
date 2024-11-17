@@ -21,11 +21,110 @@ from .models import Company, AuditFile
 from django.db import IntegrityError
 from django.http import JsonResponse
 from .models import SubControl
+from django.shortcuts import render
+from django.http import HttpResponse
+from .models import Company, AuditFile
+from io import BytesIO
+from django.template.loader import render_to_string
+from xhtml2pdf import pisa  # You can use a PDF library like xhtml2pdf for easier HTML-to-PDF conversion.
 
 @csrf_protect
 def home_page(request):
     return render(request, 'main_app/home_page.html')
 
+
+from django.http import JsonResponse
+from .models import Company, AuditFile
+
+from django.http import JsonResponse
+from .models import Company, AuditFile
+
+# In views.py
+from django.http import JsonResponse
+
+# In views.py
+from django.http import JsonResponse
+from .models import SubControl, AuditFile
+
+def fetch_subcontrols(request):
+    company_id = request.GET.get('company_id')
+    print(f"Fetching sub-controls for company_id: {company_id}")  # Debug line
+    subcontrols = SubControl.objects.filter(company_id=company_id)
+    subcontrol_data = []
+    for subcontrol in subcontrols:
+        files = AuditFile.objects.filter(sub_control=subcontrol)
+        subcontrol_data.append({
+            'name': subcontrol.name,
+            'files': [{'file': file.file.url, 'status': file.status, 'id': file.id} for file in files]
+        })
+    print(f"Sub-controls data: {subcontrol_data}")  # Debug line
+    return JsonResponse({'subcontrols': subcontrol_data})
+
+
+def generate_report_page(request):
+    # Fetch the company (assuming a single company or the one currently logged in)
+    company = Company.objects.first()  # Replace with logic to fetch the correct company
+    sub_controls = AuditFile.objects.filter(company=company)  # Fetch sub-controls for the company
+
+    # Pass the data to the template
+    context = {
+        "company": company,
+        "sub_controls": sub_controls,
+    }
+    return render(request, "generate_report.html", context)
+
+
+def generate_summary_pdf(company, comments):
+    html_content = render_to_string("summary_template.html", {
+        'company': company,
+        'comments': comments
+    })
+    
+    response = HttpResponse(content_type="application/pdf")
+    response['Content-Disposition'] = 'attachment; filename="summary_report.pdf"'
+    
+    pisa_status = pisa.CreatePDF(html_content, dest=response)
+    
+    return response
+
+def generate_detailed_report(request):
+    if request.method == "POST":
+        # Fetch user inputs (replace these keys with your actual form/input names)
+        company_name = request.POST.get("company_name")
+        description = request.POST.get("description")
+        scope = request.POST.get("scope")
+        subcontrols = request.POST.getlist("subcontrols")  # List of subcontrol names
+        statuses = request.POST.getlist("statuses")  # Corresponding statuses for subcontrols
+
+        # Prepare context for the template
+        context = {
+            "company_name": company_name,
+            "description": description,
+            "scope": scope,
+            "subcontrols": zip(subcontrols, statuses),
+        }
+
+        # Render the HTML content
+        html_content = render_to_string("detailed_report_template.html", context)
+
+        # Generate PDF
+        response = HttpResponse(content_type="application/pdf")
+        response["Content-Disposition"] = 'inline; filename="detailed_report.pdf"'
+        pisa_status = pisa.CreatePDF(BytesIO(html_content.encode("utf-8")), dest=response)
+
+        if pisa_status.err:
+            return HttpResponse("Error generating PDF", status=500)
+        return response
+
+    # Render the form page if GET request
+    return render(request, "generate_report_form.html")
+    
+    response = HttpResponse(content_type="application/pdf")
+    response['Content-Disposition'] = 'attachment; filename="detailed_report.pdf"'
+    
+    pisa_status = pisa.CreatePDF(html_content, dest=response)
+    
+    return response
 
 # views.py
 from .models import Company
@@ -177,7 +276,17 @@ def save_checklist(request):
     
 @csrf_protect
 def report_generation_page(request):
-    return render(request, 'main_app/report_generation_page.html')
+    company = Company.objects.first()  # Fetch the first company
+    if not company:
+        return HttpResponse("No company found.", status=404)
+
+    subcontrols = AuditFile.objects.filter(company=company)
+    context = {
+        "company": company,
+        "subcontrols": subcontrols,
+    }
+    return render(request, "main_app/report_generation_page.html", context)
+
 @csrf_protect
 def policy_review(request):
     return render(request, 'main_app/policy_review.html')

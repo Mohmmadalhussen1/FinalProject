@@ -5,8 +5,25 @@
 <main>
     <section class="sessions">
         <h2>{{ company_name }} Audit Sessions</h2>
-        <p>This page has your active audit sessions for {{ company_name }}.</p>
+        <p>This page shows your active audit sessions for {{ company_name }}.</p>
 
+        <!-- Dropdown to select company -->
+        <label for="company-select">Choose a company to audit:</label>
+        <select id="company-select">
+            <option value="">Select a company</option>
+            {% for company in companies %}
+                <option value="{{ company.id }}">{{ company.name }}</option>
+            {% endfor %}
+        </select>
+
+        <div id="subcontrols-container">
+            <h3>Sub-controls</h3>
+            <div id="subcontrols-list">
+                <!-- Sub-controls will be populated here based on selected company -->
+            </div>
+        </div>
+
+        <!-- Existing session cards showing sub-control details -->
         {% for control_info in sub_controls_with_files %}
         <div class="session-card" data-sub-control="{{ control_info.name }}">
             <h3>{{ control_info.name }}</h3>
@@ -55,42 +72,88 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
-        var modal = $('#audit-trail-modal');
-        var fileInput = $('#evidence-upload');
+        // Handle company selection
+        $('#company-select').on('change', function() {
+            var companyId = $(this).val();
+            if (companyId) {
+                loadSubcontrols(companyId);
+            } else {
+                $('#subcontrols-list').empty();
+            }
+        });
+
+        // Function to load subcontrols based on selected company
+       function loadSubcontrols(companyId) {
+    $.ajax({
+        url: "{% url 'main_app:fetch_subcontrols' %}",
+        method: "GET",
+        data: { company_id: companyId },
+        success: function(response) {
+            $('#subcontrols-list').empty();  // Clear existing subcontrols
+            if (response.subcontrols.length > 0) {
+                response.subcontrols.forEach(function(subcontrol) {
+                    var subcontrolHtml = `
+                        <div class="session-card" data-sub-control="${subcontrol.name}">
+                            <h3>${subcontrol.name}</h3>
+                            <ul>
+                                ${subcontrol.files.length > 0 ? subcontrol.files.map(function(file) {
+                                    return `
+                                        <li>
+                                            <a href="${file.file.url}" target="_blank">${file.file.name}</a>
+                                            (Status: ${file.status})
+                                            <!-- Remove button form -->
+                                            <form method="POST" action="/remove_audit_file/${file.id}/">
+                                                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                                                <button type="submit">Remove</button>
+                                            </form>
+                                        </li>
+                                    `;
+                                }).join('') : '<p>No evidence uploaded yet.</p>'}
+                            </ul>
+                            <button class="upload-evidence-btn">Upload Additional Evidence</button>
+                        </div>
+                    `;
+                    $('#subcontrols-list').append(subcontrolHtml);
+                });
+            } else {
+                $('#subcontrols-list').append('<p>No subcontrols found for this company.</p>');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("Error loading subcontrols:", error);
+        }
+    });
+}
+
 
         // Open modal when the "Upload Additional Evidence" button is clicked
         $('.upload-evidence-btn').on('click', function() {
             var subControl = $(this).closest('.session-card').data('sub-control');
             $('#modal-company-name').text("Upload Evidence for " + subControl);
             $('#sub_control_field').val(subControl);
-            modal.fadeIn(); // Fade in modal instead of show() for smoother transition
+            $('#audit-trail-modal').fadeIn(); // Fade in modal instead of show() for smoother transition
         });
 
         // Close modal when the "x" is clicked
         $('.close').on('click', function() {
-            modal.fadeOut(); // Fade out the modal when closing
+            $('#audit-trail-modal').fadeOut();
             resetUpload();
         });
 
         // Close modal when clicking outside the modal content
         $(window).on('click', function(event) {
-            if ($(event.target).is(modal)) {
-                modal.fadeOut();
+            if ($(event.target).is('#audit-trail-modal')) {
+                $('#audit-trail-modal').fadeOut();
                 resetUpload();
             }
         });
 
         // Reset the form and status after closing the modal
         function resetUpload() {
-            fileInput.val('');
+            $('#evidence-upload').val('');
             $('#upload-status').text('');
         }
     });
-
-    // You can display upload status dynamically here if needed
-    function showUploadStatus(status) {
-        $('#upload-status').text(status);
-    }
 </script>
 
 <style>

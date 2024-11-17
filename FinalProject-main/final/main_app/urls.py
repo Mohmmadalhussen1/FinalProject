@@ -21,6 +21,8 @@ urlpatterns = [
     path('checklist/<int:company_id>/<str:sub_control>/', views.checklist_page, name='checklist_page'),
     path('remove_audit_file/<int:file_id>/', views.remove_audit_file, name='remove_audit_file'),
     path('upload_audit_files/', views.upload_audit_files, name='upload_audit_files'),
+    path('fetch_subcontrols/', views.fetch_subcontrols, name='fetch_subcontrols'),
+
     # Save Checklist Status
     path('save-checklist/', views.save_checklist, name='save_checklist'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

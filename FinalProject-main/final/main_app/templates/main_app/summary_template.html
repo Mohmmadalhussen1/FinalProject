@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Generate Detailed Report</title>
+</head>
+<body>
+    <h1>Generate Detailed GAP Assessment Report</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="company_name">Company Name:</label>
+        <input type="text" id="company_name" name="company_name" required>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required></textarea>
+
+        <label for="scope">Scope:</label>
+        <textarea id="scope" name="scope" required></textarea>
+
+        <h3>Subcontrols</h3>
+        <div id="subcontrols">
+            <div>
+                <input type="text" name="subcontrols" placeholder="Subcontrol Name" required>
+                <select name="statuses" required>
+                    <option value="Implemented">Implemented</option>
+                    <option value="Partially Implemented">Partially Implemented</option>
+                    <option value="Not Implemented">Not Implemented</option>
+                    <option value="Not Applicable">Not Applicable</option>
+                </select>
+            </div>
+        </div>
+        <button type="button" onclick="addSubcontrol()">Add Subcontrol</button>
+        <button type="submit">Generate Report</button>
+    </form>
+
+    <script>
+        function addSubcontrol() {
+            const subcontrolsDiv = document.getElementById('subcontrols');
+            const newSubcontrol = document.createElement('div');
+            newSubcontrol.innerHTML = `
+                <input type="text" name="subcontrols" placeholder="Subcontrol Name" required>
+                <select name="statuses" required>
+                    <option value="Implemented">Implemented</option>
+                    <option value="Partially Implemented">Partially Implemented</option>
+                    <option value="Not Implemented">Not Implemented</option>
+                    <option value="Not Applicable">Not Applicable</option>
+                </select>`;
+            subcontrolsDiv.appendChild(newSubcontrol);
+        }
+    </script>
+</body>
+</html>

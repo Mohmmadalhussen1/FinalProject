@@ -13,60 +13,39 @@
     <main>
         <section class="report-generation">
             <h2>Generate Audit Report</h2>
-            <form id="report-form">
-                <label for="report-type">Report Type</label>
-                <select id="report-type" name="report-type" onchange="toggleDetails()">
-                    <option value="summary">Summary Report</option>
-                    <option value="detailed">Detailed Report</option>
-                </select>
 
-                <label for="comments">Comments</label>
+            <!-- Display company information -->
+            <div id="company-info">
+                <h3>Company Information</h3>
+                <p><strong>Name:</strong> {{ company.name }}</p>
+                <p><strong>Description:</strong> {{ company.description }}</p>
+                <p><strong>Contact Number:</strong> {{ company.contact_number }}</p>
+            </div>
+
+            <form id="report-form">
+                <h3>Subcontrols</h3>
+                <div id="subcontrols-list">
+                    {% for subcontrol in subcontrols %}
+                    <div class="subcontrol">
+                        <h4>{{ subcontrol.sub_control }}</h4>
+                        <label>Status</label>
+                        <select class="subcontrol-status">
+                            <option value="Implemented">Implemented</option>
+                            <option value="Partially Implemented">Partially Implemented</option>
+                            <option value="Not Implemented">Not Implemented</option>
+                            <option value="Not Applicable">Not Applicable</option>
+                        </select>
+                        <label>Comments</label>
+                        <textarea class="subcontrol-comments" placeholder="Enter comments for this subcontrol"></textarea>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <label for="comments">General Comments</label>
                 <textarea id="comments" name="comments" placeholder="Enter any additional comments"></textarea>
 
                 <button type="button" onclick="generateReport()">Generate Report</button>
             </form>
-            <div class="hero-figure anime-element">
-                <svg class="placeholder" width="528" height="396" viewBox="0 0 528 396">
-                    <rect width="528" height="396" style="fill:transparent;" />
-                </svg>
-                <div class="hero-figure-box hero-figure-box-01" data-rotation="45deg"></div>
-                <div class="hero-figure-box hero-figure-box-02" data-rotation="-45deg"></div>
-                <div class="hero-figure-box hero-figure-box-03" data-rotation="0deg"></div>
-                <div class="hero-figure-box hero-figure-box-04" data-rotation="-135deg"></div>
-                <div class="hero-figure-box hero-figure-box-05"></div>
-                <div class="hero-figure-box hero-figure-box-06"></div>
-                <div class="hero-figure-box hero-figure-box-07"></div>
-                <div class="hero-figure-box hero-figure-box-08" data-rotation="-22deg"></div>
-                <div class="hero-figure-box hero-figure-box-10" data-rotation="-50deg"></div>
-            </div>
-            <!-- Detailed Report Section -->
-            <div id="detailed-section" class="hidden">
-                <h3>Select Subcontrols</h3>
-                <div class="subcontrol">
-                    <label>Subcontrol 1</label>
-                    <select>
-                        <option value="implemented">Implemented</option>
-                        <option value="partially">Partially Implemented</option>
-                        <option value="not">Not Implemented</option>
-                    </select>
-                </div>
-                <div class="subcontrol">
-                    <label>Subcontrol 2</label>
-                    <select>
-                        <option value="implemented">Implemented</option>
-                        <option value="partially">Partially Implemented</option>
-                        <option value="not">Not Implemented</option>
-                    </select>
-                </div>
-                <div class="subcontrol">
-                    <label>Subcontrol 3</label>
-                    <select>
-                        <option value="implemented">Implemented</option>
-                        <option value="partially">Partially Implemented</option>
-                        <option value="not">Not Implemented</option>
-                    </select>
-                </div>
-            </div>
         </section>
     </main>
 
@@ -83,141 +62,108 @@
     </footer>
 
     <script>
-        function toggleDetails() {
-            const reportType = document.getElementById("report-type").value;
-            const detailedSection = document.getElementById("detailed-section");
-            detailedSection.classList.toggle("hidden", reportType !== "detailed");
-        }
-    
-        function generateReport() {
-            const reportType = document.getElementById("report-type").value;
-            const comments = document.getElementById("comments").value;
-    
-            if (reportType === "summary") {
-                generatePDF(comments);
-            } else {
-                // Check that each subcontrol selection has a chosen option
-                const subcontrols = document.querySelectorAll("#detailed-section .subcontrol select");
-                let allSelected = true;
-    
-                subcontrols.forEach((select) => {
-                    if (select.value === "") {
-                        allSelected = false;
-                    }
-                });
-    
-                if (!allSelected) {
-                    alert("Please complete all detailed report selections.");
-                } else {
-                    // Call the function to generate the detailed report PDF
-                    generateDetailedPDF(comments, subcontrols);
-                }
-            }
-        }
-    
-        function generatePDF(comments) {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-    
-            doc.text("Audit Report", 10, 10);
-            doc.text(`Comments: ${comments}`, 10, 20);
-            doc.save("summary_report.pdf");
-        }
-    
-        function generateDetailedPDF(comments, subcontrols) {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-    
-            doc.text("Detailed Audit Report", 10, 10);
-            doc.text(`Comments: ${comments}`, 10, 20);
-    
-            // Add subcontrol selections to the PDF
-            let yPos = 30;
-            subcontrols.forEach((select, index) => {
-                doc.text(`Subcontrol ${index + 1}: ${select.value}`, 10, yPos);
-                yPos += 10;
+        // Function to fetch subcontrol data dynamically
+        function fetchSubcontrols() {
+            $.ajax({
+                url: "{% url 'main_app:fetch_subcontrols' %}",  // The endpoint that serves subcontrol data
+                method: "GET",
+                success: function (response) {
+                    // Populate subcontrols if needed
+                    const subcontrolsList = document.getElementById("subcontrols-list");
+                    subcontrolsList.innerHTML = ""; // Clear previous subcontrols
+
+                    response.subcontrols.forEach(function (subcontrol) {
+                        const subcontrolDiv = document.createElement("div");
+                        subcontrolDiv.classList.add("subcontrol");
+                        subcontrolDiv.innerHTML = `
+                            <h4>${subcontrol.sub_control}</h4>
+                            <label>Status</label>
+                            <select class="subcontrol-status">
+                                <option value="Implemented">Implemented</option>
+                                <option value="Partially Implemented">Partially Implemented</option>
+                                <option value="Not Implemented">Not Implemented</option>
+                                <option value="Not Applicable">Not Applicable</option>
+                            </select>
+                            <label>Comments</label>
+                            <textarea class="subcontrol-comments" placeholder="Enter comments for this subcontrol"></textarea>
+                        `;
+                        subcontrolsList.appendChild(subcontrolDiv);
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching data:", error);
+                },
             });
-    
+        }
+
+        // Call this function on page load to fetch subcontrols if needed
+        document.addEventListener("DOMContentLoaded", function () {
+            fetchSubcontrols();  // This will dynamically fetch and populate subcontrols if needed
+        });
+
+        function generateReport() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Fetch company data
+            const companyName = "{{ company.name }}";
+            const description = "{{ company.description }}";
+            const contactNumber = "{{ company.contact_number }}";
+            const comments = document.getElementById("comments").value;
+
+            // Fetch subcontrol data
+            const subcontrols = [];
+            document.querySelectorAll("#subcontrols-list .subcontrol").forEach((subcontrolDiv) => {
+                const subcontrolName = subcontrolDiv.querySelector("h4").textContent;
+                const status = subcontrolDiv.querySelector(".subcontrol-status").value;
+                const subcontrolComments = subcontrolDiv.querySelector(".subcontrol-comments").value;
+                subcontrols.push({ name: subcontrolName, status, comments: subcontrolComments });
+            });
+
+            // Generate PDF
+            doc.text("Detailed Audit Report", 10, 10);
+            doc.text(`Company Name: ${companyName}`, 10, 20);
+            doc.text(`Description: ${description}`, 10, 30);
+            doc.text(`Contact Number: ${contactNumber}`, 10, 40);
+
+            let yPos = 50;
+            subcontrols.forEach((subcontrol, index) => {
+                doc.text(`Subcontrol ${index + 1}: ${subcontrol.name}`, 10, yPos);
+                doc.text(`Status: ${subcontrol.status}`, 10, yPos + 10);
+                doc.text(`Comments: ${subcontrol.comments}`, 10, yPos + 20);
+                yPos += 30;
+            });
+
+            doc.text(`General Comments: ${comments}`, 10, yPos);
+
             doc.save("detailed_report.pdf");
         }
     </script>
-    
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        main { display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 40px; }
+        .report-generation { text-align: center; width: 100%; max-width: 600px; background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
+        h2 { margin-bottom: 20px; }
+        #company-info { text-align: left; margin-bottom: 20px; }
+        .subcontrol { margin-bottom: 20px; text-align: left; }
+        .subcontrol h4 { margin-bottom: 10px; }
+        .subcontrol label { font-weight: bold; display: block; margin-bottom: 5px; }
+        .subcontrol select, .subcontrol textarea { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        form button { padding: 10px 20px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
+        form button:hover { background-color: #0056b3; }
+        footer { margin-top: 20px; text-align: center; font-size: 14px; color: #777; }
+        p{
+            color:black
         }
-
-
-        main {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-            padding: 40px;
+        h2{
+            color:black
         }
-
-        .report-generation {
-            text-align: center;
-            width: 100%;
-            max-width: 600px;
+        h3{
+            color:black
         }
-
-        form {
-            background-color: rgb(78, 78, 78);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-
-        form label, .subcontrol label {
-            display: block;
-            margin-bottom: 8px;
-            text-align: left;
-        }
-
-        form select, form textarea, .subcontrol select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        form button {
-            padding: 10px;
-            background-color: black;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        #detailed-section {
-            background-color: #505050;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
-            max-width: 500px;
-        }
-
-        .subcontrol {
-            margin-bottom: 15px;
-            text-align: left;
-        }
-        
-        footer {
-            background-color: white;
-            padding: 20px;
-            border-top: 1px solid #ddd;
+          h4{
+            color:black
         }
     </style>
 </body>
