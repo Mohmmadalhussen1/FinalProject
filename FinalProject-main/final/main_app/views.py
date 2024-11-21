@@ -290,9 +290,31 @@ def report_generation_page(request):
 @csrf_protect
 def policy_review(request):
     return render(request, 'main_app/policy_review.html')
-@csrf_protect
-def tree_page(request):
-    return render(request, 'main_app/tree.html')
+from django.shortcuts import render
+
+def tree_view(request):
+    # Example data structure for the tree
+    tree_data = {
+        "name": "Root Node",
+        "children": [
+            {
+                "name": "Branch 1",
+                "children": [
+                    {"name": "Sub-Branch 1.1", "children": []},
+                    {"name": "Sub-Branch 1.2", "children": []},
+                ],
+            },
+            {
+                "name": "Branch 2",
+                "children": [
+                    {"name": "Sub-Branch 2.1", "children": []},
+                ],
+            },
+            {"name": "Branch 3", "children": []},
+        ],
+    }
+    return render(request, "main_app/tree.html", {"tree_data": tree_data})
+
 @csrf_protect
 def login_page(request: HttpRequest):
     if request.user.is_authenticated:

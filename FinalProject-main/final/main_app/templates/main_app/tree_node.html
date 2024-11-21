@@ -1,0 +1,12 @@
+<!-- tree_node.html -->
+<li>
+    <button class="node">{{ node.name }}</button>
+    {% if node.children %}
+      <ul>
+        {% for child in node.children %}
+          {% include "main_app/tree_node.html" with node=child %}
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </li>
+  
