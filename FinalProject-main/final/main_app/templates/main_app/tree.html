@@ -1,117 +1,136 @@
+{% extends 'main_app/home_page.html' %}
+{% load static %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interactive Tree</title>
-</head>
-<!-- tree.html -->
-{% extends 'main_app/home_page.html' %}
-
-{% block content %}
-  <div class="tree">
-    <ul>
-      {% include "main_app/tree_node.html" with node=tree_data %}
-    </ul>
-  </div>
-{% endblock %}
-
-
-
-<!-- tree.html (within <style> tag) -->
+  <title>Interactive ECC Tree</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    :root {
+      --border: #ddd;
+      --border-hover: rgb(71, 71, 71);
+      --bg-hover: rgba(0, 0, 0, .1);
+      --text: rgba(102, 102, 102, 1);
+      --text-hover: #000;
+      --first: #DDF3FE; /* Domain color */
+      --second: #DDEBC8; /* Subdomain color */
+      --third: #FEFCD5; /* Control color */
+    }
+
+    * {
       margin: 0;
-      padding: 20px;
-      background-color: #f9f9f9;
+      padding: 0;
+      box-sizing: border-box;
     }
-  
-    .tree {
-      text-align: center;
-      margin: 0 auto;
+
+    body {
+      padding: 50px;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     }
-  
-    .tree ul {
+
+    h1 {
+      padding-bottom: 20px;
+    }
+
+    ol {
+      margin-left: 30px;
+    }
+
+    .wtree li {
       list-style-type: none;
-      padding-left: 20px;
+      margin: 10px 0;
     }
-  
-    .tree ul li {
-      position: relative;
-      padding: 10px 0;
-    }
-  
-    .tree ul li:before {
-      content: "";
-      position: absolute;
-      left: -10px;
-      top: 0;
-      width: 1px;
-      height: 100%;
-      background: #ccc;
-    }
-  
-    .tree ul li:after {
-      content: "";
-      position: absolute;
-      left: -10px;
-      top: 15px;
-      width: 10px;
-      height: 1px;
-      background: #ccc;
-    }
-  
-    .tree ul li:first-child:before {
-      top: 15px;
-      height: calc(100% - 15px);
-    }
-  
-    .tree ul li:last-child:before {
-      height: 15px;
-    }
-  
-    .tree button {
-      background: #007bff;
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-  
-    .tree button:hover {
-      background: #0056b3;
-    }
-  
-    .tree button.expanded {
-      background: #28a745;
-    }
-  
-    .tree ul {
-      display: none;
-    }
-  
-    .tree ul.visible {
+
+    .wtree li span {
       display: block;
+      border: 1px solid var(--border);
+      padding: 10px;
+      background-color: var(--first);
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    .wtree li li span {
+      background-color: var(--second);
+    }
+
+    .wtree li li li span {
+      background-color: var(--third);
+    }
+
+    .wtree li > ol {
+      display: none;
+      margin-left: 20px;
+    }
+
+    .wtree li span:hover {
+      border-color: var(--border-hover);
+      color: var(--text-hover);
+    }
+
+    /* Styling for the legend section */
+
+    .legend p {
+      margin: 5px 0;
+    }
+
+    .legend .color-box {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
     }
   </style>
-  
-  <!-- JavaScript (within <script> tag) -->
+</head>
+<body>
+  <h1>Essential Cybersecurity Controls</h1>
+
+  <!-- Legend to show colors for domains, subdomains, and controls -->
+  <div class="legend">
+    <p><strong>Color Legend:</strong></p>
+    <p><span class="color-box" style="background-color: var(--first);"></span> Domain</p>
+    <p><span class="color-box" style="background-color: var(--second);"></span> Subdomain</p>
+    <p><span class="color-box" style="background-color: var(--third);"></span> Control</p>
+  </div>
+
+  {% if domains %}
+    <ol class="wtree">
+      {% for domain in domains %}
+        <li>
+          <span onclick="toggleVisibility(this)">{{ domain.name }}</span>
+          <ol>
+            {% for subdomain in domain.subdomains.all %}
+              <li>
+                <span onclick="toggleVisibility(this)">{{ subdomain.name }}</span>
+                <ol>
+                  {% for control in subdomain.controls.all %}
+                    <li>
+                      <span onclick="window.location.href='{% url 'main_app:control_detail' control.pk %}'">
+                        {{ control.name }}
+                      </span>
+                    </li>
+                  {% endfor %}
+                </ol>
+              </li>
+            {% endfor %}
+          </ol>
+        </li>
+      {% endfor %}
+    </ol>
+  {% else %}
+    <p>No data found!</p>
+  {% endif %}
+
   <script>
-    document.addEventListener("click", (event) => {
-      if (event.target.classList.contains("node")) {
-        const button = event.target;
-        const parentLi = button.parentElement;
-        const childUl = parentLi.querySelector("ul");
-  
-        // Toggle visibility of child nodes
-        childUl.classList.toggle("visible");
-        button.classList.toggle("expanded");
+    function toggleVisibility(element) {
+      const childOl = element.nextElementSibling;
+      if (childOl && childOl.tagName === 'OL') {
+        childOl.style.display = childOl.style.display === 'block' ? 'none' : 'block';
       }
-    });
+    }
   </script>
-  
 </body>
 </html>
+{% endblock %}

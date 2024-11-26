@@ -1,6 +1,29 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+# models.py
+from django.db import models
+
+class Domain(models.Model):
+    name = models.CharField(max_length=255)
+
+class Subdomain(models.Model):
+    domain = models.ForeignKey(Domain, on_delete=models.CASCADE, related_name='subdomains')
+    name = models.CharField(max_length=255)
+
+class Control(models.Model):
+    subdomain = models.ForeignKey(Subdomain, on_delete=models.CASCADE, related_name='controls')
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+
+    # New fields
+    section = models.CharField(max_length=255, blank=True, null=True)
+    purpose = models.TextField(blank=True, null=True)
+    implementation_steps = models.TextField(blank=True, null=True)
+    examples = models.TextField(blank=True, null=True)
+    tools = models.TextField(blank=True, null=True)
+    deliverables = models.TextField(blank=True, null=True)
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone_number = models.CharField(max_length=13)

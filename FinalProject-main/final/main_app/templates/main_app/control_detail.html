@@ -1,0 +1,190 @@
+{% extends 'main_app/home_page.html' %}
+{% load static %}
+{% block title %}Control Detail{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Control Detail</title>
+
+  <!-- Adding some styles -->
+  <style>
+    :root {
+      --border: #ddd;
+      --border-hover: rgb(71, 71, 71);
+      --bg-hover: rgba(0, 0, 0, .1);
+      --text: rgba(102, 102, 102, 1);
+      --text-hover: #000;
+      --first: #b3d8f5; /* Darker Domain color */
+      --second: #b3d29c; /* Darker Subdomain color */
+      --third: #fdf6a1; /* Darker Control color */
+    }
+
+    h1 {
+      background-color: var(--first); /* Domain color */
+      color: white;
+      padding: 20px;
+      text-align: center;
+      margin: 0;
+    }
+    h2 {
+      color: white;
+      padding: 20px;
+      text-align: center;
+      margin: 0;
+      background-color: var(--third); /* Control Title Background */
+      border-radius: 5px;
+    }
+
+    .subdomain-title {
+      background-color: var(--second); /* Subdomain Title Background */
+      color: white;
+      padding: 10px;
+      font-size: 1.2em;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+
+    .container {
+      max-width: auto;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: rgb(111, 111, 111);
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    p {
+      font-size: 1.1em;
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+
+    .strong {
+      font-weight: bold;
+      color: #ffffff;
+    }
+    li {
+      color: aliceblue;
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #574caf;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 1.1em;
+    }
+
+    .back-button:hover {
+      background-color: #45a049;
+    }
+
+    /* Adjust the spacing between sections */
+    .section-content {
+      margin-bottom: 30px;
+    }
+
+    /* Ensure proper margin for the paragraph within each section */
+    .section-content p {
+      margin-left: 20px;
+    }
+
+    /* Styling for the tools and examples sections */
+    .tools-list, .examples-list {
+      margin-left: 20px;
+    }
+
+    .tools-list li, .examples-list li {
+      list-style-type: disc;
+      margin-bottom: 5px;
+    }
+
+  </style>
+</head>
+<body>
+  {% if control.subdomain %}
+    <h1><div class="subdomain-title">{{ control.subdomain.name }}</div> <!-- Display Subdomain Name --></h1>
+  {% endif %}
+
+  <div class="container">
+    <h2>{{ control.name }}</h2>
+
+    <p><span class="strong">Description:</span> {{ control.description }}</p>
+
+    {% if control.section %}
+      <div class="section-content">
+        <p><span class="strong">Section:</span> {{ control.section }}</p>
+      </div>
+    {% endif %}
+
+    {% if control.purpose %}
+      <div class="section-content">
+        <p><span class="strong">Purpose:</span></p>
+        <p>{{ control.purpose }}</p>
+      </div>
+    {% endif %}
+
+    {% if control.implementation_steps %}
+      <div class="section-content">
+        <p><span class="strong">Implementation Steps:</span></p>
+        <ul>
+          {% for step in control.implementation_steps.splitlines %}
+            {% if step|length > 0 %}
+              <li>{{ step }}</li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    {% if control.examples %}
+      <div class="section-content">
+        <p><span class="strong">Examples:</span></p>
+        <ul class="examples-list">
+          {% for example in control.examples.splitlines %}
+            {% if example|length > 0 %}
+              <li>{{ example }}</li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    {% if control.tools %}
+      <div class="section-content">
+        <p><span class="strong">Tools:</span></p>
+        <ul class="tools-list">
+          {% for tool in control.tools.splitlines %}
+            {% if tool|length > 0 %}
+              <li>{{ tool }}</li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    {% if control.deliverables %}
+      <div class="section-content">
+        <p><span class="strong">Deliverables:</span></p>
+        <ul>
+          {% for deliverable in control.deliverables.splitlines %}
+            {% if deliverable|length > 0 %}
+              <li>{{ deliverable }}</li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    <a class="back-button" href="{% url 'main_app:tree' %}">Back to Tree</a>
+  </div>
+
+</body>
+</html>
+{% endblock %}

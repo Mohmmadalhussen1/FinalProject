@@ -218,6 +218,31 @@ sub_controls_list = [
     "2-5 Network Security Management"
 ]
 
+# views.py
+from django.shortcuts import render, get_object_or_404
+from .models import Domain, Subdomain, Control
+
+def tree_view(request):
+    """Render the interactive tree."""
+    domains = Domain.objects.prefetch_related('subdomains__controls').all()
+    return render(request, 'main_app/tree.html', {'domains': domains})
+
+
+
+
+
+
+
+def control_detail(request, pk):
+    """Display control details."""
+    control = get_object_or_404(Control, pk=pk)
+    if request.method == "POST":
+        # Handle control updates
+        control.name = request.POST.get('name', control.name)
+        control.description = request.POST.get('description', control.description)
+        control.save()
+    return render(request, 'main_app/control_detail.html', {'control': control})
+
 def upload_audit_files(request):
     if request.method == 'POST' and request.FILES.get('files'):
         company_id = request.POST.get('company_id')
@@ -292,28 +317,7 @@ def policy_review(request):
     return render(request, 'main_app/policy_review.html')
 from django.shortcuts import render
 
-def tree_view(request):
-    # Example data structure for the tree
-    tree_data = {
-        "name": "Root Node",
-        "children": [
-            {
-                "name": "Branch 1",
-                "children": [
-                    {"name": "Sub-Branch 1.1", "children": []},
-                    {"name": "Sub-Branch 1.2", "children": []},
-                ],
-            },
-            {
-                "name": "Branch 2",
-                "children": [
-                    {"name": "Sub-Branch 2.1", "children": []},
-                ],
-            },
-            {"name": "Branch 3", "children": []},
-        ],
-    }
-    return render(request, "main_app/tree.html", {"tree_data": tree_data})
+
 
 @csrf_protect
 def login_page(request: HttpRequest):

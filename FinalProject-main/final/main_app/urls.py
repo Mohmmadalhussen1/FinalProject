@@ -24,6 +24,8 @@ urlpatterns = [
     path('upload_audit_files/', views.upload_audit_files, name='upload_audit_files'),
     path('fetch_subcontrols/', views.fetch_subcontrols, name='fetch_subcontrols'),
     path("tree/", views.tree_view, name="tree"),
+    path('control/<int:pk>/', views.control_detail, name='control_detail'),
+
 
 
     # Save Checklist Status
