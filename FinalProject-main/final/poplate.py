@@ -362,7 +362,8 @@ Deliverable 2:Evidence of applied controls (e.g., AD configurations, VPN setting
 """,
                         "deliverables": """
 """,
-                     },      
+                     },
+                           
                                         {
                         "name": " 2-2-3-1 User Authentication (Username and Password)",
                         "description": "",
@@ -395,6 +396,1254 @@ Deliverable 2:Evidence of password settings (e.g., screenshots from AD).
 
 """,
                      },
+                     
+           {
+                        "name": "2-3-1 Periodic Review of Information System and Processing Facilities Protection",
+                        "description": "",
+                        "section": "2-2-3",
+                        "purpose": "Ensure that cybersecurity measures protecting information systems and processing facilities are periodically reviewed, updated, and aligned with organizational needs and industry standards.",
+                        "implementation_steps": """
+                        1.	Define Review Requirements:
+o	Identify the scope of the review, including systems, devices, and applications covered by the policy.
+o	Specify roles and responsibilities for conducting reviews.
+2.	Review Protection Mechanisms:
+o	Evaluate the effectiveness of implemented protection measures such as:
+	Next-Generation Firewalls (NGFW).
+	Endpoint Detection and Response (EDR).
+	Security Information and Event Management (SIEM) systems.
+o	Check for updated configurations and alignment with modern cybersecurity standards.
+3.	Review Vulnerability Assessment Procedures:
+o	Verify the schedule and results of vulnerability assessments.
+o	Ensure findings are addressed in a timely manner.
+4.	Review External Storage Media Usage:
+o	Assess compliance with the policy restricting external media use.
+o	Ensure encryption and access control measures are implemented.
+5.	Patch Management Review:
+o	Audit patch logs for consistency and ensure all critical patches have been applied.
+o	Verify the effectiveness of the routine for identifying and applying patches.
+6.	Time Synchronization Review:
+o	Verify synchronization across all systems and devices with defined time sources.
+7.	Update Policies and Procedures:
+o	Revise cybersecurity policies based on review findings, new threats, or regulatory changes.
+o	Obtain formal approval for updated policies.
+
+""",
+                        "examples": """
+Develop a Review Schedule and Plan:
+1.	Conduct quarterly reviews of all cybersecurity measures or after significant changes (e.g., system upgrades, new regulations).
+2.	Define roles for review processes:
+o	IT Teams: Review system configurations (e.g., firewalls, EDR).
+o	Security Teams: Audit patch management and malware scanning schedules.
+3.	Review systems and assets such as:
+o	Applications (e.g., ERP, email systems).
+o	Infrastructure (e.g., servers, databases).
+4.	Collaborate with stakeholders to resolve issues identified during reviews.
+
+""",
+                        "tools": """
+
+1.	Review Management:
+o	Microsoft Planner, Jira for tracking review schedules and progress.
+2.	Compliance and Monitoring:
+o	Splunk, ManageEngine AD for system auditing.
+3.	Access Review:
+o	Okta, Active Directory for managing and auditing system access.
+4.	Patch Management:
+o	Ivanti, Microsoft SCCM for automated patch tracking.
+
+
+""",
+                        "deliverables": """
+1.	Periodic Review Reports:
+o	Documented findings and action plans from cybersecurity reviews.
+2.	Updated Cybersecurity Policies:
+o	Revised policies reflecting the latest security standards and practices.
+3.	Evidence of Implementation:
+o	Logs from reviewed systems and assets.
+o	Screenshots of updated configurations for firewalls, EDR, and SIEM systems.
+4.	Approval Documentation:
+o	Signed approval of updated policies and procedures by executive management.
+
+""",
+                     },
+                     
+           {
+                        "name": "2-3-2 Implementing Cybersecurity Requirements for Information Systems and Processing Facilities",
+                        "description": "",
+                        "section": "2-2-3",
+                        "purpose": "Ensure the implementation of advanced cybersecurity measures and practices to protect information systems and processing facilities, ensuring availability, reliability, and compliance with organizational policies",
+                        "implementation_steps": """
+
+1.1 Redundancy and Failover Mechanisms
+1.	Set up redundant systems (e.g., servers, firewalls, network devices) to ensure continuity in case of system failure.
+2.	Implement load balancers to distribute traffic across multiple resources and enhance system availability.
+1.2 Regular Updates and Patch Management
+1.	Use centralized solutions such as:
+o	Microsoft WSUS or ManageEngine Patch Manager Plus for automating patch management.
+2.	Establish a schedule for checking and applying updates to devices, systems, and applications.
+1.3 Comprehensive Backup Strategy
+1.	Create regular backups for critical systems and data:
+o	Maintain both on-site and off-site backups for disaster recovery.
+2.	Test backup restoration processes periodically to ensure quick and reliable recovery.
+1.4 High Availability (HA) Configurations
+1.	Configure critical systems (e.g., databases, web servers) for High Availability (HA) to minimize downtime.
+2.	Implement clustering technologies to ensure seamless failover during system failures.
+1.5 Virus Protection Systems
+1.	Deploy comprehensive virus protection solutions such as:
+o	Symantec Endpoint Protection.
+o	Sophos Intercept X.
+o	McAfee Total Protection.
+2.	Ensure all systems are equipped with up-to-date antivirus software.
+1.6 Monitoring Mechanisms
+1.	Implement tools for real-time monitoring of system performance, threats, and security breaches.
+1.7 Performance Testing
+1.	Conduct regular performance tests of security solutions to ensure they handle expected loads effectively.
+2.	Simulate high-traffic scenarios to test system reliability and responsiveness.
+1.8 Incident Response and Recovery Plans
+1.	Develop and document an Incident Response Plan outlining:
+o	Procedures for identifying, responding to, and recovering from incidents.
+2.	Conduct periodic drills to evaluate plan effectiveness.
+1.9 External Storage Media Restrictions
+1.	Develop a policy restricting the use of external storage media:
+o	Specify exceptions and approval procedures.
+2.	Restrict access to external media connections to authorized personnel using role-based permissions.
+1.10 Time Synchronization
+1.	Select a Time Synchronization Protocol (e.g., NTP, SNTP) for accurate system clock synchronization.
+2.	Use reliable time sources such as:
+o	Saudi Standards, Metrology, and Quality Organization (time.saso.gov.sa).
+o	King Abdulaziz City for Science and Technology (time.isu.net.sa).
+
+""",
+                        "examples": """
+
+1.	Redundancy and High Availability:
+o	Deploy a load balancer like F5 Networks or HAProxy to handle traffic distribution.
+o	Use clustering technologies like Microsoft SQL Server Always On for database availability.
+2.	Backup Strategy:
+o	Implement Veeam Backup & Replication for seamless data backups and recovery.
+o	Store backups in cloud solutions such as AWS S3 or Azure Blob Storage.
+3.	Virus Protection:
+o	Symantec Endpoint Protection installed on all systems with daily updates scheduled.
+4.	External Media Management:
+o	Use Endpoint Protector to block unauthorized USB devices and allow only approved ones.
+5.	Time Synchronization:
+o	Configure servers to sync with time.saso.gov.sa using NTP protocol.
+
+""",
+                        "tools": """
+
+1.	Redundancy and High Availability:
+o	Load Balancers: F5 Networks, HAProxy.
+o	Clustering: VMware vSphere HA, Microsoft SQL Server Always On.
+2.	Patch Management:
+o	ManageEngine Patch Manager Plus, Microsoft WSUS, Ivanti Patch Management.
+3.	Virus Protection:
+o	Symantec Endpoint Protection, Sophos Intercept X, Bitdefender GravityZone.
+4.	Backup Solutions:
+o	Veeam Backup & Replication, AWS Backup, Azure Backup.
+5.	Endpoint Security:
+o	McAfee Endpoint Security, Symantec Data Loss Prevention.
+6.	Time Synchronization:
+o	NTP Protocol, SNTP Protocol.
+
+
+""",
+                        "deliverables": """
+1.	Implementation Evidence:
+o	Documentation confirming the implementation of redundancy, HA configurations, and monitoring mechanisms.
+2.	Virus Protection Reports:
+o	Up-to-date list of deployed virus protection systems with installation records.
+3.	Backup Validation:
+o	Logs and reports from successful backup and restoration tests.
+4.	Patch Logs:
+o	Evidence showing applied patches for all devices, systems, and applications.
+5.	External Media Management:
+o	Policy restricting external storage use and logs of approved exceptions.
+6.	Time Synchronization Reports:
+o	Configuration evidence showing reliable time synchronization for all systems.
+
+""",
+                     },
+                     
+           {
+                        "name": " 2-3-3 The cybersecurity requirements for protecting information systems and information processing facilities must include at least the following:",
+                        "description": "",
+                        "section": "2-2-3",
+                        "purpose": "",
+                        "implementation_steps": """
+""",
+                        "examples": """
+""",
+                        "tools": """
+
+""",
+                        "deliverables": """
+""",
+                     },
+                     
+           {
+                        "name": "2-3-3-1 Advanced Management of Malware and Virus Protection",
+                        "description": "",
+                        "section": "2-2-3",
+                        "purpose": "Ensure robust, advanced, and up-to-date malware and virus protection for all servers, workstations, and organizational systems to safeguard against threats, including Advanced Persistent Threats (APTs).",
+                        "implementation_steps": """
+1.1 Asset Inventory and Categorization
+1.	Conduct a comprehensive asset inventory:
+o	Include all workstations, servers, systems, and applications.
+2.	Categorize assets by domain:
+o	Production, Testing, and Development environments.
+3.	Organize assets based on their domains and determine associated security risks.
+1.2 Define Security Risks and Select Solutions
+1.	Identify security risks for each asset and evaluate if current protections address these risks.
+2.	Select appropriate solutions to cover remaining vulnerabilities:
+o	Endpoint Protection Platforms (EPP) such as Symantec Endpoint Protection or McAfee Endpoint Security.
+o	Endpoint Detection and Response (EDR) tools like Carbon Black, Microsoft Defender for Endpoint, or SentinelOne.
+o	Antivirus solutions including Bitdefender GravityZone, Sophos Intercept X, or Norton 360 for Business.
+o	Threat intelligence services like Recorded Future or ThreatConnect to proactively identify and mitigate risks.
+1.3 Plan the Deployment
+1.	Develop an implementation strategy, including:
+o	A detailed timeline with phases (e.g., pilot testing, full deployment).
+o	Assignment of roles and responsibilities for the deployment team.
+2.	Outline hardware and software requirements for chosen protection systems.
+1.4 Pilot Testing
+1.	Select a small subset of workstations and servers for initial testing.
+2.	Monitor performance and address any usability or configuration issues.
+3.	Adjust installation or configurations as needed based on feedback.
+1.5 Full Deployment
+1.	Utilize a centralized deployment strategy:
+o	Use tools like Microsoft Endpoint Configuration Manager or Windows Server Update Services (WSUS).
+2.	Install protection systems manually or through automation across all devices.
+3.	Confirm the systems are functioning correctly and regularly receiving updates.
+4.	Validate that all configurations and security policies are applied correctly.
+1.6 Monitoring and Maintenance
+1.	Implement continuous monitoring mechanisms to track system performance and detect anomalies.
+2.	Regularly update protection systems and generate reports on system status and incident response.
+1.7 Documentation
+1.	Maintain detailed records of:
+o	The deployment process, configurations, and adjustments.
+o	Reports on incidents, updates, and the status of the protection systems.
+
+""",
+                        "examples": """
+1.	Endpoint Protection Platforms (EPP):
+o	Deploy Symantec Endpoint Protection organization-wide to block malware and phishing attempts.
+o	Use McAfee Endpoint Security for comprehensive antivirus and anti-malware protection.
+2.	EDR Solutions:
+o	Install Microsoft Defender for Endpoint to monitor suspicious activities and automate threat responses.
+o	Use SentinelOne for advanced malware detection and rollback capabilities.
+3.	Threat Intelligence:
+o	Leverage Recorded Future to gather actionable intelligence about APT campaigns.
+o	Use ThreatConnect to analyze threat data and strengthen defenses.
+4.	Centralized Deployment:
+o	Implement protection systems using Microsoft Endpoint Configuration Manager to ensure consistency and scalability.
+o	Use WSUS for automated software updates across all servers and workstations.
+
+""",
+                        "tools": """
+1.	Endpoint Protection Platforms (EPP):
+o	Symantec Endpoint Protection, McAfee Endpoint Security.
+2.	Endpoint Detection and Response (EDR):
+o	Carbon Black, SentinelOne, Microsoft Defender for Endpoint.
+3.	Threat Intelligence:
+o	Recorded Future, ThreatConnect.
+4.	Deployment and Update Tools:
+o	Microsoft Endpoint Configuration Manager, Windows Server Update Services (WSUS).
+5.	Monitoring Tools:
+o	Splunk, ManageEngine.
+
+
+""",
+                        "deliverables": """
+1.	Documentation:
+o	Policies and procedures documenting the deployment and management of malware protection systems.
+2.	Protection System Reports:
+o	A list of installed antivirus and endpoint protection systems with evidence of APT monitoring capabilities.
+3.	Deployment Records:
+o	Logs and screenshots of protection systems deployed across all servers, workstations, and systems.
+4.	Update Reports:
+o	Evidence of periodic updates to protection systems and their successful application.
+5.	Monitoring Reports:
+o	Regularly generated reports on the status of malware protection systems, including incidents and resolutions.
+
+""",
+                     },
+                     
+           {
+                        "name": "2-3-3-2 Restricted Use and Secure Handling of External Storage Media",
+                        "description": "",
+                        "section": "2-2-3",
+                        "purpose": "To restrict the use of external storage media and ensure secure handling, minimizing risks associated with data breaches, malware, and unauthorized access.",
+                        "implementation_steps": """
+1.1 Pre-Use Check Mechanisms
+1.	Scan for Malware:
+o	Use antivirus and antimalware tools to automatically scan external storage devices upon connection.
+o	Implement tools like Symantec Endpoint Protection or McAfee Endpoint Security for automated scanning.
+2.	Data Integrity Checks:
+o	Verify data integrity using checksums or hashes to ensure files haven't been altered or corrupted.
+o	Record all scans in an audit log to track storage media usage.
+3.	Logging Access:
+o	Maintain logs of all external storage device access, detailing:
+	Who accessed the device.
+	When it was accessed.
+	Actions performed on the device.
+1.2 Data Erasure Procedures
+1.	Define procedures for securely erasing data after storage media use:
+o	Use tools such as DBAN (Darik's Boot and Nuke) or Eraser for secure data wiping.
+2.	Schedule regular erasure of unused or outdated data on external storage devices.
+1.3 Encryption for External Storage
+1.	Mandate the use of encryption for all external storage devices.
+o	Protect data at rest using encryption tools such as BitLocker or VeraCrypt.
+2.	Ensure that encryption policies cover:
+o	Portable USB devices.
+o	External hard drives.
+o	Other removable media.
+1.4 Approval Procedures
+1.	Define approval procedures for external storage media use:
+o	Require submission of requests, including:
+	Reason for use.
+	Start and end date for access.
+	Handling of stored data (e.g., verification and erasure after use).
+o	Approvals may be handled via email, internal systems, or formal documentation.
+1.5 Role-Based Access Restrictions
+1.	Restrict access to external storage media using role-based access control (RBAC):
+o	Implement restrictions through a privileged access management system.
+o	Ensure external storage functionality is disabled for unauthorized users by default.
+
+""",
+                        "examples": """
+
+1.	Pre-Use Malware Scanning:
+o	Automatically scan USB devices with McAfee Endpoint Security when connected to workstations or servers.
+o	Use logging mechanisms to track and audit usage.
+2.	Data Erasure Tools:
+o	Securely erase data from external storage devices using tools like DBAN for full disk wiping or Eraser for targeted file deletion.
+3.	Encryption:
+o	Mandate encryption for USB drives using BitLocker or VeraCrypt to protect sensitive data.
+4.	Access Restrictions:
+o	Use Active Directory Group Policies to disable external storage functionality for unauthorized users.
+
+""",
+                        "tools": """
+
+1.	Antivirus and Antimalware Scanning:
+o	Symantec Endpoint Protection, McAfee Endpoint Security.
+2.	Data Wiping Tools:
+o	DBAN (Darik's Boot and Nuke), Eraser.
+3.	Encryption Tools:
+o	BitLocker, VeraCrypt.
+4.	Access Management:
+o	Active Directory Group Policies, Microsoft Intune.
+5.	Audit and Logging:
+o	Splunk, ManageEngine ADAudit Plus
+
+
+""",
+                        "deliverables": """
+1.	Policies and Procedures:
+o	Approved policy defining restrictions and secure handling of external storage media.
+2.	Audit Logs:
+o	Logs showing usage, scanning, and erasure activities for external storage media.
+3.	Encryption Evidence:
+o	Screenshots or configuration files proving encryption is enabled on external storage devices.
+4.	Access Control Reports:
+o	Evidence from privileged access management systems (e.g., screenshots) showing restricted external storage functionality for unauthorized users.
+5.	Data Erasure Reports:
+o	Documentation of secure data wiping activities for external storage devices.
+
+""",
+                     },
+                     
+           {
+                        "name": "2-3-3-3 Patch Management for Information Systems, Software, and Devices",
+                        "description": "",
+                        "section": "2-2-3",
+                        "purpose": "To ensure the timely implementation and management of patches across all systems, software, and devices, minimizing vulnerabilities and ensuring operational stability.",
+                        "implementation_steps": """
+1.1 Define and Document Patch Management Policies
+1.	Create a patch management policy that:
+o	Identifies the scope of systems to be patched (workstations, operating systems, network devices, databases, and applications).
+o	Establishes timelines for applying patches based on criticality and priority.
+2.	Integrate change management procedures into patch management:
+o	Require formal approval for all patches, with tracking via email, internal systems, or documented forms.
+1.2 Monitor and Identify Required Patches
+1.	Use patch management tools to:
+o	Monitor vendor alerts for new patches and updates.
+o	Track vulnerability notifications from cybersecurity systems and third-party alerts.
+2.	Conduct regular vulnerability assessments to identify missing patches.
+1.3 Develop an Implementation Strategy
+1.	Categorize patches based on criticality:
+o	High Priority: Apply within 24-48 hours (e.g., zero-day vulnerabilities).
+o	Medium Priority: Apply within 1-2 weeks.
+o	Low Priority: Apply during regular maintenance cycles.
+2.	Schedule patch deployments to minimize downtime.
+1.4 Test and Approve Patches
+1.	Test patches in a controlled environment (e.g., sandbox or staging systems).
+2.	Document the patch testing process, including:
+o	The patch's impact on systems.
+o	Any observed issues during testing.
+3.	Obtain formal approvals through change management systems.
+1.5 Deploy Patches
+1.	Deploy patches across all relevant systems using:
+o	Automated patch management tools for large-scale updates.
+o	Manual installation for critical or custom configurations.
+2.	Validate deployment by confirming successful updates on all devices.
+1.6 Review and Maintain Patch Implementation
+1.	Periodically review patch logs to ensure:
+o	All devices, systems, and applications are up to date.
+o	Patches have been implemented within the defined timeframes.
+2.	Produce reports to track patch compliance and resolve discrepancies.
+
+""",
+                        "examples": """
+
+1.	High Priority Patch Deployment:
+o	A zero-day vulnerability is detected in a widely used operating system. The organization applies the patch within 24 hours using Microsoft WSUS.
+2.	Testing Patches:
+o	Before deploying a database update, the IT team uses a staging environment to test compatibility with existing applications.
+3.	Approval Process:
+o	Patches for critical network devices are submitted through an internal system for approval, including details of the patch's impact and deployment schedule.
+o	Jira Service Management or ServiceNow: For tracking patch approvals and implementations.
+""",
+                        "tools": """
+
+1.	Patch Management Tools:
+o	Microsoft WSUS: For managing Windows updates.
+o	ManageEngine Patch Manager Plus: For multi-platform patching.
+o	Ivanti Patch Management: For automated deployment and tracking.
+2.	Monitoring and Alerts:
+o	Nessus: For vulnerability assessments.
+o	Qualys: For tracking vulnerabilities and patch requirements.
+3.	Change Management:
+
+
+""",
+                        "deliverables": """
+
+1.	Policy Documentation:
+o	Approved patch management policy, including integration with change management.
+2.	Approval Evidence:
+o	Documentation of change management approvals for patches, including emails or system logs.
+3.	Patch Implementation Reports:
+o	Logs showing the scope and status of patch deployments.
+o	Screenshots of patch updates applied within the defined timelines.
+4.	Vulnerability Tracking Reports:
+o	Reports identifying missing patches and timelines for resolution.
+
+""",
+                     },
+                     
+           {
+                        "name": "2-3-3-4 Centralized Clock Synchronization with Accurate and Trusted Sources",
+                        "description": "",
+                        "section": "2-2-3",
+                        "purpose": "To ensure accurate and reliable time synchronization across all systems and devices in the organization by using a centralized server and trusted time sources.",
+                        "implementation_steps": """
+
+1.1 Define Requirements
+1.	Document the organization's need for centralized clock synchronization in the cybersecurity requirements document.
+2.	Obtain approval from the organization's representative for the defined requirements.
+1.2 Configure Centralized Time Synchronization
+1.	Set up a centralized Network Time Protocol (NTP) server to synchronize time across all systems and devices.
+2.	Ensure the central server is configured to use reliable and accurate sources, such as:
+o	Saudi Standards, Metrology, and Quality Organization (time.saso.gov.sa).
+o	King Abdulaziz City for Science and Technology (time.isu.net.sa).
+1.3 Implement Time Synchronization on Systems
+1.	For Linux systems, configure the /etc/ntp.conf file with the following commands:
+o	server time.saso.gov.sa iburst
+o	server time.isu.net.sa iburst
+2.	For Windows systems, use the following commands in an administrator command prompt:
+o	w32tm /config /manualpeerlist:"time.saso.gov.sa, time.isu.net.sa" /syncfromflags:manual /reliable:YES /update
+o	w32tm /resync
+1.4 Verify and Monitor Synchronization
+1.	Periodically check that all systems and devices are synchronized with the central server.
+2.	Review configurations to ensure the time source remains accurate and up-to-date.
+
+""",
+                        "examples": """
+1.	Linux Time Configuration:
+o	Configure the central NTP server using the /etc/ntp.conf file and synchronize with trusted sources (e.g., time.saso.gov.sa and time.isu.net.sa).
+2.	Windows Time Configuration:
+o	Use w32tm commands to synchronize Windows servers and workstations with the same trusted sources.
+
+""",
+                        "tools": """
+
+1.	Time Synchronization Protocols:
+o	NTP (Network Time Protocol)
+o	SNTP (Simple Network Time Protocol)
+2.	Trusted Time Sources:
+o	Saudi Standards, Metrology, and Quality Organization (time.saso.gov.sa)
+o	King Abdulaziz City for Science and Technology (time.isu.net.sa)
+3.	System Utilities:
+o	Linux: NTPD, Chrony.
+o	Windows: W32Time.
+
+
+""",
+                        "deliverables": """
+
+1.	Policy Documentation:
+o	Approved cybersecurity requirements document specifying time synchronization requirements.
+2.	Central Server Configuration Evidence:
+o	Screenshots or network diagrams showing the presence of a central NTP server in the organization's network.
+3.	Time Source Configuration Evidence:
+o	Screenshots of the NTP or W32Time configurations showing synchronization with trusted sources like time.saso.gov.sa and time.isu.net.sa.
+4.	Monitoring Reports:
+o	Logs or reports demonstrating periodic checks and successful synchronization across systems.
+
+""",
+                     },
+                     
+           {
+                        "name": "2-3-4 Periodic Review of Cybersecurity Requirements for Information Systems and Processing Facilities",
+                        "description": "",
+                        "section": "2-2-3",
+                        "purpose": "To ensure the cybersecurity requirements for protecting information systems and processing facilities remain effective, up-to-date, and aligned with organizational goals and evolving threats through periodic reviews.",
+                        "implementation_steps": """
+
+1.1 Define a Review Plan
+1.	Develop and approve a review schedule specifying intervals for periodic reviews (e.g., annually, biannually).
+2.	Document the review plan, including:
+o	Scope of the review.
+o	Roles and responsibilities for review teams.
+1.2 Conduct Periodic Reviews
+1.	Assess the current cybersecurity requirements for information systems and processing facilities to ensure:
+o	Compliance with regulatory and organizational policies.
+o	Alignment with the latest cybersecurity standards and frameworks.
+2.	Identify gaps, outdated practices, or areas for improvement.
+1.3 Update Cybersecurity Requirements
+1.	Document any proposed updates or changes based on review findings.
+2.	Secure approval from the organization's head or deputy for the updated requirements.
+1.4 Monitor and Track Implementation
+1.	Develop a system to track the implementation of recommendations from the review.
+2.	Ensure all changes are communicated to relevant stakeholders.
+1.5 Document and Archive Results
+1.	Keep detailed records of the review process, findings, and approved updates.
+2.	Archive review reports for auditing and reference purposes.
+
+""",
+                        "examples": """
+1.	Annual Review Schedule:
+o	Conduct a cybersecurity review every 12 months, evaluating all policies and procedures for protecting information systems and processing facilities.
+2.	Review Process:
+o	Use a checklist to evaluate compliance with NIST SP 800-53 controls.
+o	Assess whether current policies address emerging threats such as ransomware or phishing attacks.
+3.	Approval Process:
+o	Submit updated requirements via internal systems for approval, ensuring digital signatures from organizational heads.
+
+""",
+                        "tools": """
+
+1.	Review Management Tools:
+o	Microsoft Planner or Trello for tracking review schedules.
+o	Jira or ServiceNow for managing review tasks.
+2.	Compliance and Monitoring Tools:
+o	Nessus or Qualys for vulnerability assessment during reviews.
+o	Splunk or ManageEngine for security log analysis.
+3.	Documentation Tools:
+o	Microsoft Word or SharePoint for creating and maintaining review documentation.
+4.	Regulatory Frameworks:
+o	ISO 27001, NIST SP 800-53 for aligning updates with industry standards.
+
+""",
+                        "deliverables": """
+1.	Approved Review Schedule:
+o	A document outlining the periodic review plan and intervals.
+2.	Review Reports:
+o	Evidence of periodic reviews conducted, including checklists, assessments, and identified gaps.
+3.	Updated Cybersecurity Requirements:
+o	Approved changes to requirements with formal documentation signed by the organization's head or deputy.
+4.	Implementation Tracking Reports:
+o	Logs or reports demonstrating the execution of updates and compliance with review findings.
+
+""",
+                     },
+                     
+           {
+                        "name": "2-4-1 Cybersecurity Requirements for Protecting Email Services",
+                        "description": "",
+                        "section": "2-2-3",
+                        "purpose": "To define, document, and approve cybersecurity requirements for protecting email services, ensuring modern and reliable protection mechanisms, secure configurations, and compliance with organizational policies.",
+                        "implementation_steps": """
+1.1 Develop and Document Email Security Policy
+1.	Define the purpose and scope of the email security policy.
+2.	Outline policy statements, including:
+o	Acceptable Use: Specify permitted and prohibited activities related to email usage.
+o	Access Control: Require strong passwords, role-based access control, and multi-factor authentication (MFA).
+o	Data Protection: Address handling of sensitive and confidential information.
+o	Phishing and Malware Protection: Establish measures to prevent phishing attacks and mitigate malware risks.
+1.2 Define Roles and Responsibilities
+1.	Assign roles and responsibilities for managing and securing email services:
+o	IT Department: Manage technical controls, email infrastructure, and incident response.
+o	Management: Oversee enforcement and ensure compliance with policies.
+o	Users: Adhere to the acceptable use policy and security guidelines.
+2.	Differentiate between:
+o	Public Accounts: Accounts intended for external communication.
+o	Joint Accounts: Accounts shared by teams or departments.
+1.3 Implement Technical Controls
+1.	Configure email protection solutions to include:
+o	Email Filtering: Block spam, phishing, and malware.
+o	Encryption: Secure email content and attachments during transmission.
+o	Anti-Virus and Anti-Malware: Detect and mitigate threats on email servers.
+o	Backup and Recovery: Ensure email data is backed up and recoverable in case of incidents.
+2.	Set limitations for email usage:
+o	Attachment Size: Define maximum sizes for incoming and outgoing emails based on user needs and system performance.
+o	Mailbox Capacity: Specify quotas for individual mailboxes.
+1.4 Secure Email Infrastructure
+1.	Design a secure email network infrastructure:
+o	Network Segmentation: Isolate email services from other network segments.
+o	Firewalls: Restrict traffic to email servers to necessary protocols and ports.
+o	DMZ Configuration: Place email servers in a demilitarized zone (DMZ) to enhance security.
+2.	Regularly update all systems associated with email services to address vulnerabilities.
+1.5 User Awareness and Training
+1.	Conduct training programs to educate users about:
+o	Recognizing phishing attempts.
+o	Secure email handling practices.
+2.	Perform simulated phishing tests to assess and improve user awareness.
+1.6 Monitoring and Enforcement
+1.	Implement email activity monitoring and generate audit logs.
+2.	Conduct periodic audits to review:
+o	Access rights.
+o	Compliance with the email security policy.
+3.	Update rules and configurations regularly to align with the latest security standards.
+1.7 Review and Update Policy
+1.	Schedule regular reviews of the email security policy to ensure relevance and compliance.
+2.	Perform compliance checks against regulatory requirements and industry standards.
+
+""",
+                        "examples": """
+
+1.	Access Control for Public and Joint Accounts:
+o	Public accounts require limited access with strong MFA configurations.
+o	Joint accounts are managed with role-based access and strict auditing of usage.
+2.	Technical Control Implementation:
+o	Deploy Barracuda Email Security Gateway for spam filtering and malware protection.
+o	Configure TLS encryption for all outgoing emails.
+3.	Email Infrastructure Security:
+o	Use a DMZ zone to isolate email servers and limit access via Cisco Firewalls.
+o	Regularly patch and update the email server with tools like Microsoft Exchange Update Manager.
+
+""",
+                        "tools": """
+1.	Email Protection Solutions:
+o	Barracuda Email Security Gateway, Cisco Secure Email.
+2.	Encryption:
+o	TLS (Transport Layer Security), S/MIME.
+3.	Backup and Recovery:
+o	Veeam Backup for Microsoft 365, Acronis Cyber Backup.
+4.	Infrastructure Security:
+o	Cisco Firewalls, pfSense for DMZ configurations.
+5.	User Awareness:
+o	KnowBe4 for phishing simulations, internal training platforms.
+6.	Monitoring and Logging:
+o	Splunk, ManageEngine ADAudit Plus
+
+
+""",
+                        "deliverables": """
+1.	Email Security Policy:
+o	Approved document specifying email security requirements.
+2.	Configuration Evidence:
+o	Screenshots of email protection system settings (e.g., spam filtering, encryption).
+3.	Access Control Reports:
+o	Logs showing MFA implementation and access restrictions for public and joint accounts.
+4.	Infrastructure Security Evidence:
+o	Network diagrams showing segmented email services and DMZ placement.
+o	Logs from firewalls and email servers proving secure configurations.
+5.	Training and Awareness Reports:
+o	Documentation of conducted training programs and results of simulated phishing tests.
+
+""",
+                     },
+                     
+           {
+                        "name": "2-4-2 Implementing Cybersecurity Requirements for Email Services",
+                        "description": "",
+                        "section": "2-2-3",
+                        "purpose": "To implement advanced and effective email protection technologies and practices to safeguard the organization’s email services from phishing, spam, malware, and unauthorized access.",
+                        "implementation_steps": """
+Deploy Secure Email Gateways
+1.	Select and deploy a Secure Email Gateway solution:
+o	Examples include:
+	Proofpoint Email Protection
+	Cisco Umbrella
+	Barracuda Email Security Gateway
+2.	Configure email gateways to:
+o	Filter content (e.g., spam, phishing emails).
+o	Analyze URLs and attachments using sandboxing and real-time threat intelligence.
+1.2 Implement Email Authentication Mechanisms
+1.	Enable sender authentication techniques such as:
+o	SPF (Sender Policy Framework): To validate the sending mail server.
+o	DKIM (DomainKeys Identified Mail): To verify message integrity.
+o	DMARC (Domain-based Message Authentication, Reporting, and Conformance): To prevent spoofing and ensure email reliability.
+2.	Use tools like:
+o	MXToolbox and GlockApps Email Header Analyzer to analyze email headers and detect anomalies.
+1.3 Use Advanced Email Protection Technologies
+1.	Deploy technologies for:
+o	URL and Attachment Analysis:
+	Use sandboxing and threat intelligence platforms to detect malicious URLs and attachments in real time.
+o	Content Filtering:
+	Block spam, phishing, and malware using solutions like:
+	Barracuda Email Security Gateway.
+	Fortinet FortiMail.
+	Cisco Email Security.
+	McAfee Email Protection.
+2.	Implement antivirus solutions for email servers to scan all inbound and outbound emails.
+1.4 Configure Load Balancers
+1.	Select a load balancer:
+o	Hardware-based solutions: F5 BIG-IP, Citrix ADC, Barracuda Load Balancer.
+o	Software-based solutions: NGINX, HAProxy, Apache Traffic Server.
+2.	Configure the load balancer:
+o	Set Up Listeners: To process incoming email traffic.
+o	Define Backend Servers: Assign servers to handle email traffic.
+o	Health Checks: Ensure traffic is directed only to healthy servers.
+o	Security Enhancements: Enable SSL encryption, IP whitelisting, and firewall rules.
+1.5 Deploy Reverse Proxy for Additional Security
+1.	Choose a reverse proxy:
+o	NGINX, HAProxy, or Apache HTTP Server.
+2.	Configure the reverse proxy to:
+o	Forward emails securely to the organization’s email servers.
+o	Enforce SSL/TLS encryption and apply IP filtering.
+1.6 Configure Email Routing and Policies
+1.	Define routing rules for incoming and outgoing emails through email gateways.
+2.	Enforce security policies within the email gateway:
+o	Scan for spam and malware.
+o	Apply rules to block suspicious content.
+o	Monitor email logs for anomalies.
+
+""",
+                        "examples": """
+1.	Secure Email Gateway Implementation:
+o	Deploy Proofpoint Email Protection to filter spam and phishing emails, and scan attachments for malware.
+2.	Email Authentication:
+o	Use MXToolbox to verify SPF, DKIM, and DMARC settings for all organizational domains.
+3.	Load Balancer Configuration:
+o	Set up NGINX to route incoming emails, perform health checks, and enforce IP filtering for added security.
+
+""",
+                        "tools": """
+
+1.	Email Security Solutions:
+o	Proofpoint Email Protection, Cisco Umbrella, Barracuda Email Security Gateway.
+2.	Authentication and Header Analysis:
+o	MXToolbox, GlockApps Email Header Analyzer.
+3.	Load Balancers:
+o	Hardware: F5 BIG-IP, Citrix ADC.
+o	Software: NGINX, HAProxy, Apache Traffic Server.
+4.	Email Filtering:
+o	Fortinet FortiMail, McAfee Email Protection.
+5.	Malware and Phishing Analysis:
+o	Sandbox environments, Real-time Threat Intelligence.
+
+
+""",
+                        "deliverables": """
+
+1.	Action Plan for Implementation:
+o	A documented plan detailing the deployment and configuration of email protection controls.
+2.	Secure Email Gateway Evidence:
+o	Screenshots or configurations of deployed email gateways (e.g., Proofpoint, Barracuda).
+3.	Authentication Evidence:
+o	Reports showing SPF, DKIM, and DMARC settings for organizational domains.
+4.	Load Balancer and Reverse Proxy Configuration:
+o	Evidence of load balancer setup with health checks and security policies.
+5.	Monitoring and Filtering Reports:
+o	Logs showing the detection and blocking of spam, phishing, and malware.
+
+""",
+                     },
+                     
+           {
+                        "name": "2-4-3 The cybersecurity requirements for protecting the email service must include at the least the following:",
+                        "description": "",
+                        "section": "2-2-3",
+                        "purpose": "",
+                        "implementation_steps": """
+""",
+                        "examples": """
+""",
+                        "tools": """
+
+""",
+                        "deliverables": """
+""",
+                     },
+
+           {
+                        "name": "2-4-3-1 Analyzing and Filtering Email Messages (Phishing and Spam)",
+                        "description": "",
+                        "section": "2-2-3",
+                        "purpose": "To implement advanced and up-to-date email protection techniques for analyzing and filtering email messages, specifically targeting phishing and spam emails, while maintaining compliance with national regulations and organizational policies.",
+                        "implementation_steps": """
+1.1 Define Email Protection Requirements
+1.	Document technical requirements for email protection, including:
+o	Analyzing and filtering emails for phishing and spam.
+o	Enabling multi-factor authentication (MFA) for remote and webmail access.
+o	Ensuring email archiving and backup solutions are in place.
+o	Protecting against Advanced Persistent Threats (APT).
+o	Verifying the validity of the organization’s email address domains.
+2.	Outline operational and procedural requirements:
+o	Conduct training programs and awareness campaigns.
+o	Establish incident response mechanisms for reporting and resolving email threats.
+o	Define logging and reporting standards for compliance and audits.
+1.2 Configure Email Protection Technologies
+1.	Deploy advanced email filtering and protection solutions, such as:
+o	Proofpoint, Mimecast, or Barracuda Email Security Gateway.
+2.	Activate features for:
+o	Spam filtering: Set filter levels and customize rules.
+o	Phishing detection: Configure settings to detect phishing attempts and define response actions.
+o	Attachment scanning: Enable scanning methods and define policies for suspicious attachments.
+o	URL filtering: Configure detection and response rules for malicious links.
+1.3 Monitor and Enhance Email Security
+1.	Periodically review suspicious emails, including:
+o	Phishing messages, spam, and unusual patterns.
+o	Indicators such as high-volume email spikes, unauthorized email settings changes, and suspicious login attempts.
+2.	Regularly update intrusion indicators and adjust configurations to improve accuracy.
+1.4 Integrate Email Monitoring with SIEM Solutions
+1.	Use SIEM solutions such as:
+o	Splunk, IBM QRadar, or LogRhythm to monitor:
+	Unusual login activities.
+	Unauthorized changes in email settings.
+	Spoofing or impersonation attempts.
+2.	Integrate email protection systems with the SIEM dashboard for real-time analysis and reporting.
+1.5 Review and Update Configurations
+1.	Continuously monitor email protection system dashboards for reported threats and adjust settings accordingly.
+2.	Update documentation to reflect any configuration changes and inform the team.
+3.	Schedule regular reviews to ensure compliance with policies and effectiveness of email filtering mechanisms.
+
+""",
+                        "examples": """
+
+1.	Spam and Phishing Detection:
+o	Deploy Barracuda Email Security Gateway to block phishing and spam emails, and configure custom spam filtering rules.
+o	Enable attachment scanning for malicious files and sandboxing to analyze suspicious links.
+2.	SIEM Integration:
+o	Use Splunk to detect high-volume email spikes and unauthorized access patterns.
+o	Integrate phishing alerts from Proofpoint into IBM QRadar for centralized monitoring.
+3.	Email Security Policy Implementation:
+o	Activate MFA for all email accounts accessing the organization's domain remotely.
+o	Use URL filtering to block links leading to malicious sites and apply user-specific action policies.
+
+""",
+                        "tools": """
+
+1.	Email Protection and Filtering Solutions:
+o	Proofpoint, Mimecast, Barracuda Email Security Gateway.
+2.	SIEM Solutions:
+o	Splunk, IBM QRadar, LogRhythm.
+3.	Email Filtering Tools:
+o	SpamAssassin, Cisco IronPort.
+4.	Incident Response Tools:
+o	KnowBe4 for simulated phishing campaigns, SecurityScorecard for domain vulnerability monitoring.
+
+
+""",
+                        "deliverables": """
+
+1.	Policy Documentation:
+o	Approved email protection policy specifying requirements for filtering and analyzing phishing and spam.
+2.	Configuration Evidence:
+o	Screenshots of activated email filtering features (e.g., spam detection, phishing analysis).
+o	Evidence of implemented URL filtering and attachment scanning configurations.
+3.	Monitoring and Reporting Logs:
+o	Reports generated by SIEM tools showing suspicious activity patterns and resolved incidents.
+4.	Training and Awareness Records:
+o	Documentation of user training sessions and simulated phishing test results.
+5.	Periodic Review Reports:
+o	Evidence of regular reviews, updates to intrusion indicators, and adjustments to configurations.
+
+""",
+                     },
+                     {
+    "name": "2-3-3 Secure Management of Storage Media",
+    "description": "",
+    "section": "2-3",
+    "purpose": "Ensure the secure management of storage media to protect organizational data from unauthorized access and breaches.",
+    "implementation_steps": """
+1. Define Storage Media Security Policies:
+   - Develop a policy for the secure use, storage, and disposal of all storage media.
+
+2. Encrypt Data on Storage Media:
+   - Use encryption solutions like BitLocker or VeraCrypt for external and portable storage.
+
+3. Access Control:
+   - Limit access to storage media based on roles and responsibilities.
+
+4. Storage Media Disposal:
+   - Implement secure destruction processes for end-of-life media (e.g., shredding, degaussing).
+
+5. Labeling and Inventory Management:
+   - Label storage media clearly and maintain an updated inventory of all media.
+
+6. Audit and Review:
+   - Periodically review compliance with storage media policies.
+""",
+    "examples": """
+- Implement an inventory system for tracking all external drives and portable storage devices.
+- Use BitLocker to encrypt sensitive data stored on USB drives and external hard drives.
+- Develop a policy for securely disposing of outdated drives using shredding or degaussing services.
+""",
+    "tools": """
+- Encryption Solutions: BitLocker, VeraCrypt.
+- Inventory Management: ManageEngine AssetExplorer, SolarWinds Service Desk.
+- Secure Disposal Tools: Hard Drive Shredders, Degausser Machines.
+- Audit Tools: Qualys Asset Inventory, Nessus.
+""",
+    "deliverables": """
+- Approved Storage Media Policy:
+  - Document outlining rules for storage media use, encryption, and disposal.
+
+- Audit Logs:
+  - Evidence of periodic audits for compliance with storage media policies.
+
+- Disposal Evidence:
+  - Certificates of destruction or shredding logs for disposed media.
+
+- Encryption Reports:
+  - Proof of encryption applied to storage devices.
+"""
+},
+
+           {
+                        "name": "2-4-3-2 Multi-Factor Authentication (MFA) for Remote and Webmail Access",
+                        "description": "",
+                        "section": "2-2-3",
+                        "purpose": "To secure remote and webmail access to the organization’s email services by implementing reliable and advanced multi-factor authentication (MFA) solutions, reducing the risk of unauthorized access.",
+                        "implementation_steps": """
+
+1.1 Select an MFA Provider
+1.	Evaluate and select an appropriate MFA solution, such as:
+o	Google Authenticator: Generates time-based one-time passwords (TOTP).
+o	Microsoft Authenticator: Provides app-based authentication and push notifications.
+o	Twilio SMS Delivery: Enables SMS-based MFA for seamless integration.
+o	Mobile Device Management (MDM) Applications: Enforces device-based authentication for protocols like EWS or Outlook Anywhere.
+1.2 Configure MFA Settings
+1.	Email Service Configuration:
+o	Enable SMS-based MFA or app-based MFA in the email service’s security settings.
+o	Configure protocols like EWS and Outlook Anywhere for MDM-based MFA.
+2.	Add Users:
+o	Register user phone numbers or devices in the email service’s MFA configuration settings.
+1.3 Test and Verify MFA Configuration
+1.	Conduct testing to ensure:
+o	SMS-based MFA delivers codes reliably to user devices.
+o	Authentication apps generate accurate and valid one-time passwords (OTP).
+o	MDM-enforced policies are effectively restricting access to compliant devices.
+1.4 Train and Inform Users
+1.	Provide training programs to:
+o	Educate users on how to use MFA apps or authenticate via SMS.
+o	Address common issues and questions through support channels.
+2.	Communicate the importance of MFA for email security.
+1.5 Monitor and Improve
+1.	Monitor user feedback and resolve any challenges with MFA implementation.
+2.	Periodically review and update MFA configurations to ensure:
+o	Continued effectiveness.
+o	Compliance with organizational policies and standards.
+
+""",
+                        "examples": """
+1.	SMS-Based MFA:
+o	Configure the email service (e.g., Microsoft Exchange) to send SMS-based one-time passwords to users during login.
+o	Test the setup by registering a test user and verifying the delivery of OTPs.
+2.	App-Based MFA:
+o	Use Microsoft Authenticator to enable push-based authentication for email access.
+o	Enforce its usage organization-wide and train staff on app setup and troubleshooting.
+3.	MDM for Protocol-Specific Authentication:
+o	Implement Intune for device-based authentication to manage email access for protocols like EWS and ensure compliance.
+
+""",
+                        "tools": """
+
+1.	MFA Providers:
+o	Google Authenticator, Microsoft Authenticator, Twilio SMS Delivery.
+2.	MDM Solutions:
+o	Microsoft Intune, VMware Workspace ONE, MobileIron.
+3.	Email Platforms Supporting MFA:
+o	Microsoft Exchange, Google Workspace.
+4.	Monitoring and Logging:
+o	Splunk, ManageEngine ADAudit Plus for tracking MFA activity
+
+
+""",
+                        "deliverables": """
+
+1.	Policy and Procedure Documentation:
+o	Approved document outlining MFA requirements and configurations.
+2.	Configuration Evidence:
+o	Screenshots of email system settings showing activated SMS-based MFA and app-based MFA.
+o	Evidence of MDM-enforced device-based authentication for supported protocols.
+3.	Test Reports:
+o	Logs demonstrating successful MFA tests (e.g., OTP generation, SMS delivery).
+4.	User Training Records:
+o	Documentation of training sessions and feedback collected.
+5.	Monitoring Reports:
+o	Logs showing MFA adoption rates and user authentication activity.
+
+""",
+                     },
+                     
+           {
+                        "name": "2-4-3-3 Email Archiving and Backup",
+                        "description": "",
+                        "section": "2-2-3",
+                        "purpose": "To ensure that email services are securely backed up and archived, providing data integrity, compliance with regulatory requirements, and protection against data loss.",
+                        "implementation_steps": """
+
+1.1 Define Technologies Compatible with Infrastructure
+1.	Assess the organization’s current email systems, storage solutions, and network capabilities to identify compatible archiving and backup technologies.
+2.	Choose a suitable solution based on compatibility and scalability:
+o	Veritas Enterprise Vault
+o	Barracuda Essentials
+o	Mimecast
+o	Veeam Backup & Replication
+o	Backup Exec
+3.	Ensure the selected solution can handle the organization’s email volumes effectively.
+1.2 Define Retention Policies
+1.	Collaborate with the legal compliance team to define retention policies based on legal and regulatory requirements.
+2.	Establish retention policies, including:
+o	Archiving Retention: Set periods for archived emails based on compliance needs.
+o	Backup Retention: Define how long daily, weekly, and monthly backups will be stored.
+1.3 Develop a Backup Strategy
+1.	Decide on the backup type:
+o	Full Disk Backup: For comprehensive backups of email servers.
+o	Incremental Backup: For efficiency and reduced storage requirements.
+2.	Schedule regular backups to maintain up-to-date copies of email data.
+3.	Configure backup tools to integrate seamlessly with the email server for efficient access.
+4.	Test the backup system to:
+o	Ensure data integrity.
+o	Minimize performance impact on email servers.
+5.	Monitor backups regularly to confirm their success.
+1.4 Implement Email Archiving
+1.	Select an appropriate archiving method:
+o	Integrated Archiving: Use built-in solutions such as Microsoft 365 or Google Workspace.
+o	Third-Party Solutions: Deploy external services like Mimecast, Barracuda, or Zix.
+2.	Configure the chosen archiving solution:
+o	Define rules for email archiving.
+o	Apply retention policies to archived emails to ensure compliance with organizational and legal requirements.
+3.	Regularly verify and monitor email archives to ensure:
+o	Archives are accessible and accurate.
+o	Policies are updated based on changes in compliance requirements.
+
+""",
+                        "examples": """
+1.	Backup Strategy Implementation:
+o	Configure Veeam Backup & Replication to perform weekly incremental backups and monthly full backups of the organization’s email servers.
+2.	Retention Policy Enforcement:
+o	Use Veritas Enterprise Vault to apply a 7-year retention policy for archived emails as per compliance regulations.
+3.	Archiving Solution Configuration:
+o	Deploy Mimecast for external email archiving, configuring rules to archive all organizational email automatically and apply retention policies.
+
+""",
+                        "tools": """
+
+1.	Backup Solutions:
+o	Veeam Backup & Replication, Backup Exec, Barracuda Essentials.
+2.	Email Archiving Solutions:
+o	Veritas Enterprise Vault, Mimecast, Barracuda Essentials.
+3.	Integrated Archiving Options:
+o	Microsoft 365, Google Workspace.
+4.	Monitoring Tools:
+o	Splunk, ManageEngine ADAudit Plus for tracking backup and archiving activities.
+
+
+""",
+                        "deliverables": """
+
+1.	Policy Documentation:
+o	Approved document outlining backup and archiving requirements and retention policies.
+2.	Configuration Evidence:
+o	Screenshots of configured archiving and backup solutions, including capacity and retention settings.
+3.	Backup Reports:
+o	Logs showing successful backups of email servers with timestamps and volumes.
+4.	Archiving Activation Evidence:
+o	Screenshots or examples showing the activation of archiving features for all organizational email accounts.
+5.	Monitoring Reports:
+o	Logs and reports verifying the integrity and compliance of email backups and archives.
+
+""",
+                     },
+                     
+           {
+                        "name": " 2-4-3-4 Secure Management and Protection Against Advanced Persistent Threats (APTs)",
+                        "description": "",
+                        "section": "2-2-3",
+                        "purpose": "To implement advanced technologies and strategies for securing email systems against Advanced Persistent Threats (APTs) and zero-day malware, ensuring organizational email security and resilience against emerging threats.",
+                        "implementation_steps": """
+
+1.1 Assess Current Security Posture
+1.	Conduct a security audit to identify gaps in email protection against APTs and zero-day malware.
+2.	Perform a risk assessment to evaluate potential vulnerabilities and prioritize security measures.
+1.2 Select and Deploy Advanced Technologies
+1.	Email Protection Technologies:
+o	Deploy Advanced Threat Protection (ATP) solutions with:
+	Sandboxing: Analyze email attachments in a secure environment.
+	URL Filtering: Prevent access to malicious links.
+o	Recommended solutions:
+	Microsoft Defender for Office 365
+	Proofpoint Email Protection
+	Mimecast Email Security
+2.	Zero-Day Protection Techniques:
+o	Threat Intelligence Integration:
+	Provides real-time updates and contextual alerts for new threats.
+	Tools: Recorded Future, ThreatConnect, Anomali.
+o	Behavior-Based Detection:
+	Uses machine learning to detect unusual patterns.
+	Tools: Darktrace, CylancePROTECT, CrowdStrike Falcon.
+3.	Endpoint Detection and Response (EDR):
+o	Real-time monitoring and automated responses to threats on endpoints.
+o	Tools: Carbon Black, SentinelOne, Microsoft Defender for Endpoint.
+4.	Activate and configure features for ATP and zero-day malware detection in deployed solutions.
+1.3 Implement Policies and Configurations
+1.	Define and document policies for:
+o	ATP and zero-day protection.
+o	Rules for email filtering and threat detection.
+2.	Configure systems to block, quarantine, or escalate suspicious emails.
+1.4 Train and Educate Users
+1.	Conduct awareness programs to educate users on:
+o	Recognizing phishing attempts and suspicious emails.
+o	Best practices for handling email attachments and links.
+2.	Provide ongoing support channels for resolving user issues.
+1.5 Monitor, Review, and Respond
+1.	Establish a structured workflow to:
+o	Review and analyze suspicious emails flagged by the system.
+o	Maintain logs of reviewed emails, actions taken, and outcomes.
+2.	Use tools such as Splunk or IBM QRadar to monitor email security incidents.
+3.	Regularly review email security configurations and update them based on threat intelligence.
+4.	Document all findings and actions taken to ensure compliance and continuous improvement.
+
+""",
+                        "examples": """
+
+1.	Sandboxing for Zero-Day Malware:
+o	Deploy FireEye Malware Analysis to analyze email attachments in a controlled environment.
+o	Identify malicious behavior without exposing systems to threats.
+2.	Behavior-Based Detection:
+o	Use Darktrace to monitor email traffic and detect unusual patterns indicative of APTs.
+3.	Threat Escalation:
+o	Configure Proofpoint Threat Response to escalate high-risk emails for immediate investigation by the security team.
+
+""",
+                        "tools": """
+
+1.	Sandboxing for Zero-Day Malware:
+o	Deploy FireEye Malware Analysis to analyze email attachments in a controlled environment.
+o	Identify malicious behavior without exposing systems to threats.
+2.	Behavior-Based Detection:
+o	Use Darktrace to monitor email traffic and detect unusual patterns indicative of APTs.
+3.	Threat Escalation:
+o	Configure Proofpoint Threat Response to escalate high-risk emails for immediate investigation by the security team.
+
+
+""",
+                        "deliverables": """
+
+1.	Policy Documentation:
+o	Approved document detailing ATP and zero-day protection requirements and configurations.
+2.	Configuration Evidence:
+o	Screenshots of activated ATP features in email protection systems.
+o	Proof of sandboxing, URL filtering, and behavior-based detection configurations.
+3.	Monitoring Reports:
+o	Logs from SIEM tools showing detected threats and actions taken.
+4.	Incident Response Records:
+o	Documentation of actions taken on suspicious emails, including escalations and resolutions.
+5.	Training Records:
+o	Evidence of user training sessions and feedback.
+
+""",
+                     },
+                     
+           {
+                        "name": "2-4-3-5 Validation of the Organization’s Email Services Domains (SPF, DKIM, DMARC)",
+                        "description": "",
+                        "section": "2-2-3",
+                        "purpose": "To enhance email security by implementing SPF, DKIM, and DMARC, ensuring email domain integrity and protection against spoofing and phishing.",
+                        "implementation_steps": """
+
+1.1 Configure SPF Records
+1.	Identify authorized mail servers/IPs and define SPF records in DNS.
+2.	Validate SPF syntax and functionality using tools like MXToolbox SPF Checker or DMARC Analyzer.
+3.	Publish the SPF record and monitor its effectiveness to ensure compliance.
+1.2 Set Up DKIM
+1.	Generate DKIM keys (public/private) using tools like OpenDKIM or EasyDMARC.
+2.	Publish the public key in DNS and configure email servers to sign outgoing messages with the private key.
+3.	Test the DKIM setup using GlockApps or Mail Tester to confirm signatures are applied and validated.
+1.3 Implement DMARC
+1.	Define DMARC policies:
+o	None: Monitoring only.
+o	Quarantine: Sends non-compliant emails to spam.
+o	Reject: Blocks non-compliant emails.
+2.	Align DMARC with SPF and DKIM for consistent authentication.
+3.	Use DMARC Analyzer or Valimail to monitor and analyze DMARC reports.
+1.4 Integrate with Haseen
+1.	Connect DMARC reports and email documentation to the Haseen platform using API integrations.
+2.	Automate reporting to ensure compliance with organizational and regulatory requirements.
+1.5 Monitor and Maintain
+1.	Regularly review and update SPF, DKIM, and DMARC records to reflect infrastructure changes.
+2.	Monitor email security logs for anomalies or gaps in authentication processes.
+
+""",
+                        "examples": """
+1.	SPF Record: Configure an SPF record using AWS Route 53, specifying authorized IPs and mail servers.
+2.	DKIM: Use OpenDKIM to generate and publish DKIM keys, ensuring outgoing emails are signed and verified.
+3.	DMARC: Deploy a quarantine DMARC policy with DMARCian, then monitor reports for compliance and issues.
+
+""",
+                        "tools": """
+
+""",
+                        "deliverables": """
+""",
+                     },
+{
+    "name": "2-3-4 Periodic Review of Cybersecurity Requirements for Information Systems",
+    "description": "",
+    "section": "2-3",
+    "purpose": "Ensure that cybersecurity requirements for information systems are reviewed regularly to align with regulatory changes and organizational needs.",
+    "implementation_steps": """
+1. Develop a Review Plan:
+   - Define intervals for periodic review (e.g., quarterly or annually).
+   - Document the scope of each review, including covered systems and controls.
+
+2. Conduct Vulnerability Assessments:
+   - Use tools like Nessus or Qualys to identify vulnerabilities in systems and networks.
+
+3. Review Compliance with Policies:
+   - Verify that current configurations and procedures meet organizational policies and regulatory requirements.
+
+4. Document Findings and Updates:
+   - Maintain records of identified gaps and actions taken to address them.
+
+5. Secure Approval for Updates:
+   - Submit revised policies and requirements for executive approval.
+
+6. Monitor Implementation:
+   - Track the application of updated policies across systems and generate compliance reports.
+""",
+    "examples": """
+- Schedule quarterly reviews of systems using Nessus vulnerability scans.
+- Document changes to security configurations based on review findings.
+- Update firewall rules and access control policies following review recommendations.
+""",
+    "tools": """
+- Vulnerability Scanners: Nessus, Qualys, Rapid7 InsightVM.
+- Compliance Tracking: Splunk, ServiceNow Compliance Manager.
+- Documentation Tools: Confluence, SharePoint.
+""",
+    "deliverables": """
+- Compliance Assessment Reports:
+  - Detailed findings and recommendations from periodic reviews.
+
+- Policy Update Logs:
+  - Evidence of changes made to cybersecurity requirements.
+
+- Approval Records:
+  - Signed documents or emails confirming executive approval of updates.
+
+- Monitoring Evidence:
+  - Reports from tools like Splunk showing policy enforcement and compliance.
+"""
+},
+
+
                                              {
                         "name": "2-2-3-2 Multi-Factor Authentication (MFA)",
                         "description": "",
@@ -2270,13 +3519,676 @@ o	Likelihood of a security breach.
 
 """,
                      },
+                     
+           {
+                        "name": "4-2-1 Cybersecurity Requirements for Hosting and Cloud Computing Services",
+                        "description": "Define and document cybersecurity requirements for using hosting and cloud computing services.",
+                        "section": "2-2-3",
+                        "purpose": "",
+                        "implementation_steps": """
+Key Requirements:
+•	Include clauses in contracts for:
+o	Data hosting and location.
+o	Data retrieval and secure removal upon service termination.
+o	Non-disclosure agreements.
+o	Service Level Agreements (SLAs).
+•	Classify data before hosting.
+
+""",
+                        "examples": """
+Create a detailed policy document covering all necessary requirements.
+•	Contract Requirements:
+o	Include clauses for data security, confidentiality, and compliance with KSA regulations.
+o	Ensure Service Level Agreements (SLAs) and Non-Disclosure Agreements (NDAs) are included.
+•	Hosting Location:
+o	Specify that all data and systems must be hosted within Saudi Arabia.
+•	Data Handling:
+o	Require procedures for secure data removal and retrieval upon service termination.
+•	Data Classification:
+o	Ensure data is classified according to sensitivity before being hosted on cloud services.
+•	Access Control:
+o	Mandate strict access control mechanisms, including Multi-Factor Authentication (MFA).
+•	Incident Response:
+o	Define responsibilities and response times for cybersecurity incidents.
+
+""",
+                        "tools": """
+•	Policy Templates: Microsoft Word.
+
+""",
+                        "deliverables": """
+•	Cybersecurity policy with hosting and cloud requirements.
+•	Signed contracts with clauses for location, data protection, and SLAs.
+
+""",
+                     },
+                     
+           {
+                        "name": "4-2-2 Implementation of Hosting and Cloud Security Requirements",
+                        "description": "Enforce cybersecurity measures for cloud and hosting services.",
+                        "section": "2-2-3",
+                        "purpose": "",
+                        "implementation_steps": """
+Key Implementation Steps:
+•	Ensure hosting location is within KSA.
+•	Activate and monitor event logs for hosted assets.
+•	Encrypt data stored in, transmitted to, or from the cloud.
+•	Perform regular backups and secure them.
+•	Maintain separation between the organization’s virtual environment and others.
+
+""",
+                        "examples": """
+Verify that all hosted data and systems are located in Saudi Arabia.
+•	Include location-specific clauses in the service contract:
+o	Data and system hosting must be within the KSA.
+o	Hosting provider must comply with NCA guidelines.
+•	Request confirmation from the cloud service provider of data hosting location.
+•	Conduct site verification or request documentation confirming data storage location.
+
+""",
+                        "tools": """
+•	Event Monitoring: Splunk, Elastic Stack.
+•	Encryption: BitLocker, AWS Key Management Service (KMS).
+•	Backup Management: Veeam, Azure Backup.
+
+
+""",
+                        "deliverables": """
+•	Action plan for implementing cybersecurity requirements.
+•	Contracts with hosting providers ensuring compliance with cybersecurity standards.
+
+""",
+                     },
+                     
+           {
+                        "name": "4-2-3 Specific Hosting and Cloud Computing Requirements",
+                        "description": "",
+                        "section": "2-2-3",
+                        "purpose": "",
+                        "implementation_steps": """
+""",
+                        "examples": """
+""",
+                        "tools": """
+
+""",
+                        "deliverables": """
+""",
+                     },
+                     
+           {
+                        "name": "4-2-3-1 Data Classification and Retrieval",
+                        "description": "Classify data before hosting and ensure data is retrievable after service termination.",
+                        "section": "2-2-3",
+                        "purpose": "",
+                        "implementation_steps": """
+•	Classify data based on sensitivity and importance.
+•	Ensure retrievability through agreed procedures with service providers.
+
+""",
+                        "examples": """
+•	Identify and categorize data based on its sensitivity and importance to the organization.
+o	Identify Data:
+List all data assets intended for cloud hosting, including documents, databases, and media.
+o	Classify Data:
+Assign classification levels based on organizational policies (e.g., Confidential, Internal, Public).
+•	Develop procedures to ensure the organization can retrieve data in a usable format after service termination.
+o	Include retrieval requirements in the service contract:
+Data must be returned in a usable format (e.g., .CSV, .SQL backup).
+o	Ensure secure deletion of the organization's data from the provider’s servers.
+Develop an internal plan for validating retrieved data:
+o	Confirm data integrity and completeness.
+Test retrieval processes during the service period.
+
+""",
+                        "tools": """
+•	Classification Tools: Varonis, Microsoft Information Protection.
+•	Policy Drafting: SharePoint, Microsoft Word
+
+""",
+                        "deliverables": """
+•	Classified data list.
+•	Procedures for secure data retrieval.
+
+""",
+                     },
+                     
+           {
+                        "name": "4-2-3-2 Environment Separation",
+                        "description": "Ensure organizational environments are separated from others in the cloud.",
+                        "section": "2-2-3",
+                        "purpose": "",
+                        "implementation_steps": """
+•	Define separation requirements (e.g., virtual servers, networks).
+•	Include environment separation clauses in contracts.
+
+""",
+                        "examples": """
+•	Specify the need for isolated virtual environments to protect the organization’s data and infrastructure.
+o	Document Requirements:
+o	Define the separation scope (e.g., virtual servers, databases, storage, networks).
+o	Include technical specifications like Virtual Private Clouds (VPCs), firewalls, and isolated network segments.
+•	Incorporate in Contracts:
+o	Add clauses in contracts requiring environment separation.
+
+""",
+                        "tools": """
+
+•	Network Isolation: VMware vSphere, Microsoft Azure Virtual Networks.
+
+""",
+                        "deliverables": """
+•	Contract clauses ensuring environment separation.
+•	Evidence of implemented separation.
+
+""",
+                     },
+                     
+           {
+                        "name": "4-2-3-3 Hosting Within KSA",
+                        "description": "Store and host data within Saudi Arabia.",
+                        "section": "2-2-3",
+                        "purpose": "",
+                        "implementation_steps": """
+•	Include location requirements in service contracts.
+•	Verify hosting location is within KSA.
+
+""",
+                        "examples": """
+""",
+                        "tools": """
+•	Cloud providers with local compliance (e.g., STC Cloud, AWS KSA).
+
+""",
+                        "deliverables": """
+•	Contracts with hosting location clauses.
+•	Evidence of data storage within KSA.
+
+""",
+                     },
+                     
+           {
+                        "name": "4-2-4 Periodic Review of Cloud Cybersecurity Requirements",
+                        "description": "Regularly review and update cloud computing and hosting policies.",
+                        "section": "2-2-3",
+                        "purpose": "",
+                        "implementation_steps": """
+Key Review Steps:
+•	Conduct annual reviews or when laws change.
+•	Document updates and secure formal approval.
+
+""",
+                        "examples": """
+""",
+                        "tools": """
+•	Compliance Management: SAP GRC, LogicGate.
+•	Policy Management: Confluence, SharePoint
+
+
+""",
+                        "deliverables": """
+•	Reviewed and updated policy.
+•	Documentation of changes with formal approval.
+
+""",
+                     },
+                     
                 
-            ],
+                        ]
         }
     ]
- }
-    
+},
+{
+    "name": "5 - Industrial Control Systems Cybersecurity(ICS)",
+    "subdomains": [
+        {
+            "name": "5-1:Industrial Control Systems (ICS) Protection",
+            "controls": [
+                
+           {
+                        "name": "Industrial Control Systems (ICS) Protection",
+                        "description": "",
+                        "section": "2-2-3",
+                        "purpose": "",
+                        "implementation_steps": """
+•	Develop a comprehensive ICS/OT cybersecurity policy.
+•	Include:
+o	Protection of ICS/OT networks.
+o	Access control measures.
+o	Incident response protocols specific to ICS.
+•	Secure formal approval from executive management.
+
+""",
+                        "examples": """
+•	Identify ICS/OT Cybersecurity Requirements:
+o	Determine requirements for:
+o	Protecting industrial networks.
+o	Managing access to ICS/OT systems.
+o	Incident response protocols specific to industrial environments.
+•	Develop ICS/OT Cybersecurity Policy:
+o	Create a formal policy covering:
+o	Network segmentation.
+o	Physical and logical security measures.
+o	Cybersecurity incident management for ICS/OT systems.
+
+""",
+                        "tools": """
+•	ICS Policy Templates: https://cdn.nca.gov.sa/api/files/public/upload/4ae174c2-06e2-4e10-ba70-4e7547b8f984_POLICY_Cybersecurity_Industrial_Controls_Systems_template_en-.pdf
+•	Document Collaboration Tools: SharePoint, Google Workspace.
+
+
+""",
+                        "deliverables": """
+•	Approved ICS/OT cybersecurity policy.
+•	Formal approval document.
+""",
+                     },
+                     
+           {
+                        "name": "5-1-2 Implement ICS/OT Cybersecurity Requirements",
+                        "description": "",
+                        "section": "2-2-3",
+                        "purpose": "",
+                        "implementation_steps": """
+•	Apply documented cybersecurity requirements for ICS/OT protection.
+•	Develop an action plan for implementation.
+•	Integrate cybersecurity measures into ICS/OT operational procedures for compliance.
+
+""",
+                        "examples": """
+Create a comprehensive plan to address all cybersecurity requirements for ICS/OT.
+•	Identify all ICS/OT systems within the organization.
+•	Define specific security measures based on risk assessments, including physical and logical controls.
+•	Outline responsibilities for implementing and maintaining cybersecurity requirements.
+
+""",
+                        "tools": """
+•	Monitoring and Testing: SolarWinds, Nessus.
+•	Access Management: Okta, CyberArk.
+
+
+""",
+                        "deliverables": """
+•	Action plan for ICS/OT cybersecurity.
+•	ICS/OT protection procedure documents.
+
+""",
+                     },
+                     
+           {
+                        "name": " 5-1-3 Specific ICS/OT Cybersecurity Requirements",
+                        "description": "",
+                        "section": "2-2-3",
+                        "purpose": "",
+                        "implementation_steps": """
+""",
+                        "examples": """
+""",
+                        "tools": """
+
+""",
+                        "deliverables": """
+""",
+                     },
+                     
+           {
+                        "name": "5-1-3-1 Network Segmentation",
+                        "description": "",
+                        "section": "2-2-3",
+                        "purpose": "",
+                        "implementation_steps": """
+•	Define and isolate ICS/OT networks.
+•	Physically and logically segment ICS networks from corporate and external networks.
+•	Document risk analysis and segmentation strategies.
+
+""",
+                        "examples": """
+•	Identify and document all ICS/OT and corporate networks within the organization.
+o	Conduct a network inventory to identify all devices and connections.
+o	Create a detailed network topology diagram.
+•	Isolate ICS/OT networks from corporate networks using physical and logical methods.
+o	Set up physical firewalls between ICS/OT and corporate networks.
+o	Use VLANs and industrial demilitarized zones (IDMZ) for virtual segmentation.
+o	Restrict inter-network traffic to only necessary communications.
+
+""",
+                        "tools": """
+•	Network Mapping: SolarWinds, Nmap.
+•	Firewall and Segmentation: Palo Alto, Cisco VLANs.
+
+
+""",
+                        "deliverables": """
+•	Segmentation policy and network design plan.
+""",
+                     },
+                     
+           {
+                        "name": "5-1-3-2 Segmentation with External Networks",
+                        "description": "",
+                        "section": "2-2-3",
+                        "purpose": "",
+                        "implementation_steps": """
+•	Restrict ICS/OT network connectivity with external networks.
+•	Isolate industrial systems and networks from external networks:
+o	 The Internet.
+o	 Remote Access.
+o	 Wireless Network.
+•	 Conduct risk analysis before establishing any external connection.
+
+""",
+                        "examples": """
+Isolate ICS/OT systems and networks from external networks using physical and logical means.
+•	Use firewalls and industrial demilitarized zones (IDMZ) to separate external traffic.
+•	Implement secure remote access solutions such as VPNs and jump servers.
+•	Configure wireless networks with secure protocols (e.g., WPA3, NCS-1:2020).
+
+""",
+                        "tools": """
+•	VPN Solutions: Cisco AnyConnect, FortiClient
+•	Wireless Security Tools: Aruba Networks, RADIUS Authentication.
+
+
+""",
+                        "deliverables": """
+•	Approved external network segmentation plan.
+""",
+                     },
+                     
+           {
+                        "name": "5-1-3-3 Continuous Monitoring",
+                        "description": "",
+                        "section": "2-2-3",
+                        "purpose": "",
+                        "implementation_steps": """
+•	Enable cybersecurity event logs on ICS/OT systems.
+•	Link logs to a SIEM system for centralized monitoring.
+•	Assign a dedicated team for 24/7 log monitoring.
+
+""",
+                        "examples": """
+•	Configure industrial network systems to enable event logging.
+o	Identify critical ICS/OT systems and devices requiring event logging.
+o	Enable logging features on these systems (e.g., firewalls, routers, PLCs).
+•	Connect the ICS/OT event logs to a centralized SIEM for monitoring and analysis.
+o	Select a SIEM system qualified for ICS/OT environments.
+o	Integrate logs from ICS/OT devices into the SIEM.
+•	Establish a team to monitor the cybersecurity logs and respond to incidents.
+o	Assign dedicated personnel to review logs 24/7.
+o	Train the team to identify and respond to potential threats.
+
+""",
+                        "tools": """
+•	Logging Systems: Siemens WinCC, Rockwell.
+•	SIEM Integration: Splunk, ArcSight.
+
+
+""",
+                        "deliverables": """
+•	Monitoring logs and configurations.
+•	Team schedules for continuous monitoring.
+
+""",
+                     },
+                     
+           {
+                        "name": "5-1-3-4 Isolation of Safety Instrumented Systems (SIS)",
+                        "description": "",
+                        "section": "2-2-3",
+                        "purpose": "",
+                        "implementation_steps": """
+•	Isolate SIS systems from engineering and other industrial systems.
+•	Define and assess risks for connected SIS systems.
+•	Physically or logically separate SIS networks.
+
+""",
+                        "examples": """
+•	Catalog and assess all SIS systems in the organization.
+o	Create an inventory of all SIS devices, including their connections to other systems.
+o	Conduct a risk assessment to identify potential cyber threats and vulnerabilities associated with SIS.
+•	Apply isolation measures to SIS systems based on risk assessment findings.
+o	Physical Isolation: Separate SIS physically from other networks using air gaps or dedicated hardware.
+o	Logical Isolation: Use VLANs, firewalls, or DMZs to segment SIS from other systems
+
+""",
+                        "tools": """
+•	Monitoring: Splunk, IBM QRadar.
+
+""",
+                        "deliverables": """
+•	Approved SIS network isolation design.
+""",
+                     },
+                     
+           {
+                        "name": "5-1-3-5 Restriction on External Storage Media",
+                        "description": "",
+                        "section": "2-2-3",
+                        "purpose": "",
+                        "implementation_steps": """
+•	Prevent unauthorized use of external storage via configuration.
+•	Develop and enforce approval procedures for storage media usage.
+
+""",
+                        "examples": """
+•	Implement automatic restrictions on industrial systems to prevent unauthorized use of external storage media.
+o	Use endpoint protection tools to disable external storage media access on ICS systems.
+•	Develop and enforce a process for requesting and approving the use of external storage media.
+o	Require users to submit a formal request, including justification and usage duration.
+o	Limit approvals to designated personnel with documented procedures.
+
+""",
+                        "tools": """
+•	Endpoint Protection: Symantec Endpoint Protection, McAfee
+
+""",
+                        "deliverables": """
+•	Procedures for storage media restrictions.
+•	Configuration screenshots of implemented controls.
+
+""",
+                     },
+                     
+           {
+                        "name": "5-1-3-6 Mobile Device Restrictions",
+                        "description": "",
+                        "section": "2-2-3",
+                        "purpose": "",
+                        "implementation_steps": """
+•	Restrict connectivity of mobile devices to ICS/OT networks.
+•	Implement authentication mechanisms for authorized devices.
+
+""",
+                        "examples": """
+•	Configure technical restrictions to prevent unauthorized mobile devices from connecting to ICS networks.
+o	Deploy network access control (NAC) solutions to enforce device authentication.
+o	Use advanced authentication mechanisms (e.g., MAC-based authentication, RADIUS).
+•	stablish a process for requesting and approving mobile device connectivity.
+o	Require submission of a formal request, detailing the reason and duration of connectivity.
+o	Ensure approvals are limited to critical, temporary needs.
+•	Scan and configure mobile devices before allowing connectivity to ICS networks.
+o	Scan devices for malware using mobile device security tools.
+
+""",
+                        "tools": """
+•	Mobile Security: Microsoft Intune, Sophos Mobile.
+
+""",
+                        "deliverables": """
+•	Procedures for mobile device restrictions.
+•	Screenshots showing restricted connectivity.
+
+""",
+                     },
+                     
+           {
+                        "name": "5-1-3-7 Secure Configuration and Hardening",
+                        "description": "",
+                        "section": "2-2-3",
+                        "purpose": "",
+                        "implementation_steps": """
+•	Conduct periodic reviews of ICS/OT systems for secure configurations.
+•	Develop and apply system hardening standards.
+
+""",
+                        "examples": """
+•	Conduct regular reviews to ensure compliance with secure configuration and hardening standards.
+o	Schedule periodic configuration reviews.
+o	Use automated tools or manual assessments to identify deviations from standards.
+•	Establish secure configuration and hardening guidelines for ICS, in collaboration with system providers and manufacturers.
+o	Create system-specific hardening guidelines (e.g., disabling unused ports, ensuring secure authentication).
+o	Align guidelines with regulatory requirements and industry standards.
+•	Apply secure configuration settings and hardening measures to all ICS systems.
+o	Disable unused services and ports.
+o	Enforce secure password policies and multi-factor authentication.
+o	Apply patches and updates as part of secure configuration.
+
+""",
+                        "tools": """
+•	Vulnerability Scanning: Nessus, Qualys, Tenable.
+
+""",
+                        "deliverables": """
+•	Hardening review reports.
+""",
+                     },
+                     
+           {
+                        "name": "5-1-3-8 Vulnerability Management",
+                        "description": "",
+                        "section": "2-2-3",
+                        "purpose": "",
+                        "implementation_steps": """
+•	Perform vulnerability assessments for ICS/OT systems.
+•	Develop and implement plans to address vulnerabilities.
+
+""",
+                        "examples": """
+•	Plan and conduct regular vulnerability assessments for ICS/OT systems.
+o	Develop an assessment schedule (e.g., quarterly, semi-annually).
+o	Conduct non-invasive scans to identify vulnerabilities.
+•	Assess the impact of identified vulnerabilities on ICS/OT systems and operations.
+o	Categorize vulnerabilities by severity (e.g., low, medium, high, critical).
+o	Develop a contingency plan for high-severity vulnerabilities.
+•	Address vulnerabilities through mitigation, patching, or configuration changes.
+o	Prioritize remediation based on severity and risk assessment.
+
+""",
+                        "tools": """
+•	Patch Management: Ivanti, ManageEngine.
+•	Vulnerability Scanning: Nessus, Qualys, Tenable. 
+
+
+""",
+                        "deliverables": """
+•	Vulnerability assessment reports.
+•	Risk mitigation plans.
+
+""",
+                     },
+                     
+           {
+                        "name": "5-1-3-9 Patch Management",
+                        "description": "",
+                        "section": "2-2-3",
+                        "purpose": "",
+                        "implementation_steps": """
+•	Identify critical ICS/OT systems.
+•	Develop approved procedures and plans for the management of patches.
+•	Schedule and apply patches after testing their impact.
+
+""",
+                        "examples": """
+•	Create a detailed inventory of all ICS/OT systems that require patch management.
+o	List ICS/OT systems, including PLCs, SCADA systems, and HMIs.
+•	Create a structured plan for testing, approving, and applying patches.
+o	Define roles and responsibilities for patch management.
+o	Outline patch testing procedures to ensure compatibility.
+•	Evaluate patches in a lab or test environment before deployment.
+o	Simulate the production environment in a secure testing area.
+o	Apply patches and monitor for compatibility or performance issues.
+o	Deploy patches to production systems following successful testing.
+
+""",
+                        "tools": """
+•	Patch Management: Ivanti, ManageEngine.
+•	Testing Tools: VMware, Hyper-V
+
+
+""",
+                        "deliverables": """
+•	Patch management reports.
+•	Patch deployment logs.
+
+""",
+                     },
+                     
+           {
+                        "name": "5-1-3-10 Malware Protection",
+                        "description": "",
+                        "section": "2-2-3",
+                        "purpose": "",
+                        "implementation_steps": """
+•	Deploy and update antivirus/malware protection tools for ICS/OT.
+•	Periodically review malware protection measures.
+
+""",
+                        "examples": """
+•	Install and configure cybersecurity applications on ICS/OT systems.
+o	Test applications in a simulated environment to ensure compatibility.
+o	Deploy tools to production systems incrementally to monitor for issues.
+•	Set up monitoring systems to detect and respond to threats in real-time.
+o	Enable logging for malware detection and response events.
+o	Integrate logs with the organization's SIEM for centralized monitoring.
+•	Regularly update cybersecurity applications and review their effectiveness.
+o	Schedule updates for antivirus definitions and malware protection tools.
+
+""",
+                        "tools": """
+•	Monitoring Tools: Splunk, QRadar, SolarWinds.
+•	Antivirus and Malware Tools: Symantec Industrial Control System Protection, Trend Micro Industrial Security.
+•	Update Tools: McAfee ePO, Sophos Central.
+
+
+""",
+                        "deliverables": """
+•	Reports on antivirus updates.
+•	Malware protection procedures.
+
+""",
+                     },
+                     
+           {
+                        "name": "5-1-4 Periodic Review of ICS/OT Cybersecurity",
+                        "description": "",
+                        "section": "2-2-3",
+                        "purpose": "",
+                        "implementation_steps": """
+•	Review ICS/OT policies and procedures annually or upon regulatory changes.
+•	Document and approve updates.
+
+""",
+                        "examples": """
+""",
+                        "tools": """
+
+""",
+                        "deliverables": """
+•	Updated ICS/OT policy.
+•	Review logs and formal approval records.
+
+
+""",
+                     },
+            ]
+        }
+    ]
+}
 ]
+
+
+
+
 
 
 # Function to populate the database
